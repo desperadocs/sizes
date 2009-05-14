@@ -1,1 +1,1 @@
-2009-05-14: create wxPython GUI to replace sizesgui.tcl
+2009-05-14,PRJ: create wxPython GUI to replace sizesgui.tcl
