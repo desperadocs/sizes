@@ -4,6 +4,14 @@ exec wish $0 ${1+"$@"}
 
 package require BLT
 
+########### SVN repository information ###################
+# $Date$
+# $Author$
+# $Revision$
+# $URL$
+# $Id$
+########### SVN repository information ###################
+
 #
 # Graphical User Interface for the "sizes" program
 #  edited September 1999
