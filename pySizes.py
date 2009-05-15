@@ -18,6 +18,10 @@ import sys, os, pprint, wx
 def create(parent, cmdFile):
     return PySizes(parent, cmdFile)
 
+#################################
+###        Boa methods        ###
+#################################
+
 [wxID_PYSIZES, wxID_PYSIZESPANEL1, 
 ] = [wx.NewId() for _init_ctrls in range(2)]
 
@@ -44,6 +48,10 @@ class PySizes(wx.Frame):
         self.__read_input_file__(cmdFile)
         pprint.pprint(self.params)
         #self.__write_input_file__('output.cmd')
+
+    # ################################
+    # ##       added methods       ###
+    # ################################
 
     def __set_default_parameters__(self):
         '''set default parameters used by the program'''
@@ -165,6 +173,15 @@ class PySizes(wx.Frame):
             "method (0=reg., 1=MaxEnt, 2=reg+NNLS, 3=NNLS, 4=SVD)"))
         fb.close()
 
+    # ################################
+    # ##  event handling routines  ###
+    # ################################
+
+
+
+# ################################
+# ##      other routines       ###
+# ################################
 
 def __usage__():
     '''suggest proper usage of this tool'''
