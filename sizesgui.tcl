@@ -1,6 +1,8 @@
 #! /bin/sh
 # the next line restarts using wish \
-exec bltwish $0 ${1+"$@"}
+exec wish $0 ${1+"$@"}
+
+package require BLT
 
 #
 # Graphical User Interface for the "sizes" program
