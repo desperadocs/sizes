@@ -12,11 +12,11 @@
 ########### SVN repository information ###################
 
 
-import wx
+import sys, os, wx
 
 
-def create(parent):
-    return PySizes(parent)
+def create(parent, cmdFile):
+    return PySizes(parent, cmdFile)
 
 [wxID_PYSIZES, wxID_PYSIZESPANEL1, 
 ] = [wx.NewId() for _init_ctrls in range(2)]
@@ -36,14 +36,23 @@ class PySizes(wx.Frame):
               parent=self, pos=wx.Point(0, 0), size=wx.Size(392, 216),
               style=wx.TAB_TRAVERSAL)
 
-    def __init__(self, parent):
+    def __init__(self, parent, cmdFile = None):
         '''create the GUI and start the program'''
         self._init_ctrls(parent)
 
 
+def __usage__():
+    '''suggest proper usage of this tool'''
+    print "usage: pySize [command_file]"
+    exit()
+
+
 if __name__ == '__main__':
+    if len(sys.argv) != 2:
+        __usage__()
+    cmdFile = sys.argv[1]
     app = wx.PySimpleApp()
-    frame = create(None)
+    frame = create(None, cmdFile)
     frame.Show()
 
     app.MainLoop()
