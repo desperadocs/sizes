@@ -13,24 +13,56 @@
 
 
 import sys, os, pprint, wx
+import wx.lib.scrolledpanel
+import wx.lib.stattext
 
 
 def create(parent, cmdFile):
     return PySizes(parent, cmdFile)
 
+
 #################################
 ###        Boa methods        ###
 #################################
 
-[wxID_PYSIZES, wxID_PYSIZESPANEL1, wxID_PYSIZESSTATUSBAR, 
-] = [wx.NewId() for _init_ctrls in range(3)]
+[wxID_PYSIZES, wxID_PYSIZESBASIC_TERMS, wxID_PYSIZESINPUT_FILE_PARAMETERS, 
+ wxID_PYSIZESOPTIONS, wxID_PYSIZESOTHER_FACTORS, wxID_PYSIZESOUTPUT, 
+ wxID_PYSIZESPANEL1, wxID_PYSIZESSTATUSBAR, wxID_PYSIZESTITLE, 
+] = [wx.NewId() for _init_ctrls in range(9)]
 
 
 [wxID_PYSIZESMENUFILEOPEN, wxID_PYSIZESMENUFILEQUIT, wxID_PYSIZESMENUFILESAVE, 
 ] = [wx.NewId() for _init_coll_menuFile_Items in range(3)]
 
+
 class PySizes(wx.Frame):
     '''GUI to run the sizes program for small-angle scattering analysis'''
+
+    def _init_coll_fgs_Items(self, parent):
+        # generated method, don't edit
+
+        parent.AddWindow(self.input_file_parameters, 0, border=0,
+              flag=wx.ALL | wx.EXPAND)
+        parent.AddWindow(self.options, 0, border=0, flag=wx.ALL | wx.EXPAND)
+        parent.AddWindow(self.basic_terms, 0, border=0, flag=wx.ALL | wx.EXPAND)
+        parent.AddWindow(self.other_factors, 0, border=0,
+              flag=wx.ALL | wx.EXPAND)
+
+    def _init_coll_mainBox_Items(self, parent):
+        # generated method, don't edit
+
+        parent.AddWindow(self.title, 0, border=0,
+              flag=wx.ALIGN_CENTER | wx.ALL | wx.EXPAND)
+        parent.AddSizer(self.fgs, 0, border=0, flag=wx.ALL | wx.EXPAND)
+        parent.AddWindow(self.output, 1, border=4, flag=wx.ALL | wx.EXPAND)
+
+    def _init_coll_fgs_Growables(self, parent):
+        # generated method, don't edit
+
+        parent.AddGrowableRow(0)
+        parent.AddGrowableRow(1)
+        parent.AddGrowableCol(0)
+        parent.AddGrowableCol(1)
 
     def _init_coll_menuBar1_Menus(self, parent):
         # generated method, don't edit
@@ -64,6 +96,19 @@ class PySizes(wx.Frame):
 
         parent.SetStatusWidths([-1])
 
+    def _init_sizers(self):
+        # generated method, don't edit
+        self.mainBox = wx.BoxSizer(orient=wx.VERTICAL)
+
+        self.fgs = wx.FlexGridSizer(cols=2, hgap=4, rows=2, vgap=4)
+        self.fgs.SetMinSize(wx.Size(434, 204))
+
+        self._init_coll_mainBox_Items(self.mainBox)
+        self._init_coll_fgs_Items(self.fgs)
+        self._init_coll_fgs_Growables(self.fgs)
+
+        self.panel1.SetSizer(self.mainBox)
+
     def _init_utils(self):
         # generated method, don't edit
         self.menuFile = wx.Menu(title='')
@@ -80,11 +125,12 @@ class PySizes(wx.Frame):
     def _init_ctrls(self, prnt):
         # generated method, don't edit
         wx.Frame.__init__(self, id=wxID_PYSIZES, name='PySizes', parent=prnt,
-              pos=wx.Point(110, 145), size=wx.Size(400, 250),
+              pos=wx.Point(984, 49), size=wx.Size(443, 414),
               style=wx.DEFAULT_FRAME_STYLE, title='PySizes')
         self._init_utils()
-        self.SetClientSize(wx.Size(392, 216))
+        self.SetClientSize(wx.Size(435, 380))
         self.SetMenuBar(self.menuBar1)
+        self.SetMinSize(wx.Size(300, 350))
 
         self.statusBar = wx.StatusBar(id=wxID_PYSIZESSTATUSBAR,
               name='statusBar', parent=self, style=0)
@@ -92,8 +138,44 @@ class PySizes(wx.Frame):
         self.SetStatusBar(self.statusBar)
 
         self.panel1 = wx.Panel(id=wxID_PYSIZESPANEL1, name='panel1',
-              parent=self, pos=wx.Point(0, 0), size=wx.Size(392, 173),
+              parent=self, pos=wx.Point(0, 0), size=wx.Size(435, 337),
               style=wx.TAB_TRAVERSAL)
+
+        self.title = wx.lib.stattext.GenStaticText(ID=wxID_PYSIZESTITLE,
+              label="GUI for the 'sizes' program", name='title',
+              parent=self.panel1, pos=wx.Point(0, 0), size=wx.Size(435, 32),
+              style=0)
+        self.title.SetFont(wx.Font(14, wx.SWISS, wx.NORMAL, wx.NORMAL, False,
+              'MS Shell Dlg 2'))
+        self.title.Center(wx.BOTH)
+
+        self.output = wx.lib.scrolledpanel.ScrolledPanel(id=wxID_PYSIZESOUTPUT,
+              name='output', parent=self.panel1, pos=wx.Point(4, 240),
+              size=wx.Size(427, 93), style=wx.TAB_TRAVERSAL)
+        self.output.SetBackgroundColour(wx.Colour(218, 235, 219))
+
+        self.input_file_parameters = wx.StaticBox(id=wxID_PYSIZESINPUT_FILE_PARAMETERS,
+              label='input file parameters', name='input_file_parameters',
+              parent=self.panel1, pos=wx.Point(0, 32), size=wx.Size(215, 100),
+              style=0)
+        self.input_file_parameters.SetMinSize(wx.Size(50, 50))
+
+        self.options = wx.StaticBox(id=wxID_PYSIZESOPTIONS, label='options',
+              name='options', parent=self.panel1, pos=wx.Point(219, 32),
+              size=wx.Size(215, 100), style=0)
+        self.options.SetMinSize(wx.Size(50, 50))
+
+        self.basic_terms = wx.StaticBox(id=wxID_PYSIZESBASIC_TERMS,
+              label='basic terms', name='basic_terms', parent=self.panel1,
+              pos=wx.Point(0, 136), size=wx.Size(215, 100), style=0)
+        self.basic_terms.SetMinSize(wx.Size(50, 50))
+
+        self.other_factors = wx.StaticBox(id=wxID_PYSIZESOTHER_FACTORS,
+              label='other factors', name='other_factors', parent=self.panel1,
+              pos=wx.Point(219, 136), size=wx.Size(215, 100), style=0)
+        self.other_factors.SetMinSize(wx.Size(50, 50))
+
+        self._init_sizers()
 
     def __init__(self, parent, cmdFile = None):
         '''create the GUI and start the program'''
@@ -101,7 +183,7 @@ class PySizes(wx.Frame):
         self.plotnum = 0
         self.params = self.__set_default_parameters__()
         self.__read_input_file__(cmdFile)
-        pprint.pprint(self.params)
+        #pprint.pprint(self.params)
         #self.__write_input_file__('output.cmd')
 
     # ################################
