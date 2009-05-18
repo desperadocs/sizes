@@ -22,22 +22,77 @@ def create(parent, cmdFile):
 ###        Boa methods        ###
 #################################
 
-[wxID_PYSIZES, wxID_PYSIZESPANEL1, 
-] = [wx.NewId() for _init_ctrls in range(2)]
+[wxID_PYSIZES, wxID_PYSIZESPANEL1, wxID_PYSIZESSTATUSBAR, 
+] = [wx.NewId() for _init_ctrls in range(3)]
 
+
+[wxID_PYSIZESMENUFILEOPEN, wxID_PYSIZESMENUFILEQUIT, wxID_PYSIZESMENUFILESAVE, 
+] = [wx.NewId() for _init_coll_menuFile_Items in range(3)]
 
 class PySizes(wx.Frame):
     '''GUI to run the sizes program for small-angle scattering analysis'''
+
+    def _init_coll_menuBar1_Menus(self, parent):
+        # generated method, don't edit
+
+        parent.Append(menu=self.menuFile, title='File')
+        parent.Append(menu=self.menuPlot, title='Plot')
+        parent.Append(menu=self.menuReview, title='Review')
+
+    def _init_coll_menuFile_Items(self, parent):
+        # generated method, don't edit
+
+        parent.Append(help='Open the command file', id=wxID_PYSIZESMENUFILEOPEN,
+              kind=wx.ITEM_NORMAL, text='Open')
+        parent.Append(help='Save the settings to the command file',
+              id=wxID_PYSIZESMENUFILESAVE, kind=wx.ITEM_NORMAL, text='Save')
+        parent.AppendSeparator()
+        parent.Append(help='Quit this application', id=wxID_PYSIZESMENUFILEQUIT,
+              kind=wx.ITEM_NORMAL, text='Quit')
+        self.Bind(wx.EVT_MENU, self.OnMenuFileOpenMenu,
+              id=wxID_PYSIZESMENUFILEOPEN)
+        self.Bind(wx.EVT_MENU, self.OnMenuFileSaveMenu,
+              id=wxID_PYSIZESMENUFILESAVE)
+        self.Bind(wx.EVT_MENU, self.OnMenuFileQuitMenu,
+              id=wxID_PYSIZESMENUFILEQUIT)
+
+    def _init_coll_statusBar_Fields(self, parent):
+        # generated method, don't edit
+        parent.SetFieldsCount(1)
+
+        parent.SetStatusText(number=0, text='status')
+
+        parent.SetStatusWidths([-1])
+
+    def _init_utils(self):
+        # generated method, don't edit
+        self.menuFile = wx.Menu(title='')
+
+        self.menuPlot = wx.Menu(title='')
+
+        self.menuReview = wx.Menu(title='')
+
+        self.menuBar1 = wx.MenuBar()
+
+        self._init_coll_menuFile_Items(self.menuFile)
+        self._init_coll_menuBar1_Menus(self.menuBar1)
 
     def _init_ctrls(self, prnt):
         # generated method, don't edit
         wx.Frame.__init__(self, id=wxID_PYSIZES, name='PySizes', parent=prnt,
               pos=wx.Point(110, 145), size=wx.Size(400, 250),
               style=wx.DEFAULT_FRAME_STYLE, title='PySizes')
+        self._init_utils()
         self.SetClientSize(wx.Size(392, 216))
+        self.SetMenuBar(self.menuBar1)
+
+        self.statusBar = wx.StatusBar(id=wxID_PYSIZESSTATUSBAR,
+              name='statusBar', parent=self, style=0)
+        self._init_coll_statusBar_Fields(self.statusBar)
+        self.SetStatusBar(self.statusBar)
 
         self.panel1 = wx.Panel(id=wxID_PYSIZESPANEL1, name='panel1',
-              parent=self, pos=wx.Point(0, 0), size=wx.Size(392, 216),
+              parent=self, pos=wx.Point(0, 0), size=wx.Size(392, 173),
               style=wx.TAB_TRAVERSAL)
 
     def __init__(self, parent, cmdFile = None):
@@ -64,7 +119,7 @@ class PySizes(wx.Frame):
         "bkg        0.1 	      ", #  ESD = fac * err * esd
         "shape      1		      ", #    I = fac * ( i - bkg )
         "aspect     1.0 	      ", #  1=spheroids, no others yet
-        "binType    1		      ", #  r x r x r*aspect
+        "binType    1		      ", #  D x D x D*aspect
         "nRadii     100 	      ", #  1=Lin  0=Log
         "dMin       25		      ",
         "dMax       900 	      ", #  Angstroms
@@ -74,7 +129,7 @@ class PySizes(wx.Frame):
         "slitLength 0		      ", #  used only by MaxEnt
         "dE_E       0.0002	      ", #  for slit-smeared data
         "method     1		      ", #  incident wavelength spread
-        "wdName     ./		      ", #  1=MaxEnt  0=regularization, 2=reg. with NNLS
+        "wdName     ./		      ", #  1=MaxEnt  0=regularization, 2=reg+NNLS
         "project    test	      ",
         "sasFile    test.sas	      ",
         "cmdFile    test.cmd	      ",
@@ -118,7 +173,7 @@ class PySizes(wx.Frame):
                    3 : err         : ESD = fac * err * esd
                  0.1 : bkg         :   I = fac * ( i - bkg )
                    1 : shapeModel  (1=spheroids, no others yet)
-                   1 : Aspect Ratio
+                   1 : Aspect Ratio, D x D x D*aspect
                    0 : Bin Type    (1=Lin, 0=Log)
                   40 : nRadii
         25      9000 : dMin dMax, A
@@ -152,7 +207,7 @@ class PySizes(wx.Frame):
         fb.write(fmt1 % (self.params['shape'], 
             "shapeModel  (1=spheroids, no others yet)"))
         fb.write(fmt1 % (self.params['aspect'], 
-            "Aspect Ratio"))
+            "Aspect Ratio, D x D x D*aspect"))
         fb.write(fmt1 % (self.params['binType'], 
             "Bin Type    (1=Lin, 0=Log)"))
         fb.write(fmt1 % (self.params['nRadii'], 
@@ -176,6 +231,18 @@ class PySizes(wx.Frame):
     # ################################
     # ##  event handling routines  ###
     # ################################
+
+    def OnMenuFileOpenMenu(self, event):
+        '''File:Open menu selected by user'''
+        event.Skip()
+
+    def OnMenuFileSaveMenu(self, event):
+        '''File:Save menu selected by user'''
+        event.Skip()
+
+    def OnMenuFileQuitMenu(self, event):
+        '''File:Quit menu selected by user'''
+        event.Skip()
 
 
 
