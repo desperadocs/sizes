@@ -1,4 +1,4 @@
-#   UNIX Makefile for the program: sizes  
+#   UNIX Makefile for the program: sizes
 # author:  Pete R. Jemian
 #          Late-Nite(tm) Software
 #          jemian@anl.gov
