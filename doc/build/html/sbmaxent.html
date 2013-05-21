@@ -1,0 +1,327 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>maximum entropy calculation engine &mdash; sizes 2013-05 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '2013-05',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="sizes 2013-05 documentation" href="index.html" />
+    <link rel="up" title="Table of Contents" href="contents.html" />
+    <link rel="next" title="main source code module: sizes" href="sizes.html" />
+    <link rel="prev" title="Table of Contents" href="contents.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sizes.html" title="main source code module: sizes"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="contents.html" title="Table of Contents"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">sizes 2013-05 documentation</a> &raquo;</li>
+          <li><a href="contents.html" accesskey="U">Table of Contents</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="maximum-entropy-calculation-engine">
+<h1>maximum entropy calculation engine<a class="headerlink" href="#maximum-entropy-calculation-engine" title="Permalink to this headline">¶</a></h1>
+<p>The 1984 Skilling and Bryan
+paper is available online from NASA:
+<a class="reference download internal" href="_downloads/sb1984.pdf"><tt class="xref download docutils literal"><span class="pre">PDF</span></tt></a></p>
+<span class="target" id="module-SB_MaxEnt.sbmaxent"></span><p>sbmaxent</p>
+<p>Entropy maximization routine as described in the article
+J Skilling and RK Bryan; Mon Not R Astr Soc 211 (1984) 111 - 124.
+(&#8220;Mon Not R Astr Soc&#8221; is the 
+&#8220;Monthly Notices of the Royal Astronomical Society&#8221;)</p>
+<p>This program is a translation from the C which is from the FORTRAN 
+which is from the BASIC version.</p>
+<dl class="function">
+<dt id="SB_MaxEnt.sbmaxent.ChiNow">
+<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">ChiNow</tt><big>(</big><em>ax</em>, <em>c1</em>, <em>c2</em>, <em>s1</em>, <em>s2</em><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#ChiNow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.ChiNow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="SB_MaxEnt.sbmaxent.ChoSol">
+<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">ChoSol</tt><big>(</big><em>a</em>, <em>b</em><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#ChoSol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.ChoSol" title="Permalink to this definition">¶</a></dt>
+<dd><p>ChoSol: ? chop the solution vectors ?</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">new vector beta</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SB_MaxEnt.sbmaxent.Dist">
+<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">Dist</tt><big>(</big><em>s2</em>, <em>beta</em><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#Dist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.Dist" title="Permalink to this definition">¶</a></dt>
+<dd><p>measure the distance of this possible solution</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="SB_MaxEnt.sbmaxent.G_term">
+<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">G_term</tt><big>(</big><em>q</em>, <em>r</em>, <em>V</em>, <em>rhosq</em><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#G_term"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.G_term" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the response matrix <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mi>G</mi><mo>(</mo><mi>Q</mi><mo>,</mo><mi>r</mi><mo>)</mo></mrow></math></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>q</strong> (<em>double</em>) &#8211; <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mi>Q</mi></mrow></math></li>
+<li><strong>r</strong> (<em>double</em>) &#8211; <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mi>r</mi></mrow></math></li>
+<li><strong>rhosq</strong> (<em>double</em>) &#8211; <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mo>|</mo><mo>Δ</mo><mi>ρ</mi><msup><mo>|</mo><mn>2</mn></msup></mrow></math>, the scattering contrast</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns double:</th><td class="field-body"><p class="first last">G(Q,r)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="SB_MaxEnt.sbmaxent.MaxEnt">
+<em class="property">class </em><tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">MaxEnt</tt><big>(</big><em>datum</em>, <em>sigma</em>, <em>base</em>, <em>IterMax</em>, <em>image_to_data</em>, <em>data_to_image</em>, <em>G</em><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#MaxEnt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.MaxEnt" title="Permalink to this definition">¶</a></dt>
+<dd><p>manage the iterative method described by Skilling and Bryan</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="SB_MaxEnt.sbmaxent.MaxEntException">
+<em class="property">exception </em><tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">MaxEntException</tt><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#MaxEntException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.MaxEntException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Any exception from this module</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="SB_MaxEnt.sbmaxent.MaxEntMove">
+<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">MaxEntMove</tt><big>(</big><em>fSum</em>, <em>blank</em>, <em>chisq</em>, <em>chizer</em>, <em>c1</em>, <em>c2</em>, <em>s1</em>, <em>s2</em><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#MaxEntMove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.MaxEntMove" title="Permalink to this definition">¶</a></dt>
+<dd><p>move beta one step closer towards the solution</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="SB_MaxEnt.sbmaxent.MaxEnt_SB">
+<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">MaxEnt_SB</tt><big>(</big><em>datum</em>, <em>sigma</em>, <em>base</em>, <em>IterMax</em>, <em>image_to_data</em>, <em>data_to_image</em>, <em>G</em>, <em>report=True</em><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#MaxEnt_SB"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.MaxEnt_SB" title="Permalink to this definition">¶</a></dt>
+<dd><p>do the complete Maximum Entropy algorithm of Skilling and Bryan</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>datum[]</strong> (<em>float</em>) &#8211; </li>
+<li><strong>sigma[]</strong> (<em>float</em>) &#8211; </li>
+<li><strong>base[]</strong> (<em>float</em>) &#8211; </li>
+<li><strong>IterMax</strong> (<em>int</em>) &#8211; </li>
+<li><strong>image_to_data</strong> (<em>obj</em>) &#8211; opus function</li>
+<li><strong>data_to_image</strong> (<em>obj</em>) &#8211; tropus function</li>
+<li><strong>G</strong> (<em>float[][]</em>) &#8211; transformation matrix</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Returns float[]:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">f (<math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mi>f</mi><mo>(</mo><mi>r</mi><mo>)</mo><mi>d</mi><mi>r</mi></mrow></math>)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SB_MaxEnt.sbmaxent.opus">
+<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">opus</tt><big>(</big><em>image</em>, <em>G</em><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#opus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.opus" title="Permalink to this definition">¶</a></dt>
+<dd><p>opus: transform solution-space -&gt; data-space:  [G]^tr * image</p>
+<p>default definition, caller can use this definition or provide an alternative</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>image</strong> (<em>float[N]</em>) &#8211; solution</li>
+<li><strong>G</strong> (<em>float[M][N]</em>) &#8211; transformation matrix</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Returns float[M]:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">calculated data</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="SB_MaxEnt.sbmaxent.print_arr">
+<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">print_arr</tt><big>(</big><em>text</em>, <em>a</em><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#print_arr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.print_arr" title="Permalink to this definition">¶</a></dt>
+<dd><p>print the contents of an array to the console</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="SB_MaxEnt.sbmaxent.print_vec">
+<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">print_vec</tt><big>(</big><em>text</em>, <em>a</em><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#print_vec"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.print_vec" title="Permalink to this definition">¶</a></dt>
+<dd><p>print the contents of a vector to the console</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="SB_MaxEnt.sbmaxent.readTextData">
+<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">readTextData</tt><big>(</big><em>filename</em><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#readTextData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.readTextData" title="Permalink to this definition">¶</a></dt>
+<dd><p>return q, I, dI from a 3-column text file</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="SB_MaxEnt.sbmaxent.test_ChiNow">
+<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">test_ChiNow</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#test_ChiNow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.test_ChiNow" title="Permalink to this definition">¶</a></dt>
+<dd><p>test routine for ChiNow()</p>
+<p>test values obtained from C version of sizes program</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="SB_MaxEnt.sbmaxent.test_ChoSol">
+<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">test_ChoSol</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#test_ChoSol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.test_ChoSol" title="Permalink to this definition">¶</a></dt>
+<dd><p>test routine for ChoSol()</p>
+<p>test values obtained from C version of sizes program</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="SB_MaxEnt.sbmaxent.test_Dist">
+<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">test_Dist</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#test_Dist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.test_Dist" title="Permalink to this definition">¶</a></dt>
+<dd><p>test routine for Dist()</p>
+<p>test values obtained from C version of sizes program</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="SB_MaxEnt.sbmaxent.test_MaxEntMove">
+<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">test_MaxEntMove</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#test_MaxEntMove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.test_MaxEntMove" title="Permalink to this definition">¶</a></dt>
+<dd><p>test routine for MaxEntMove()</p>
+<p>test values obtained from C version of sizes program</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="SB_MaxEnt.sbmaxent.test_opus_tropus">
+<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">test_opus_tropus</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#test_opus_tropus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.test_opus_tropus" title="Permalink to this definition">¶</a></dt>
+<dd><p>test routine for Dist()</p>
+<p>test values are trivial checks</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="SB_MaxEnt.sbmaxent.tropus">
+<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">tropus</tt><big>(</big><em>data</em>, <em>G</em><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#tropus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.tropus" title="Permalink to this definition">¶</a></dt>
+<dd><p>tropus: transform data-space -&gt; solution-space:  [G] * data</p>
+<p>default definition, caller can use this definition or provide an alternative</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data</strong> (<em>float[M]</em>) &#8211; observations</li>
+<li><strong>G</strong> (<em>float[M][N]</em>) &#8211; transformation matrix</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Returns float[N]:</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">calculated image</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="contents.html"
+                        title="previous chapter">Table of Contents</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="sizes.html"
+                        title="next chapter">main source code module: <cite>sizes</cite></a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/sbmaxent.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="sizes.html" title="main source code module: sizes"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="contents.html" title="Table of Contents"
+             >previous</a> |</li>
+        <li><a href="index.html">sizes 2013-05 documentation</a> &raquo;</li>
+          <li><a href="contents.html" >Table of Contents</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Pete R. Jemian.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

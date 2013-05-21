@@ -1,22 +1,21 @@
-.. sizes documentation master file, created by
-   sphinx-quickstart on Thu May 16 14:36:37 2013.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. $Id$
 
-Welcome to sizes's documentation!
-=================================
+Documentation of the Python version of `sizes`
+===============================================
+
+The Python version of the `sizes` program (for size distribution
+analysis of small-angle scattering data using the maximum
+entropy method of Skilling and Bryan) is under construction.
+Not all features of the C and FORTRAN versions of the code are yet available.
+
+The documentation for this version is rudimentary, as well.
+
+The manual for the FORTRAN version is available: 
+:download:`guide.pdf <../archive/guide.pdf>`
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
+   
+   contents

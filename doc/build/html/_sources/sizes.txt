@@ -1,0 +1,7 @@
+.. $Id: GE.rst 1281 2013-04-24 23:41:03Z jemian $
+
+main source code module: `sizes`
+==================================
+
+.. automodule:: SB_MaxEnt.sizes
+    :members: 
