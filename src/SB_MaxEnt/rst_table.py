@@ -1,6 +1,12 @@
 #!/usr/bin/env python
 
-'''Nicely format a table, output in restructured text (reST) format'''
+'''
+Nicely format a table, output in restructured text (reST) format
+
+:license: Copyright (c) 2013, UChicago Argonne, LLC
+:license: This file is distributed subject to a Software License Agreement found
+     in the file LICENSE that is included with this distribution. 
+'''
 
 ########### SVN repository information ###################
 # $Date$

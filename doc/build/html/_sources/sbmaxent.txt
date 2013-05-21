@@ -1,4 +1,4 @@
-.. $Id: GE.rst 1281 2013-04-24 23:41:03Z jemian $
+.. $Id: sbmaxent.rst 812 2013-05-21 21:54:19Z jemian $
 
 maximum entropy calculation engine
 ==================================

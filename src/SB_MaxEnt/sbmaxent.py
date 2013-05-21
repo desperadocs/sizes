@@ -10,6 +10,10 @@ J Skilling and RK Bryan; Mon Not R Astr Soc 211 (1984) 111 - 124.
 
 This program is a translation from the C which is from the FORTRAN 
 which is from the BASIC version.
+
+:license: Copyright (c) 2013, UChicago Argonne, LLC
+:license: This file is distributed subject to a Software License Agreement found
+     in the file LICENSE that is included with this distribution. 
 '''
 
 ########### SVN repository information ###################
