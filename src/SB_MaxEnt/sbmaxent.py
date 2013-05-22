@@ -4,16 +4,27 @@
 sbmaxent
 
 Entropy maximization routine as described in the article
-J Skilling and RK Bryan; Mon Not R Astr Soc 211 (1984) 111 - 124.
-("Mon Not R Astr Soc" is the 
-"Monthly Notices of the Royal Astronomical Society")
-
-This program is a translation from the C which is from the FORTRAN 
-which is from the BASIC version.
+J Skilling and RK Bryan; MNRAS 211 (1984) 111 - 124.
+("MNRAS": "Monthly Notices of the Royal Astronomical Society")
 
 :license: Copyright (c) 2013, UChicago Argonne, LLC
 :license: This file is distributed subject to a Software License Agreement found
      in the file LICENSE that is included with this distribution. 
+
+References:
+
+1. J Skilling and RK Bryan; MON NOT R ASTR SOC 211 (1984) 111 - 124.
+2. JA Potton, GJ Daniell, and BD Rainford; Proc. Workshop
+   Neutron Scattering Data Analysis, Rutherford
+   Appleton Laboratory, UK, 1986; ed. MW Johnson,
+   IOP Conference Series 81 (1986) 81 - 86, Institute
+   of Physics, Bristol, UK.
+3. ID Culverwell and GP Clarke; Ibid. 87 - 96.
+4. JA Potton, GK Daniell, & BD Rainford,
+   J APPL CRYST 21 (1988) 663 - 668.
+5. JA Potton, GJ Daniell, & BD Rainford,
+   J APPL CRYST 21 (1988) 891 - 897.
+
 '''
 
 ########### SVN repository information ###################
@@ -162,8 +173,9 @@ def MaxEnt_SB(datum, sigma, base, IterMax, image_to_data, data_to_image, G, repo
 #         print_arr("MaxEnt: eta.transpose()", eta.transpose())
 #         print_arr("MaxEnt: xi.transpose()", xi.transpose())
 
-        c1 = xi.dot(cgrad) / chisq
-        s1 = xi.dot(sgrad)
+        # prepare the search directions for the conjugate gradient technique
+	c1 = xi.dot(cgrad) / chisq		    # C_mu
+        s1 = xi.dot(sgrad)			    # S_mu
 #         print_vec("MaxEnt: c1", c1)
 #         print_vec("MaxEnt: s1", s1)
 
@@ -176,8 +188,8 @@ def MaxEnt_SB(datum, sigma, base, IterMax, image_to_data, data_to_image, G, repo
 
         # reflect across the body diagonal
         for k, l in ((0,1), (0,2), (1,2)):
-            c2[k][l] = c2[l][k]
-            s2[k][l] = s2[l][k]
+            c2[k][l] = c2[l][k] 		    #  M_(mu,nu)
+            s2[k][l] = s2[l][k] 		    #  g_(mu,nu)
  
         beta[0] = -0.5 * c1[0] / c2[0][0]
         beta[1] = 0.0

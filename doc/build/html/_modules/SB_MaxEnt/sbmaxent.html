@@ -56,24 +56,35 @@
 <span class="sd">sbmaxent</span>
 
 <span class="sd">Entropy maximization routine as described in the article</span>
-<span class="sd">J Skilling and RK Bryan; Mon Not R Astr Soc 211 (1984) 111 - 124.</span>
-<span class="sd">(&quot;Mon Not R Astr Soc&quot; is the </span>
-<span class="sd">&quot;Monthly Notices of the Royal Astronomical Society&quot;)</span>
-
-<span class="sd">This program is a translation from the C which is from the FORTRAN </span>
-<span class="sd">which is from the BASIC version.</span>
+<span class="sd">J Skilling and RK Bryan; MNRAS 211 (1984) 111 - 124.</span>
+<span class="sd">(&quot;MNRAS&quot;: &quot;Monthly Notices of the Royal Astronomical Society&quot;)</span>
 
 <span class="sd">:license: Copyright (c) 2013, UChicago Argonne, LLC</span>
 <span class="sd">:license: This file is distributed subject to a Software License Agreement found</span>
 <span class="sd">     in the file LICENSE that is included with this distribution. </span>
+
+<span class="sd">References:</span>
+
+<span class="sd">1. J Skilling and RK Bryan; MON NOT R ASTR SOC 211 (1984) 111 - 124.</span>
+<span class="sd">2. JA Potton, GJ Daniell, and BD Rainford; Proc. Workshop</span>
+<span class="sd">   Neutron Scattering Data Analysis, Rutherford</span>
+<span class="sd">   Appleton Laboratory, UK, 1986; ed. MW Johnson,</span>
+<span class="sd">   IOP Conference Series 81 (1986) 81 - 86, Institute</span>
+<span class="sd">   of Physics, Bristol, UK.</span>
+<span class="sd">3. ID Culverwell and GP Clarke; Ibid. 87 - 96.</span>
+<span class="sd">4. JA Potton, GK Daniell, &amp; BD Rainford,</span>
+<span class="sd">   J APPL CRYST 21 (1988) 663 - 668.</span>
+<span class="sd">5. JA Potton, GJ Daniell, &amp; BD Rainford,</span>
+<span class="sd">   J APPL CRYST 21 (1988) 891 - 897.</span>
+
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="c">########### SVN repository information ###################</span>
-<span class="c"># $Date: 2013-05-21 16:54:19 -0500 (Tue, 21 May 2013) $</span>
+<span class="c"># $Date: 2013-05-22 15:28:36 -0500 (Wed, 22 May 2013) $</span>
 <span class="c"># $Author: jemian $</span>
-<span class="c"># $Revision: 812 $</span>
+<span class="c"># $Revision: 814 $</span>
 <span class="c"># $URL: https://subversion.xray.aps.anl.gov/small_angle/sizes/trunk/src/SB_MaxEnt/sbmaxent.py $</span>
-<span class="c"># $Id: sbmaxent.py 812 2013-05-21 21:54:19Z jemian $</span>
+<span class="c"># $Id: sbmaxent.py 814 2013-05-22 20:28:36Z jemian $</span>
 <span class="c">########### SVN repository information ###################</span>
 
 
@@ -157,14 +168,9 @@
 <span class="sd">    </span>
 <span class="sd">    :returns float[]: f (:math:`f(r) dr`)</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">global</span> <span class="n">beta</span>
-    
     <span class="n">n</span>   <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
     <span class="n">npt</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">datum</span><span class="p">)</span>
-    <span class="n">ox</span>      <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">npt</span><span class="p">))</span>
-    <span class="n">z</span>       <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">npt</span><span class="p">))</span>
-    <span class="n">cgrad</span>   <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">n</span><span class="p">))</span>
-    <span class="n">sgrad</span>   <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">n</span><span class="p">))</span>
+
     <span class="c"># Note that the order of subscripts for</span>
     <span class="c"># &quot;xi&quot; and &quot;eta&quot; has been reversed from</span>
     <span class="c"># the convention used in the FORTRAN version</span>
@@ -178,7 +184,7 @@
     <span class="n">c1</span>      <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">SEARCH_DIRECTIONS</span><span class="p">))</span>
     <span class="n">c2</span>      <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">SEARCH_DIRECTIONS</span><span class="p">,</span> <span class="n">SEARCH_DIRECTIONS</span><span class="p">))</span>
 
-    <span class="n">exp1</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="c"># TODO: replace blank (scalar) with base (vector)</span>
     <span class="n">blank</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>   <span class="c"># use the average value of base</span>
 
     <span class="n">chizer</span><span class="p">,</span> <span class="n">chtarg</span> <span class="o">=</span> <span class="n">npt</span><span class="o">*</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">npt</span><span class="o">*</span><span class="mf">1.0</span>
@@ -192,7 +198,7 @@
         <span class="n">ox</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">z</span> <span class="o">/</span> <span class="n">sigma</span>                        <span class="c"># gradient of Chi^2</span>
 
         <span class="n">cgrad</span> <span class="o">=</span> <span class="n">data_to_image</span> <span class="p">(</span><span class="n">ox</span><span class="p">,</span> <span class="n">G</span><span class="p">)</span>              <span class="c"># cgrad[i] = del(C)/del(f[i]), SB eq. 8</span>
-        <span class="n">sgrad</span> <span class="o">=</span> <span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">f</span><span class="o">/</span><span class="n">base</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">blank</span><span class="o">*</span><span class="n">exp1</span><span class="p">)</span>  <span class="c"># sgrad[i] = del(S)/del(f[i])</span>
+        <span class="n">sgrad</span> <span class="o">=</span> <span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">f</span><span class="o">/</span><span class="n">base</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">blank</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>  <span class="c"># sgrad[i] = del(S)/del(f[i])</span>
         <span class="n">snorm</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">f</span> <span class="o">*</span> <span class="n">sgrad</span><span class="o">*</span><span class="n">sgrad</span><span class="p">))</span>    <span class="c"># entropy term</span>
         <span class="n">cnorm</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">f</span> <span class="o">*</span> <span class="n">cgrad</span><span class="o">*</span><span class="n">cgrad</span><span class="p">))</span>    <span class="c"># ChiSqr term </span>
         <span class="n">tnorm</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">f</span> <span class="o">*</span> <span class="n">sgrad</span> <span class="o">*</span> <span class="n">cgrad</span><span class="p">)</span>             <span class="c"># norm for gradient term TEST </span>
@@ -219,8 +225,9 @@
 <span class="c">#         print_arr(&quot;MaxEnt: eta.transpose()&quot;, eta.transpose())</span>
 <span class="c">#         print_arr(&quot;MaxEnt: xi.transpose()&quot;, xi.transpose())</span>
 
-        <span class="n">c1</span> <span class="o">=</span> <span class="n">xi</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">cgrad</span><span class="p">)</span> <span class="o">/</span> <span class="n">chisq</span>
-        <span class="n">s1</span> <span class="o">=</span> <span class="n">xi</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">sgrad</span><span class="p">)</span>
+        <span class="c"># prepare the search directions for the conjugate gradient technique</span>
+	<span class="n">c1</span> <span class="o">=</span> <span class="n">xi</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">cgrad</span><span class="p">)</span> <span class="o">/</span> <span class="n">chisq</span>		    <span class="c"># C_mu</span>
+        <span class="n">s1</span> <span class="o">=</span> <span class="n">xi</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">sgrad</span><span class="p">)</span>			    <span class="c"># S_mu</span>
 <span class="c">#         print_vec(&quot;MaxEnt: c1&quot;, c1)</span>
 <span class="c">#         print_vec(&quot;MaxEnt: s1&quot;, s1)</span>
 
@@ -233,14 +240,14 @@
 
         <span class="c"># reflect across the body diagonal</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)):</span>
-            <span class="n">c2</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="n">c2</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">k</span><span class="p">]</span>
-            <span class="n">s2</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="n">s2</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">k</span><span class="p">]</span>
+            <span class="n">c2</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="n">c2</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> 		    <span class="c">#  M_(mu,nu)</span>
+            <span class="n">s2</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="n">s2</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">k</span><span class="p">]</span> 		    <span class="c">#  g_(mu,nu)</span>
  
         <span class="n">beta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">c1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">c2</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">beta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="n">beta</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
         <span class="k">if</span> <span class="p">(</span><span class="nb">iter</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
-            <span class="n">MaxEntMove</span><span class="p">(</span><span class="n">fSum</span><span class="p">,</span> <span class="n">blank</span><span class="p">,</span> <span class="n">chisq</span><span class="p">,</span> <span class="n">chizer</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
+            <span class="n">w</span><span class="p">,</span> <span class="n">chtarg</span><span class="p">,</span> <span class="n">loop</span><span class="p">,</span> <span class="n">a_new</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">MaxEntMove</span><span class="p">(</span><span class="n">fSum</span><span class="p">,</span> <span class="n">blank</span><span class="p">,</span> <span class="n">chisq</span><span class="p">,</span> <span class="n">chizer</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
 
         <span class="n">f_old</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>    <span class="c"># preserve the last image</span>
         <span class="n">f</span> <span class="o">+=</span> <span class="n">xi</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span>   <span class="c"># move the image towards the solution</span>
@@ -251,7 +258,7 @@
         <span class="c">#f = f.clip(RESET_STRAYS * blank, f.max())</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
             <span class="k">if</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="mf">0.0</span><span class="p">:</span>
-                <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">RESET_STRAYS</span> <span class="o">*</span> <span class="n">blank</span>
+                <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">RESET_STRAYS</span> <span class="o">*</span> <span class="n">base</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">f</span> <span class="o">-</span> <span class="n">f_old</span>
         <span class="n">fSum</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
         <span class="n">fChange</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
@@ -283,24 +290,23 @@
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    move beta one step closer towards the solution</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="k">global</span> <span class="n">beta</span>
-    
-    <span class="c"># TODO: integrate NumPy</span>
     <span class="n">a_lower</span><span class="p">,</span> <span class="n">a_upper</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span>          <span class="c"># bracket  &quot;a&quot;</span>
-    <span class="n">cmin</span> <span class="o">=</span> <span class="n">ChiNow</span> <span class="p">(</span><span class="n">a_lower</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
+    <span class="n">cmin</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">ChiNow</span> <span class="p">(</span><span class="n">a_lower</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
     <span class="c">#print &quot;MaxEntMove: cmin = %g&quot; % cmin</span>
     <span class="k">if</span> <span class="n">cmin</span><span class="o">*</span><span class="n">chisq</span> <span class="o">&gt;</span> <span class="n">chizer</span><span class="p">:</span>
         <span class="n">ctarg</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span> <span class="o">+</span> <span class="n">cmin</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">ctarg</span> <span class="o">=</span> <span class="n">chizer</span><span class="o">/</span><span class="n">chisq</span>
     <span class="n">f_lower</span> <span class="o">=</span> <span class="n">cmin</span> <span class="o">-</span> <span class="n">ctarg</span>
-    <span class="n">f_upper</span> <span class="o">=</span> <span class="n">ChiNow</span> <span class="p">(</span><span class="n">a_upper</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span> <span class="o">-</span> <span class="n">ctarg</span>
+    <span class="n">c_upper</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">ChiNow</span> <span class="p">(</span><span class="n">a_upper</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
+    <span class="n">f_upper</span> <span class="o">=</span> <span class="n">c_upper</span> <span class="o">-</span> <span class="n">ctarg</span>
 
     <span class="n">fx</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">MOVE_PASSES</span>      <span class="c"># just to start off</span>
     <span class="n">loop</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="k">while</span> <span class="nb">abs</span><span class="p">(</span><span class="n">fx</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">MOVE_PASSES</span> <span class="ow">and</span> <span class="n">loop</span> <span class="o">&lt;=</span> <span class="n">MAX_MOVE_LOOPS</span><span class="p">:</span>
         <span class="n">a_new</span> <span class="o">=</span> <span class="p">(</span><span class="n">a_lower</span> <span class="o">+</span> <span class="n">a_upper</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span>           <span class="c"># search by bisection</span>
-        <span class="n">fx</span> <span class="o">=</span> <span class="n">ChiNow</span> <span class="p">(</span><span class="n">a_new</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span> <span class="o">-</span> <span class="n">ctarg</span>
+        <span class="n">c_new</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">ChiNow</span> <span class="p">(</span><span class="n">a_new</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
+        <span class="n">fx</span> <span class="o">=</span> <span class="n">c_new</span> <span class="o">-</span> <span class="n">ctarg</span>
         <span class="c"># tighten the search range for the next pass</span>
         <span class="k">if</span> <span class="n">f_lower</span><span class="o">*</span><span class="n">fx</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">a_lower</span><span class="p">,</span> <span class="n">f_lower</span> <span class="o">=</span> <span class="n">a_new</span><span class="p">,</span> <span class="n">fx</span>
@@ -334,8 +340,11 @@
 
 </div>
 <div class="viewcode-block" id="ChiNow"><a class="viewcode-back" href="../../sbmaxent.html#SB_MaxEnt.sbmaxent.ChiNow">[docs]</a><span class="k">def</span> <span class="nf">ChiNow</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;ChiNow&#39;&#39;&#39;</span>
-    <span class="k">global</span> <span class="n">beta</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    ChiNow</span>
+<span class="sd">    </span>
+<span class="sd">    :returns tuple: (ChiNow computation of ``w``, beta)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
     
     <span class="n">bx</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">ax</span>
     <span class="n">a</span> <span class="o">=</span>   <span class="n">bx</span> <span class="o">*</span> <span class="n">c2</span>  <span class="o">-</span>  <span class="n">ax</span> <span class="o">*</span> <span class="n">s2</span>
@@ -344,9 +353,8 @@
     <span class="n">beta</span> <span class="o">=</span> <span class="n">ChoSol</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
     <span class="n">w</span> <span class="o">=</span> <span class="mf">1.0</span>
     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">SEARCH_DIRECTIONS</span><span class="p">):</span>
-        <span class="n">z</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">c2</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">beta</span><span class="p">)</span>
-        <span class="n">w</span> <span class="o">+=</span> <span class="n">beta</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">c1</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="n">z</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">w</span>
+        <span class="n">w</span> <span class="o">+=</span> <span class="n">beta</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">c1</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="nb">sum</span><span class="p">(</span><span class="n">c2</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">beta</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">w</span><span class="p">,</span> <span class="n">beta</span>
 
 </div>
 <div class="viewcode-block" id="ChoSol"><a class="viewcode-back" href="../../sbmaxent.html#SB_MaxEnt.sbmaxent.ChoSol">[docs]</a><span class="k">def</span> <span class="nf">ChoSol</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
@@ -525,7 +533,8 @@
       <span class="p">(</span> <span class="o">-</span><span class="mi">248889</span><span class="p">,</span>  <span class="o">-</span><span class="mi">641283</span><span class="p">,</span>  <span class="o">-</span><span class="mf">1e+06</span><span class="p">,</span> <span class="p">),</span>
     <span class="p">))</span>
     <span class="c"># ChiNow: result=0.214487</span>
-    <span class="k">print</span> <span class="s">&quot;ChiNow:&quot;</span><span class="p">,</span> <span class="n">ChiNow</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">),</span> <span class="mf">0.214487</span>
+    <span class="n">w</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">ChiNow</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&quot;ChiNow:&quot;</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="mf">0.214487</span>
 
 </div>
 <div class="viewcode-block" id="test_MaxEntMove"><a class="viewcode-back" href="../../sbmaxent.html#SB_MaxEnt.sbmaxent.test_MaxEntMove">[docs]</a><span class="k">def</span> <span class="nf">test_MaxEntMove</span><span class="p">():</span>

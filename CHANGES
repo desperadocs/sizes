@@ -3,8 +3,55 @@
 
 This describes user-visible changes between the versions.
 
+This program is a translation from the C which is from the FORTRAN 
+which is from the BASIC version.
+
 
 Version 2013-05
 ----------------------------------------
 
-* initial translation from C code
+initial translation from C code
+
+Credits:
+
+* P.R. Jemian, Argonne National Laboratory, USA
+
+Used in Irena package
+----------------------------------------
+
+An IgorPro translation of this code appears in the *Irena*
+software package, authored by Jan Ilavsky.
+[cite publication history here]
+
+Credits:
+
+* Jan Ilavsky, Argonne National Laboratory, USA
+* P.R. Jemian, Argonne National Laboratory, USA
+
+C translation
+----------------------------------------
+
+The FORTRAN code was translated into C ca. 1990.
+
+Credits:
+
+* P.R. Jemian, Northwestern University, USA
+
+Previously
+----------------------------------------
+
+This progam was written in BASIC by GJ Daniell and later
+translated into FORTRAN and adapted for SANS analysis.  It
+has been further modified by AJ Allen to allow use with a
+choice of particle form factors for different shapes.  It
+was then modified by PR Jemian to allow portability between
+the Digital Equipment Corporation VAX and Apple Macintosh
+computers.
+
+Credits:
+
+* G.J. Daniell, Dept. of Physics, Southampton University, UK
+* J.A. Potton, UKAEA Harwell Laboratory, UK
+* I.D. Culverwell, UKAEA Harwell Laboratory, UK
+* G.P. Clarke, UKAEA Harwell Laboratory, UK
+* A.J. Allen, UKAEA Harwell Laboratory, UK
