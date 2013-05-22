@@ -105,14 +105,9 @@ def MaxEnt_SB(datum, sigma, base, IterMax, image_to_data, data_to_image, G, repo
     
     :returns float[]: f (:math:`f(r) dr`)
     '''
-    global beta
-    
     n   = len(base)
     npt = len(datum)
-    ox      = 0*numpy.ndarray((npt))
-    z       = 0*numpy.ndarray((npt))
-    cgrad   = 0*numpy.ndarray((n))
-    sgrad   = 0*numpy.ndarray((n))
+
     # Note that the order of subscripts for
     # "xi" and "eta" has been reversed from
     # the convention used in the FORTRAN version
@@ -126,7 +121,7 @@ def MaxEnt_SB(datum, sigma, base, IterMax, image_to_data, data_to_image, G, repo
     c1      = 0*numpy.ndarray((SEARCH_DIRECTIONS))
     c2      = 0*numpy.ndarray((SEARCH_DIRECTIONS, SEARCH_DIRECTIONS))
 
-    exp1 = math.exp (1.0)
+    # TODO: replace blank (scalar) with base (vector)
     blank = sum(base) / len(base)   # use the average value of base
 
     chizer, chtarg = npt*1.0, npt*1.0
@@ -140,7 +135,7 @@ def MaxEnt_SB(datum, sigma, base, IterMax, image_to_data, data_to_image, G, repo
         ox = -2 * z / sigma                        # gradient of Chi^2
 
         cgrad = data_to_image (ox, G)              # cgrad[i] = del(C)/del(f[i]), SB eq. 8
-        sgrad = -numpy.log(f/base) / (blank*exp1)  # sgrad[i] = del(S)/del(f[i])
+        sgrad = -numpy.log(f/base) / (blank*math.exp (1.0))  # sgrad[i] = del(S)/del(f[i])
         snorm = math.sqrt(sum(f * sgrad*sgrad))    # entropy term
         cnorm = math.sqrt(sum(f * cgrad*cgrad))    # ChiSqr term 
         tnorm = sum(f * sgrad * cgrad)             # norm for gradient term TEST 
@@ -188,7 +183,7 @@ def MaxEnt_SB(datum, sigma, base, IterMax, image_to_data, data_to_image, G, repo
         beta[1] = 0.0
         beta[2] = 0.0
         if (iter > 0):
-            MaxEntMove(fSum, blank, chisq, chizer, c1, c2, s1, s2)
+            w, chtarg, loop, a_new, fx, beta = MaxEntMove(fSum, blank, chisq, chizer, c1, c2, s1, s2)
 
         f_old = f.copy()    # preserve the last image
         f += xi.transpose().dot(beta)   # move the image towards the solution
@@ -199,7 +194,7 @@ def MaxEnt_SB(datum, sigma, base, IterMax, image_to_data, data_to_image, G, repo
         #f = f.clip(RESET_STRAYS * blank, f.max())
         for i in range(n):
             if f[i] <= 0.0:
-                f[i] = RESET_STRAYS * blank
+                f[i] = RESET_STRAYS * base[i]
         df = f - f_old
         fSum = sum(f)
         fChange = sum(df)
@@ -231,24 +226,23 @@ def MaxEntMove(fSum, blank, chisq, chizer, c1, c2, s1, s2):
     '''
     move beta one step closer towards the solution
     '''
-    global beta
-    
-    # TODO: integrate NumPy
     a_lower, a_upper = 0., 1.          # bracket  "a"
-    cmin = ChiNow (a_lower, c1, c2, s1, s2)
+    cmin, beta = ChiNow (a_lower, c1, c2, s1, s2)
     #print "MaxEntMove: cmin = %g" % cmin
     if cmin*chisq > chizer:
         ctarg = (1.0 + cmin)/2
     else:
         ctarg = chizer/chisq
     f_lower = cmin - ctarg
-    f_upper = ChiNow (a_upper, c1, c2, s1, s2) - ctarg
+    c_upper, beta = ChiNow (a_upper, c1, c2, s1, s2)
+    f_upper = c_upper - ctarg
 
     fx = 2*MOVE_PASSES      # just to start off
     loop = 1
     while abs(fx) >= MOVE_PASSES and loop <= MAX_MOVE_LOOPS:
         a_new = (a_lower + a_upper) * 0.5           # search by bisection
-        fx = ChiNow (a_new, c1, c2, s1, s2) - ctarg
+        c_new, beta = ChiNow (a_new, c1, c2, s1, s2)
+        fx = c_new - ctarg
         # tighten the search range for the next pass
         if f_lower*fx > 0:
             a_lower, f_lower = a_new, fx
@@ -282,8 +276,11 @@ def Dist(s2, beta):
 
 
 def ChiNow(ax, c1, c2, s1, s2):
-    '''ChiNow'''
-    global beta
+    '''
+    ChiNow
+    
+    :returns tuple: (ChiNow computation of ``w``, beta)
+    '''
     
     bx = 1 - ax
     a =   bx * c2  -  ax * s2
@@ -292,9 +289,8 @@ def ChiNow(ax, c1, c2, s1, s2):
     beta = ChoSol(a, b)
     w = 1.0
     for k in range(SEARCH_DIRECTIONS):
-        z = sum(c2[k] * beta)
-        w += beta[k] * (c1[k] + z/2)
-    return w
+        w += beta[k] * (c1[k] + 0.5*sum(c2[k] * beta))
+    return w, beta
 
 
 def ChoSol(a, b):
@@ -473,7 +469,8 @@ def test_ChiNow():
       ( -248889,  -641283,  -1e+06, ),
     ))
     # ChiNow: result=0.214487
-    print "ChiNow:", ChiNow(ax, c1, c2, s1, s2), 0.214487
+    w, beta = ChiNow(ax, c1, c2, s1, s2)
+    print "ChiNow:", w, 0.214487
 
 
 def test_MaxEntMove():
