@@ -139,6 +139,7 @@ class MaxEnt(object):
         
     def compute_beta(self):
         '''beta vector: ... meaning ...'''
+        pass
         
     def MaxEnt_iteration(self):
         '''one iteration of the MaxEnt algorithm'''
