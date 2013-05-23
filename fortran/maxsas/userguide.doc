@@ -1,0 +1,1244 @@
+        USER GUIDE FOR THE MAXIMUM ENTROPY SAS ANALYSIS PROGRAM "MaxSas"
+
+          Pete R. Jemian, Northwestern University, 7 February 1990
+
+        Substantial portions of this document are from the documentation
+        supplied with the code MAXE (documentation by Ian Culverwell,
+        UKAEA-Harwell, 23 February 1987) and with its modification called
+        MAXE2 (modifications by Andrew Allen, UKAEA-Harwell, 19 July 1989).
+
+
+        INTRODUCTION
+
+        This program provides an accurate and reliable analysis of small-angle
+        scattering data.  Using an iterative approach it calculates the size
+        distribution of scatterers of a specified form, with the maximum
+        entropy, whose scattering pattern is consistent with the data.  The
+        consistency test is the ChiSquared statistic.  A full description of
+        the program's methodology and of its rigorous validation can be found
+        in [Culverwell, 1986] and [Potton, 1988a].
+
+        The MaxSas code is an interactive program, and users must be prepared
+        to answer the questions that the program will ask.  The questions are
+        grouped into two major sections: input data selection and scattering
+        model selection.  The input data selection is by file name and
+        Q-vector range. The scattering model selection is by form factor,
+        diameter range, and number of histogram bins.  It may be necessary to
+        run this program several times, with slight changes in user-adjustable
+        parameters, in order to obtain a satisfactory analysis.
+
+        The running of the program will be demonstrated by example, using
+        synthetic scattering data calculated from a hypothetical bimodal
+        particle size distribution (ref 3).   This distribution consists of a
+        narrow Gaussian peak centered at 80 Angstroms with a standard
+        deviation of 20 A, together with a broader secondary Gaussian peak,
+        half the size of the primary one, centered at 200 A with a width
+        of 60 A.   In order that they can become familiar with the questions
+        that the program will ask them, prospective users are advised to run
+        the program using this data set, reproducing verbatim the example
+        responses quoted in this guide.
+	User Guide to MaxSas					Page 2
+
+
+        INPUT DATA FORMAT
+
+        The input data file should be in the same format as in the supplied
+        synthetic scattering data (file: BIMODAL.SAS).  Formally the data
+        should exist in the file as ordered triples of scattering vector (in
+        1/A), intensity and estimated error of intensity.  Typically, the data
+        will be in three columns, separated by "white space" of spaces and/or
+        tabs.  The intensity may be in any units as the program will ask for a
+        conversion factor between these units and 1/cm units.  The numbers are
+        read as floating point numbers, hence 0.0015, 1.5E-3, 0.15E-2, and
+        15E-4 will be identical.  However, do not be tempted to force double
+        precision input (such as 1.5D-3) because this may provoke a nasty
+        error condition.
+
+        The name of the data set should any standard filename for the
+        operating system on which the program is run.  A typical name would be
+        BIMODAL.SAS (the synthetic scattering described earlier) which
+        describes bimodal SAS data.  If the data file resides in a directory
+        other than the default, then you will have to specify that as part of
+        the file name.  Example file names, including a "full path
+        description" follow for the more popular operating systems:
+        Digital Equipment Corporation VAX running VMS
+                DISK$MPD_USERS:[CULVERWEL.MAXE]BIMODAL.SAS
+        Apple Macintosh
+                Hard Drive:MaxSas Folder:test case:BIMODAL.SAS
+        MS-DOS computer (such as the IBM-PC)
+                C:\MAXSAS\TEST\BIMODAL.SAS
+
+
+        EXAMPLE OF THE PROGRAM EXECUTION ON A DEC Vax
+
+        The following is an excerpt from the execution of MaxSas as it is
+        analyzing the supplied test distribution BIMODAL.SAS, a bimodal
+        distribution with two Gaussian peaks: one at 80 Angstroms with a sigma
+        of 20 A and the other at 200 A with a sigma of 60 A.  The Gaussian at
+        200 A is half the height of the one at 80 A.  For a further discussion
+        of this distribution, see [Culverwell, 1986].  The exact volume
+        fraction of the original distribution was not specified.
+
+
+        In the section to follow, all user responses will be all in upper case
+        where appropriate and will be followed by a {CR}, signifying that the
+        user has pressed the return key.  {CR} by itself signifies that the
+        user has accepted the default answer to the question, as shown in
+        <default>.  Almost all questions have a default response, the only
+        exception being the output file names which may take any value EXCEPT
+        blank or the same as the input file name.  Initially, all the defaults
+        are preset to the proper answers for the supplied test distribution
+        BIMODAL.SAS.  If you type in a new value, that will value will become
+        the default the next time that the question is asked.
+	User Guide to MaxSas					Page 3
+
+
+        The example to follow will be interrupted from time to time for
+        explanations.  These will be isolated between rows of "====" signs.
+        For further explanations of each question which is asked, see the
+        appropriate section appearing elsewhere in this document.
+
+        Now here's the excerpt from the beginning of the run.  Remember that
+        all user responses are on a single line and are terminated with a
+        {CR}.
+
+================
+$ RUN MaxSas{CR}
+
+Size distributions from SAS data using the maximum entropy criterion
+   version: 3.1 (PRJ)                ,   7 February 1990          
+ Input file? <Quit>
+Bimodal.Sas{CR}
+ Output file?
+Bimodal.Out{CR}
+ Minimum q-vector? [1/A] <  1.000000000000000E-008>
+{CR}
+ Maximum q-vector? [1/A] <   100.000000000000     >
+{CR}
+ Scattering contrast? [10^28 m^-4] <   1.00000000000000     >
+{CR}
+ Factor to convert data to 1/cm? <   1.00000000000000     >
+{CR}
+ Error scaling factor? <   1.00000000000000     >
+{CR}
+ Background? <  0.000000000000000E+000>
+{CR}
+ Spheroids: D x D x vD,  Aspect ratio (v)?  <   1.00000000000000     >
+{CR}
+ Bin step scale? (1=Linear, 2=Log) <           1>
+{CR}
+ Number of histogram bins? <          40>
+{CR}
+ Maximum value of D? [A] <   400.000000000000     >
+{CR}
+ Minimum value of D? [A] <   10.0000000000000     >
+{CR}
+ Maximum number of iterations? <          20>
+{CR}
+ Reading from file: Bimodal.Sas                             
+         38 points were read from the file
+         38 points were selected from the data
+ Preparation of the GRID function...
+ Setting BASE constant at   1.000000000000000E-012
+ MaxEnt routine beginning ...
+================
+	User Guide to MaxSas					Page 4
+
+
+        To recap what has happened so far, the program was started and the
+        input data file BIMODAL.SAS was specified for analysis.  All the
+        default answers appeared to be acceptable so the program read 38
+        points from the file, of which all 38 points were retained for the
+        analysis.  The program informs you that it has set an internal array
+        called BASE to 1.0E-12.  BASE is the initial guess for the
+        distribution.  If there is a value in the output distribution that is
+        comparable with this number, then that particular histogram bin has no
+        significant information.  Consider then that BASE is the "featureless"
+        distribution and rest assured that it is quite flat.
+
+        At this point, the program has gotten all the adjustable parameters
+        that it needs and is now proceeding to attempt to solve the problem.
+
+        The fitting routine is an iterative one. If there are N histogram bins
+        and P data points then the computation time for each iteration will be
+        on the order of (very approximate) Order(2N+P). (This is why both N
+        and P are bounded.)
+
+        All sorts of information will begin to scroll on the screen at an
+        alarming rate as the Maximimum Entropy routine, or MaxEnt, (see
+        [Skilling, 1984] for details on what's happening) begins to extract
+        statistically significant information from the SAS data.  With each
+        iteration, several different types of screen plots are drawn, each
+        describing the data extracted so far. The different plots are titled:
+
+        LOG (ChiSq) vs. iteration number
+        Entropy vs. iteration number
+        Residuals
+        Distribution
+
+        The first two plots will not appear until the third iteration.  They
+        are intended to keep you informed about the progress of the MaxEnt
+        routine.  The residuals (difference between MaxEnt fit and input data
+        normalized to the input errors) are plotted as a function of data
+        point subscript number, not Q-vector. The distribution is weighted by
+        the bin width, dD(i) = D(i+1) - D(i), and is also plotted as a
+        function of diametral bin subscript number. All plots will be scaled
+        to fit within the screen boundaries.
+
+        The last information to appear in each iteration will be a report,
+        such as:
+
+================
+ #           2 of           20,  n  =           38
+test =   0.19101,  Entropy =    3.4668138
+ SQRT((Chi^2)/n):  target =  12.14204774     % off =    26.2698
+        f-vector:     sum =   0.00452313  % change =     0.4663
+================
+	User Guide to MaxSas					Page 5
+
+
+        The report is saying that for the second iteration out of 20, where
+        there are 38 intensity data points, the difference between the entropy
+        and ChiSquared gradients is 0.19101, the entropy of the distribution
+        just plotted is 3.4668138 (whose units are exact), the target for the
+        SQRT((ChiSquared)/n), where ChiSquared is derived from intensity
+        calculated from the distribution just plotted, of 12.14204774 was
+        missed by 26.2698%, and the total volume fraction of scatterers in the
+        distribution just plotted is 0.452313 %, which did not change much
+        from the previous iteration.  The iterations will continue.
+
+        Here is the screen output from the last iteration:
+
+================
+ LOG (ChiSq) vs. iteration number
+          1 point(s) per column
+ 0.405168291335942      units per row
+ ----------- 
+|           |
+|OO         |
+|  O        |
+|   O       |
+|           |
+|    O      |
+|           |
+|     O     |
+|      O    |
+|       O   |
+|           |
+|        O  |
+|         O |
+|           |
+|==========O|
+ ----------- 
+	User Guide to MaxSas					Page 6
+
+
+ Entropy vs. iteration number
+          1 point(s) per column
+ 5.229508533621462E-002 units per row
+ ----------- 
+|===========|
+|           |
+|           |
+|O          |
+|           |
+|           |
+| O         |
+|           |
+|           |
+|           |
+|  O        |
+|           |
+|        OOO|
+|      OO   |
+|   OOO     |
+ ----------- 
+
+ Residuals
+          1 point(s) per column
+ 0.315439585860872      standard deviations per row
+ -------------------------------------- 
+|                                    O |
+|                                      |
+|  OO                          O       |
+|                                      |
+|                                     O|
+|====O==O======O====O=====O============|
+|                       O   O      O   |
+|          OO              O           |
+|     O            O  O         O      |
+|        OO   O   O      O   OO        |
+|OO             OO   O O               |
+|======O=========================OO====|
+|                                      |
+|                                      |
+|            O                      O  |
+ -------------------------------------- 
+	User Guide to MaxSas					Page 7
+
+
+ Distribution
+          1 point(s) per column
+ 6.975972282206744E-005 units per row
+ ------------------------------------------ 
+|      O                                   |
+|                                          |
+|                                          |
+|       O                                  |
+|                                          |
+|                                          |
+|                                          |
+|                                          |
+|        O                                 |
+|                  OO                      |
+|     O   OOOO    O  O  O                  |
+|             O  O    OO OO                |
+|              OO                          |
+|                          OO              |
+|OOOOO=======================OOOOOOOOOOOOOO|
+ ------------------------------------------ 
+ #          11 of           20,  n  =           38
+test =   0.01587,  Entropy =    3.1391598
+ SQRT((Chi^2)/n):  target =   1.00000000     % off =     0.0504
+        f-vector:     sum =   0.00809492  % change =     4.0445
+================
+
+        The problem has been solved in 11 iterations of the MaxEnt routine.
+        The two criteria for solution are that TEST <= 0.05 (5%) and that the
+        SQRT((Chi^2)/n) target be met within 0.5%.  Observe that the volume
+        fraction has not changed very much from the previous iteration.
+
+        Here is the summary screen output of the analysis:
+	User Guide to MaxSas					Page 8
+
+
+================
+ Input file: Bimodal.Sas                             
+ Volume weighted size dist.: V(r)N(r) versus r
+  2.63513513513514      units per column
+ 1.395194456441349E-005 units per row
+ --------------------------------------------------------------------------- 
+|           O                                                               |
+|                                                                           |
+|                                                                           |
+|             O                                                             |
+|                                                                           |
+|                                                                           |
+|                                                                           |
+|                                                                           |
+|               O                                                           |
+|                                  O O                                      |
+|         O       OO O O         O    O     O                               |
+|                        O     O        O O   O O                           |
+|                          O O                                              |
+|                                                 O O                       |
+|OO O O O                                             O OO O O O O O O O O O|
+ --------------------------------------------------------------------------- 
+ standardized residuals vs. point number
+          1 point(s) per column
+ 0.315439585860872      standard deviations per row
+ -------------------------------------- 
+|                                    O |
+|                                      |
+|  OO                          O       |
+|                                      |
+|                                     O|
+|====O==O======O====O=====O============|
+|                       O   O      O   |
+|          OO              O           |
+|     O            O  O         O      |
+|        OO   O   O      O   OO        |
+|OO             OO   O O               |
+|======O=========================OO====|
+|                                      |
+|                                      |
+|            O                      O  |
+ -------------------------------------- 
+	User Guide to MaxSas					Page 9
+
+
+Input data: Bimodal.Sas                             
+Contrast =       1.0000000 x 10^28 m^-4.
+ spheroid: D x D x D*   1.00000000000000     
+Data conversion factor to 1/cm =  1.00000E+00
+Error scaling factor =  1.00000E+00
+Histogram bins are distributed in an increasing algebraic series.
+Minimum particle dimension D =        10.00 A.
+Maximum particle dimension D =       400.00 A.
+Number of histogram bins =   40.
+Maximum number of iterations allowed =   20.
+Program left MaxEnt routine after   11 iterations.
+Target chi-squared (# data points) =    38.
+Best value of chi-squared achieved =    38.038279.
+Entropy of the final distribution =    3.1389744.
+Entropy of    a flat distribution =    3.6888795.
+Total particles  =     1.57329E+16 per cubic cm.
+Total volume fraction of all scatterers =     0.008094741.
+Part of distribution smaller than        10.00 A =     0.00000000%.
+Part of distribution  larger than       400.00 A =     0.00215387%.
+Volume-weighted   mode D value =     70.00000 A.
+Volume-weighted   mean D value =    153.25044 A.
+Volume-weighted std. deviation =     72.92106 A.
+Number-weighted   mode D value =     70.00000 A.
+Number-weighted   mean D value =     83.89447 A.
+Number-weighted std. deviation =     33.47500 A.
+Minimum Q-vector =   7.4935700E-03 1/A.
+Maximum Q-vector =   9.9937470E-02 1/A.
+   User-specified background =        0.000000000 input data units
+        Suggested background =        0.000064250 input data units
+StDev of shift in background =        0.000330552 input data units
+ New background should give ChiSq =    36.6534794792953     
+================
+
+        By now, the tabular data of the size distribution and the intensity
+        fit have been written to the data file BIMODAL.OUT.  The summary
+        analysis of the distribution has also been written to the output file.
+
+        The program has found about 0.8% by volume of scatterers.  The
+        ChiSquared matches the number of intensity points (a requirement for
+        solution) and the background suggested is not far from the background
+        used (with respect to the sigma of the last intensity of 0.000123
+        1/cm).  Observe that the standard deviation of the suggested shift
+        in the background is much larger than the suggested shift.
+
+        It appears that we have a reasonable solution in hand.  Don't be too
+        hasty to believe it yet.  In order to test the stability of the
+        answer, analyze the BIMODAL.SAS data again, using all the same
+        parameters as before (just take the defaults) except use the
+        background (0.000064251 1/cm) suggested by MaxSas.
+	User Guide to MaxSas					Page 10
+
+
+        Therefore, you should respond affirmatively to the Stability Check
+        question. Note the default answer on the Stability Check question is
+        "N".
+
+================
+  The change in ChiSquared should be < 5%.
+  Run the Stability Check? (Y/<N>)
+Y{CR}
+  Setting BASE constant at    1.000000000000000E-12
+  MaxEnt routine beginning ...
+================
+
+        For this documentation, the results of the stability check will not be
+        shown.  There is not much change in the volume fraction after the
+        stability check (about 1% or so) for the supplied test distribution.
+
+        After the Stability Check, you should get this question again.
+        This time, respond like the following to quit the program.
+
+================
+  The change in ChiSquared should be < 5%.
+  Run the Stability Check? (Y/<N>)
+{CR}
+
+ The program is finished.
+ The output file is: BIMODAL.MAX
+
+Size distributions from SAS data using the maximum entropy criterion
+   version: 3.1 (PRJ)                ,   7 February 1990          
+  Input file? <Quit>
+{CR}
+
+$
+================
+	User Guide to MaxSas					Page 11
+
+
+        A FEW WORDS ABOUT NUMERICAL RESPONSES BY THE USER
+
+        If you respond to a numerical question with a "zero", the default
+        answer will be used.  That is the way this program works to give you
+        default answers.  If you want to set a parameter to be "zero", use an
+        infinitesimal value such as 1.0E-25.
+
+        All floating point responses should include a decimal point somewhere
+        in the mantissa of the response, otherwise the results are
+        unpredictable and very system dependent!
+
+
+
+        EXPLANATION OF QUESTIONS ASKED BY THE PROGRAM
+
+        Q: Input file? <Quit>
+
+        The input file contains the SAS intensity data as ordered triples of
+        Q-vector (in 1/A units), Intensity (in arbitrary units), and
+        statistical error of intensity (same as intensity units).  Note that
+        there are no initial header lines in the input file.  No more than the
+        first 300 data points (ordered triples) will be read from the input
+        file.
+
+        If you were to press {CR} without typing in a file name, the program
+        would quit (as indicated by the default).
+
+        If the input file does not exist, the program will happily proceed to
+        ask you all the remaining questions it has.  Then and only then will
+        it find out that the file you named does not exist.  This will
+        generate a program crash.
+
+        A suggestion for input file name extensions is ".SAS" but this only a
+        suggestion.  The input file name may be up to 80 characters long.
+
+
+        Q: Output file?
+
+        This is the only question which has no default answer.  You must
+        answer this question with something.  If your answer is the same as
+        the input file name, the program will start over asking you for the
+        input file name.  This may be used as an easy exit if you specified
+        the wrong name.
+
+        The program does not check to see if the named output file already
+        exists.  On some systems (Macintosh and MS-DOS), the old file will be
+        erased and a new file created.  On other systems (VAX), a file with
+        the same name but a new version number will be created.  Forewarned is
+        forearmed.
+	User Guide to MaxSas					Page 12
+
+
+        My suggestion for MaxSas solution file name extensions is ".MAX" or
+        ".DIS".  The output file name may be up to 80 characters long.
+
+
+        Q: Minimum (Maximum) q-vector? [1/A]
+
+        Use Q-vector (actually Q-vector magnitude) in units of 1/Angstrom.
+        The user is allowed to exclude data points from the ends of the input
+        data. Only those data points satisfying qMin <= Q-vector <= qMax will
+        be analyzed.  The program is designed to only handle positive
+        Q-vectors.
+
+        Initially, qMin is set ridiculously low so that even the lowest data
+        point will be used.  Correspondingly, qMax is set high enough to
+        include all typical SAS Q-vectors.
+
+        The user should generally cut off the data when the signal-to-noise
+        ratio becomes poor.  Truncating earlier than this will lose
+        information about the smallest particles present in the sample.  Users
+        might note that it is not neccessary for all the intensity values to
+        be positive, although it is probably inadvisable to include more than
+        five negative ones.
+
+
+        Q: Scattering contrast? [10^28 m^-4]
+
+        The scattering contrast is the squared difference between the
+        scattering length density of particle and matrix.  If the contrast is
+        1.27E30 1/m**4, then enter the value 127.0.
+        By the way, 1.E28 1/m**4 = 1.E20 1/cm**4.
+
+        The user can either enter the true contrast here or reply {CR}, in
+        which case the final "volume fractions" obtained will have to be
+        divided by the contrast (in units of 1.E28 1/m**4) in order to obtain
+        genuine volume fractions.  The program is coded to accept scattering
+        contrast values no larger than one million units of 1.0E28 (1.0e34)
+        1/m**4.
+
+
+        Q: Factor to convert data to 1/cm?
+
+        If the intensity values in the input file were not in units of 1/cm,
+        enter the constant to convert them into such units.  If they were
+        already in 1/cm units, good for you, so just press {CR} to accept the
+        default.  The program is coded to accept conversion values no larger
+        than 1000.0.
+	User Guide to MaxSas					Page 13
+
+
+        Q: Error scaling factor?
+
+        Here is an opportunity for you to try analyzing your data with
+        different ratios of signal to noise.  If you think that the errors in
+        the input file were underspecified, you may multiply them by this
+        constant.  More on this later as this will have a major influence upon
+        the analysis.
+
+
+        Q: Background?
+
+        This program has left you the opportunity to subtract a constant
+        intensity value.  A good initial approximation will put you on the
+        road to a good analysis of the data.  Remarkably, the background may
+        take any value, positive or negative.  If you want to set the
+        background back to zero, use infinitesimal (such as 1.E-25) rather
+        instead.  More on background later.
+
+
+        Q: Spheroids: D x D x vD,  Aspect ratio (v)?
+
+        The scattering form factor currently implemented is that discussed by
+        [Roess, 1947].  A special case of this ellipsoid of revolution,
+        whose outside dimensions are D x D x vD, is the sphere whose form
+        factor is described in [Culverwell, 1986] and [Potton, 1988a].
+
+        It is possible to select any aspect ratio (within reason) using this
+        model and the program only checks to see that you have entered a
+        positive value.  Special care has been taken to ensure that the volume
+        fractions determined by this model are correct.
+
+        For a full explanation of the coding of this model (from eq. 4, 5, & 6
+        of [Roess, 1947]), see the source code listing.  Look for the routine
+        named "Spheroid."
+
+        Remember that the distributions that are output are in terms of the
+        dimension "D".  The volume of this type of spheroid is (4Pi/3) v r**3.
+
+
+        Q: Bin step scale? (1=Linear, 2=Log)
+
+        "Linear" binning means that the diametral bins will increase in size
+        according to an algebraic series (e.g. 1, 2, 3, ...).  The other
+        method currently available is "logarithmic" binning where the increase
+        is according to a geometric series (e.g. 1.0, 1.05, 1.1025, ...).  Use
+        whichever method gives you a sufficient number of points over all the
+        peaks in the distribution.  Be aware that the calculated volume
+        fractions and number densities for the first few bins on the "log
+	User Guide to MaxSas					Page 14
+
+
+        scale" are likely to be artificially high because of the small bin
+        width and small particle volume corresponding to that bin (both these
+        terms divide the quantity that MaxSas derives to give you the volume
+        fraction").
+        
+        The width of each bin indexed by "i" is dD(i) = D(i+1) - D(i) so that
+        the number density of scatterers whose size is between D and D + dD is
+        truly N(D) dD.  The bin width appears in the output file as "dD."
+
+
+        Q: Number of histogram bins?
+
+        This is an integer between 2 and 100, limited by computer memory and
+        execution CPU time.  Use as few bins as you think you need to
+        adequately describe the distribution or as many bins as you want, up
+        to the maximum of 100.
+
+
+        Q: Maximum (Minimum) value of D? [A]
+
+        Use Angstrom units.  Because each intensity is a statistical
+        representation of ALL dimensions D in the sample, weighted by a
+        particular form factor (model function), the choice of maximum and
+        minimum D is left to the user. You may specify values that are beyond
+        the "peripheral vision" of your data to see if there is any
+        statistical support for such sizes in your data. Usually, one knows
+        something about the size distribution to be solved and a maximum
+        particle diameter can be estimated.  Ideally Dmax should be an
+        over-estimate; if too small a diameter range (Dmin to Dmax) is
+        specified, the program will likely fail.
+
+        The largest value for Dmax is something unreasonable for most SAS data
+        (1 million Angstroms).  If you try to exceed this limit, the program
+        will patiently ask you again for the maximum D value.  The smallest
+        Dmin value you may enter is 1.0 Angstrom.  The program will always
+        suggest Dmin = Dmax / (number of bins).
+
+        If Dmin >= Dmax, the program will start asking you questions all over.
+        You can use this as an easy way to correct a bad input prior to this
+        question, without having to stop and restart the program.
+
+
+        Q: Maximum number of iterations?
+
+        The number of iterations is best estimated by experience.  Skilling
+        and Bryan [Skilling, 1984] suggest that one should re-consider the
+        model if more than about 20 iterations are required for convergence
+        within the Maximum Entropy routine (MaxEnt).  The largest allowed
+        number of iterations is 200 but if you require this, your model is
+	User Guide to MaxSas					Page 15
+
+
+        probably not representing the data well.  The MaxEnt routine may not
+        require as many iterations as you specify. That just means the job was
+        easier than you "thought".
+
+        If, while the MaxEnt routine is iterating, you see that a few more
+        iterations will be required to achieve a satisfying solution than you
+        have specified here, all is not lost.  If the limit specified is
+        reached with no satisfying maximum entropy solution yet in hand, the
+        program will ask you if you want to iterate more.  You can then extend
+        the process.  For this reason, it is suggested that you specify a
+        lower value (rather than higher) so that you may check the program's
+        progress.  A low limit allows the MaxEnt routine to escape should the
+        fitting process fail to converge.  In such an event, one or more of
+        the input parameters should be adjusted to achieve a more harmonius
+        solution.
+
+        A good general suggestion for the number of iterations is the maximum
+        number that you are willing to see the MaxEnt routine perform and not
+        converge.  If the MaxEnt routine needs more iterations, it will ask
+        you for permission.
+
+
+        Q: The change in ChiSquared should be < 5%.
+           Run the Stability Check? (Y/<N>)
+
+        The Stability Check will perform the same analysis on the data set
+        with all the same parameters except that the suggested background will
+        be used. If the answer is stable, then all the results should be the
+        same.  If the answer is unsteady, then things will look different in
+        some way.  The prompt for a stability check will not appear unless the
+        program calculates that the shift should produce less than a 5%
+        change in the ChiSquared.
+
+
+        Q: Maximum iterations have been reached.
+           How many more iterations? <none>
+
+        This question occurs inside the MaxEnt routine when the maximum number
+        of iterations that you specified have been reached.  If you want the
+        MaxEnt routine to keep trying, specify a positive integer, otherwise
+        take the default which will generate the following output:
+                No convergence! # iter. = "IterMax"
+                File was: "InFile"
+        The program will then start over at the first question.
+	User Guide to MaxSas					Page 16
+
+
+        SCREEN PLOTS
+
+        LOG (ChiSq) vs. iteration number
+
+        This plot will appear after the second iteration of the MaxEnt
+        routine.  If the ChiSquared is nearly constant for 3 or more
+        consecutive iterations, this plot will not appear.  The "===="
+        bar in the plot indicates the target value of "N", the number
+        of intensity points.
+
+
+        Entropy vs. iteration number
+
+        This plot will appear for every iteration after the second.
+        The "====" bar in the plot indicates the entropy of a flat
+        distribution with the same number of diametral bins as have
+        been specified.
+
+
+        Residuals
+
+        The standardized residuals are the difference between the
+        intensity that is calculated from the distribution and the
+        input intensity, all divided by the input error.  For the
+        model to fit the data well, this plot should look featureless
+        (a.k.a. random).  The "====" bars are at +1 and -1 standard
+        deviations.  67% of the points should fit within the bars.  If
+        there is some systematic difference beween the model and the
+        data, the residuals will reveal it by showing some shape.
+
+
+        Distribution
+
+        The distribution plot appears at the end of each iteration and
+        shows the most recent distribution, whose calculated intensity
+        is to be compared with the input intensity and errors.  The
+        values in this plot are weighted (multiplied) by the bin
+        width.  This means that when the bins are distributed in a
+        geometric series, it will be quite difficult for the user to
+        see a small peak at smaller diameters in this plot.  Have no
+        fear though because this method weights the volume fraction in
+        a manner equal to that of the algebraic series.
+        
+
+        Volume weighted size dist.: V(r)N(r) versus r
+
+        Once the MaxEnt routine has decided that it has a solution,
+        this plot will appear. The vertical scale is the volume
+        distribution (technically the "volume-weighted differential
+	User Guide to MaxSas					Page 17
+
+
+        number distribution").  This is almost the same value as was
+        plotted in the "Distribution" plot except the bin width has
+        been divided out.  The horizontal scale is a linear axis on
+        which is plotted particle radii.
+        
+        NOTE:  The MaxEnt routine does its work with respect to
+                particle radii.  All answers are properly scaled to diametral
+                units in the output files. Additionally, the MaxEnt routine
+                works with intensities in 1/m units.  It seems to do some bad
+                things when the intensities are in 1/cm.  The FORTRAN code
+                isolates the user from this eccentricacy.  All unit
+                conversions are corrected in the output data.
+
+
+
+        OBSERVATIONS, HINTS, SUGGESTIONS
+
+        Stability Check of the Solution
+
+        In the example case above, a second analysis of the test distribution
+        was made to check the stability of the solution.  This is a very good
+        suggestion and is a must before you should present any data which you
+        have analyzed.  The stability check is made after a successful
+        solution has been obtained by re-analyzing with no parameters changed
+        except for the experimental background which the program suggests.  If
+        the answer is to be believed, the Stability Check should complete with
+        a comparable number of iterations and determine a comparable
+        background, volume fraction, and size distribution.
+
+
+        Getting the Background Close
+
+        It seems that there is a narrow thread on which the program may obtain
+        a reasonable analysis (within 20 iterations).  That thread has two
+        adjustable parameters: error scaling and constant background.  With a
+        larger error scaling term, the exact value of the background is less
+        important.  If one is not certain of the background level (and some of
+        the particle form models require a background different even from the
+        experimental background), it can be very difficult to guess within the
+        10% or so required with an error scaling factor of unity.
+
+        An algorithm that seems to navigate that thread to an acceptable
+        solution of a size distribution from a set of intensity data is as
+        follows: Decide upon the aspect ratio and the largest range of
+        dimensions that may exist in the data.  Run the analysis, choosing all
+        the data that you think will fit the model well.  Specify the contrast
+        if you know it.  Increase the errors by a factor of 5.0 (or maybe 10.
+        if conditions suggest).  Take a guess at the background (the
+        zero-order guess is zero).  Let the MaxEnt routine try to solve the
+	User Guide to MaxSas					Page 18
+
+
+        puzzle.  If it does not converge within 20 iterations, increase the
+        error scaling factor by double.  Keep doing this until the MaxEnt
+        routine says it has a "solution".  Good!  We are not interested in
+        this solution because the residuals probably look like a smooth, curved
+        function.  What we are trying to do is get the program to tell us what
+        it "thinks" the background should be. Now that the program has
+        suggested a background to us, try analyzing again with this background
+        and a slightly decreased error scaling factor.  Now we are on the
+        "thread".  Keep bringing the error scaling factor down (I know this
+        takes time) until you can be satisfied that the errors are
+        well-specified or that there is some systematic reason why the model
+        does not fit the data well. Whatever the background ends up as when
+        you are satisfied with the error scaling factor, accept it and
+        reanalyze the data again, leaving out any intensities that would be
+        below that background.
+
+        The background suggested by the program is based on a
+        statistically-weighted average of the difference between the intensity
+        calculated from the distribution (^I) and the input intensity data(I).
+        The exact equation looks like, where "s" are the input errors:
+           NewBkg = Bkg + AVERAGE( (I - ^I) / s**2 )
+
+
+
+        AN ALTERNATE TEST DISTRIBUTION: REVERSE.SAS  (by P.R. Jemian)
+
+        A new, alternate test distribution, REVERSE, has been created by P.R.
+           Jemian to test several key questions:
+        #1) How close can the program get to a known volume fraction?
+                Note that there is no specification for the exact answer
+                of total volume fraction for BIMODAL.SAS, only a normalized
+                distribution [Culverwell, 1986].
+        #2) Does MaxSas handle data in the size range of a
+                double-crystal intrument?
+        #3) Do the solved distributions always look the same?
+
+        The distribution is (once again) two Gaussians in f(D) space where the
+        Gaussian at lower diameter (1100 A, sigma = 300) is 25% the height of
+        the other Gaussian (3400 A, sigma = 680).  REVERSE.DIS is the starting
+        distribution, from which is calculated the scattering (REVERSE.SAS)
+        using the exact form factor for spheres.  An artificial volume
+        fraction of 1.5%, artificial scattering contrast of 10.0E28 1/m**4, an
+        artificial background of 5.0 1/cm, and artificial random noise of 4%
+        were added to the data.  A summary of the analysis of the REVERSE.SAS
+        dataset follows:
+	User Guide to MaxSas					Page 19
+
+
+		SUMMARY OF MAXSAS ANALYSIS OF REVERSE.SAS
+                               analysis         actual
+        qMin                    0.0005           ---
+        qMax                    0.025            ---
+        NumPts                     24            ---
+        ChiSquared              23.972           ---
+        Dmin                       80            ---
+        Dmax                     8000            ---
+        NumBins                   100            ---
+        flat entropy             4.605           ---
+        entropy                  3.925           ---
+        Total vol. frac.         1.436%          1.5%
+        suggested background     4.78            5.0
+        vol-mean diameter        3231            3172
+        number-mean diameter     1181             905
+        error scaling factor      1.0             1.0
+
+        It appears that the spheres model can deliver the character of the
+        correct distribution and volume fraction.
+
+        While the oscillations in the distribution suggest that there is
+        statistical evidence for such irregular features, these cannot be
+        believed as we know, a priori, the starting distribution and that
+        distribution is smooth.  We must conclude therefore that the entropy
+        is not adequately maximized, subject to the constraint that ChiSquared
+        equals the number of intensity points.  While decreasing the maximum
+        value allowed for TEST (currently set at 0.05) might seem to produce a
+        better alignment between the entropy and ChiSquared gradients, a value
+        as low as 0.0001 does not seem to alter the final entropy more than
+        about 0.5%.  A discussion with G.J. Daniell might bring us to resolve
+        this point.  Probably the oscillations have an origin in the
+        introduction of the baseline "b" into the definition of the entropy as
+        done by [Skilling, 1984].  This simplifies the math when calculating
+        the entropy gradients but that probably makes the algorithm of
+        [Skilling, 1984] very sensitive to gradients in the form factor.
+
+        One method to circumvent this unsightly "noise" in the solved
+        distributions has been to replace the form factors that are defined
+        with trig terms by ones defined by algebra.  These approximations are
+        only as good as the algebraic form can model the scattering and can
+        render truly fictional volume fractions in the worst possible cases.
+
+        To answer, then, the three questions above, the volume fraction of the
+        solution was very close to the actual volume fraction.  The mean
+        diameter was also very close, with the volume-weighted mean being the
+        closest.  The solved distribution was very close to the input
+        distribution which differed dramatically in shape to the distribution
+        of BIMODAL.SAS, hence the solved distributions do not always look
+        alike.  The range of diameters in the distribution for REVERSE.SAS was
+	User Guide to MaxSas					Page 20
+
+
+        in the range of the double-crystal instrument and so that question can
+        be answered affirmatively.  The answers are also believable and so
+        MaxSas is not limited by the experimental range of a particular type
+        of scattering camera.
+
+
+
+        FAILURES
+
+        In ideal circumstances when the program is iterating successfully the
+        user will observe the value of ChiSquared diminishing until it closely
+        approaches its final target value, which is the total number of data
+        points being used. Then in the final few iterations the entropy, which
+        had been steadily decreasing, will be seen to increase. The residuals
+        will become more randomly distributed with each iteration (a sign of a
+        good fit to the data) and the size distribution will slowly converge
+        to its final form. The program will then exit from the fitting
+        routine. This is the behaviour observed when the program is run using
+        the example data set.
+
+        It is quite possible for the fitting routine to fail to converge at
+        the first attempt. If this happens the program will return to the
+        calling routine after it has completed the maximum number of
+        iterations specified in the input section above and display the
+        following message:
+
+         No convergence! # iter. = "MaxIter"
+         File was: "InFile"
+
+        The program will then return to the input section to begin
+        a new analysis.
+
+        There are a number of problems which can arise.  Some of these are
+        annoying bugs in the program which are gradually being sorted out.
+        The usual symptoms of trouble are:
+          i) the program suddenly suffers 'divide' or 'square-root'
+                execution errors
+         ii) it gets caught in a perpetual loop
+                (Hopefully, these errors have been trapped or corrected.
+                The bulk of them are from passing a literal variable as
+                a parameter to a subroutine or function. The size of the
+                argument is implied by the caller but actually
+                specified, sometimes differently, by the called
+                subroutine or function.  The error is then, "passing the
+                wrong size argument on the stack" which has been
+                corrected by setting a variable, of known size, to the
+                value of the literal and then passing the variable.)
+
+	User Guide to MaxSas					Page 21
+
+
+        The following remedies should be considered:
+          1) take out points at either end of the data to change the program's
+                calculation trajectory
+          2) change the size range or number of bins to have the same effect
+          3) consider that ChiSquared is being pushed too hard so the error
+                scaling can be increased and the point of tragedy is
+                never reached
+          4) adjust the constant background
+          5) re-assess the DISTRIBUTION of assigned errors on the input
+                data -- Do they reflect the true scatter ?
+          6) re-assess the particle form model with regard to the system
+          7) is the scattering just too weak or noisy for a respectable program
+                like this one ?
+
+        Considerations (1)-(3) should resolve matters if you have encountered
+        one of the program bugs; if not, then (4)-(7) may apply.  In most
+        situations, time spent adjusting the flat background seems to give the
+        best return on effort expended.  However it is worth considering a few
+        points relevant to (6) above.  The basic assumption is that the
+        scattering system comprises a DILUTE assembly of identically shaped
+        scattering particles, all of one kind, suspended in a uniform medium
+        or matrix.  Inter-particle interferences due to close packing at high
+        concentrations are not presently considered.  (J.E. Epperson is trying
+        to develop methods for treating these.) Such inter-particle
+        interferences are likely to result in run-failures or fictitious size
+        distributions.  A disordered interconnecting scattering interface
+        within the sample may also lead to spurious results.  Also the aspect
+        ratio, cannot be determined from SAS data alone: if a size
+        distribution can be obtained with one value, then size distributions
+        should be equally obtainable over all realistic values for a given
+        scattering particle type.  Thus both the choice of shape function and
+        the aspect ratio should be determined from independent methods such as
+        electron microscopy, theoretical models etc.
+
+
+        ERROR SCALING
+
+        The most likely reason is that the quoted errors are too small to
+        allow a close fit to the data by an algorithm that uses the ChiSquared
+        test as its consistency criterion.  This would probably be the case
+        if, during the iterations, the user observed chi-squared
+        asymptotically approaching a final value larger than the number of
+        data points being used, the residuals becoming randomly distributed
+        and the size distribution converging to a well behaved final form
+        (that is to say, one that extends over more than one histogram bin, is
+        not wildly oscillatory, and is small at either end of the diameter
+        range).  Should this occur, the easiest way to rectify it is to
+        specify an error scaling factor that is greater than unity. An
+	User Guide to MaxSas					Page 22
+
+
+        under-estimate of this factor is provided by the smallest value of
+        SQRT(ChiSquared/N) ever achieved by the program.  A reasonable error
+        scaling factor would then be, say, 1.1 times this estimate.  The user
+        should note, however, that this device should not be abused; if the
+        rescaled errors are much larger than their true values then
+        statistically significant information from the scattering pattern is
+        being thrown away.  Any size distribution is consistent with data of
+        infinite errors!
+
+
+        CONSTANT BACKGROUND
+
+        Another likely cause of a convergence failure is an incorrect constant
+        background subtraction.  If during the previous iterations the user
+        observed a large spike (that was not expected or predicted) at the low
+        diameter end of the size distribution then it is quite possible that
+        there is a constant background remaining in the data (the program is
+        interpreting the uniform intensity as the scattering from very small
+        particles).  Conversely, if the size distribution is unreasonably
+        biased towards large particles then it is possible that too much
+        background has been removed and the data is missing information about
+        the smallest particles in the sample.  In either of these cases the
+        user should specify a different amount of background.  The user is
+        reminded that of all the input parameters, the constant background
+        subtraction is the one that needs to be known most accurately (indeed,
+        if this parameter is inaccurate by more than about 10% then the
+        program will probably fail).  So any length of time the user spends on
+        a precise evaluation of the constant background is probably well
+        spent.
+
+
+        OTHER PARAMETERS
+
+        From a study of the size distributions plotted during the iterations
+        the user may be able to adjust some other input parameters in order to
+        accelerate convergence.  It might, for example, be clear that the
+        first estimate of a maximum particle diameter was too large or too
+        small (although if it was very far out in either direction the program
+        would have crashed rather than simply failed to converge).  And it
+        might become clear that the size distribution can be adequately
+        described by a histogram containing fewer bins than was originally
+        thought.  Judicious removal of some particularly doubtful data points
+        (for example those which differ in magnitude from their neighbours by
+        an extent far greater than their errors would suggest) is also
+        possible, though this is unlikely to have a great effect on the
+        convergence rate.
+	User Guide to MaxSas					Page 23
+
+
+        Precisely what to do in any particular case of convergence failure
+        depends on experience of the program which can only be gained by
+        experimenting with it.  Prospective users, once they have analyzed the
+        BIMODAL.SAS data set are urged to re-analyze it using different
+        combinations of diameter range, number of histogram bins, Q-vector
+        range, aspect ratio, error scaling, and constant background (both
+        positive and negative) to see how these variations affect the
+        execution of the program and the final volume fraction distributions
+        that the program produces (if it produces any).  The user should then
+        be able to recognize when and why the program is failing in any
+        particular fitting attempt and be able to eliminate the cause.
+
+
+
+        LAST DITCH
+
+        Any user who has, without success, tried all of the above suggestions
+        for correcting a failure of the program should feel free to contact
+        any of the persons listed here at any time for further advice and
+        suggestions.
+
+        Andrew Allen
+        Materials Physics and Metallurgy Division B521
+        UKAEA Harwell Laboratory
+        Didcot
+        Oxon.
+        OX11 0RA
+        UNITED KINGDOM
+        Tel: -44-235-24141 ext 5171
+
+
+        Pete R. Jemian
+        Department of Materials Science and Engineering
+        Robert R. McCormick School of Engineering and Applied Science
+        Northwestern University
+        2145 Sheridan Road
+        Evanston, Illinois 60208
+        (708) 491-7794
+        BITNET: JEMIAN@NUACC
+        The telephone answering machine is normally on at (708) 866-6533
+	User Guide to MaxSas					Page 24
+
+
+        OUTPUT DATA
+
+        One output file is created by the program - a data file whose name is
+        user supplied (e.g. BIMODAL.MAX).
+
+        The first few lines of output of a typical output file are as follows:
+
+================
+ Results of maximum entropy analysis of SAS
+    version 3.1 (PRJ)                , edited:7 February 1990          
+
+ input file:    Bimodal.Sas                             
+ output file:   Bimodal.Out                             
+ --------------------------------------------
+
+ N(D) dD is number of particles/cm**3
+    whose size is between D and D + dD
+
+        D, A      V(D)*N(D), 1/A          N(D), 1/A/cm^3          dD, A
+        ----      --------------          --------------          -----
+       10.00         8.81630E-15             1.68379E+07              10.0000
+       20.00         2.16369E-14             5.16543E+06              10.0000
+       30.00         6.36171E-14             4.49999E+06              10.0000
+================
+
+        The four columns are separated by TABs and also spaces.
+        D               dimension of scatterer in Angstroms
+        V(D)*N(D)       volume-weighted differential number distribution
+        N(D)            differential number distribution
+        dD              width of the bin in Angstroms in terms of "D"
+
+        V(D)*N(D) is the distribution solved by the program.  N(D) is the
+        distribution most often reported by other analysis techniques (TEM,
+        mercury porosimetry, etc.).  N(D) is calculated from the second one by
+        dividing by the particle volume.  This table continues as:
+
+================
+      380.00         8.11590E-07             2.82480E+10              10.0000
+      390.00         5.74524E-07             1.84976E+10              10.0000
+      400.00         3.71052E-07             1.10728E+10              10.0000
+
+
+
+
+      Q 1/A           I 1/cm         ^I 1/cm         dI 1/cm               z
+      -----           ------         -------         -------            ----
+ 7.4936E-03       2.1200E+00      2.2330E+00      1.6700E-01       -0.676923
+ 9.9975E-03       1.9000E+00      1.9596E+00      1.0200E-01       -0.584780
+ 1.2501E-02       1.7840E+00      1.6605E+00      6.6900E-02        1.845438
+================
+	User Guide to MaxSas					Page 25
+
+
+        These columns are also separated by a combination of spaces and tabs
+        Q       input Q-vector in 1/Angstrom units
+        I       input intensity in 1/cm units
+        ^I      intensity calculated from the distribution above
+        dI      input error in 1/cm, scaled by the error scaling factor
+        z       standardized residual, z = (I - ^I)/dI
+
+================
+ 9.2452E-02       4.3770E-03      4.2886E-03      1.6700E-04        0.529397
+ 9.5008E-02       3.4510E-03      3.7178E-03      1.5000E-04       -1.778752
+ 9.7564E-02       3.5330E-03      3.2077E-03      1.3500E-04        2.409922
+ 9.9937E-02       2.9560E-03      2.7793E-03      1.2300E-04        1.436465
+
+
+Input data: Bimodal.Sas                             
+Contrast =       1.0000000 x 10^28 m^-4.
+ spheroid: D x D x D*   1.00000000000000     
+Data conversion factor to 1/cm =  1.00000E+00
+================
+
+        After all the intensities have been printed, the same summary appears
+        in the output file as appeared on the screen shown above.  Only the
+        first few lines are shown here.
+
+        The program creates two extra pseudo-particle sizes, one that is
+        "smaller" than the smallest bin in the distribution and one that is
+        "larger" than the largest bin in the distribution.  The scattering
+        from these pseudo-particles is approximated at low angles by the
+        Guinier relation and at high angles by the Porod relation.  The object
+        of the user is to define the dimension range large enough that neither
+        of these pseudo-particles develops any significant volume fraction.
+        The percentage of the distribution that was assigned to each of these
+        sizes is reported.  Provided that both are small compared to the total
+        volume fraction of scatterers (also given in the summary) then the
+        program has detected essentially all of the particles contributing to
+        the observed scattering.  If they are not, it may be worth re-running
+        the program with a different diameter range in order to detect this
+        extraneous volume fraction.
+
+
+
+        SOURCE CODE
+
+        This Maximum Entropy program was originally written in BASIC by G.J.
+        Daniell (Department of Physics, Southampton University, UK) and later
+        translated into FORTRAN and adapted for SAS analysis by J.A. Potton.
+        Further modifications have been made by I.D. Culverwell, G.P. Clarke
+        and A.J. Allen (UKAEA Harwell Laboratory,UK) and P.R. Jemian
+        (Northwestern University, USA).
+	User Guide to MaxSas					Page 26
+
+
+        There is only one source code module, MaxSas.For.  Compile and link it
+        with the fastest floating point math that you can get your hands on.
+
+        Unfortunately, some data storage had to be placed in COMMON because of
+        the limitation of the Language Systems MPW version 1.2.1 FORTRAN
+        compiler for the Apple Macintosh.  Because of this compiler's
+        eccentricacies, there is one compiler-dependent line of code very near
+        the first executable statement.  If you use this compiler, un-comment
+        this line so that you get a chance to see the output.  (Compiler
+        dependence, ugh!)
+
+        As it stands on 7 February 1990, the code will now compile on:
+            Digital Equipment Corporation VAX 11/785,VMS version 5.2
+            Apple Macintosh, Language Systems FORTRAN v. 1.2.1
+            Apple Macintosh, Microsoft (Absoft) FORTRAN v. 2.2 compiler
+            MS-DOS (e.g. IBM-PC), Microsoft FORTRAN v. 5.0
+        Of course the program RUNS on these computers as well.  Quite well!
+
+        Most of the comments in the source code have been added by P.R.
+        Jemian. Where they exist, they are usually quite explanatory.  Where
+        they do not exist, consult the references of [Skilling, 1984] for the
+        operation of MaxEnt.
+
+
+
+        REFERENCES
+
+        J. Skilling and R.K. Bryan; MON NOT R ASTR SOC 211 (1984) 111 - 124.
+        J.A. Potton, G.J. Daniell, and B.D. Rainford; Proc. Workshop on Neutron
+           Scattering Data Analysis, Rutherford Appleton Laboratory, UK, 1986;
+           ed. M.W. Johnson, IOP Conference Series 81 (1986) 81 - 86, Institute
+           of Physics, Bristol, UK.
+        I.D. Culverwell and G.P. Clarke; Proc. Workshop on Neutron
+           Scattering Data Analysis, Rutherford Appleton Laboratory, UK, 1986;
+           ed. M.W. Johnson, IOP Conference Series 81 (1986) 87 - 96, Institute
+           of Physics, Bristol, UK.
+        J.A. Potton, G.J. Daniell, & B.D. Rainford; J APPL CRYST 21
+           (1988a) 663 - 668.
+        J.A. Potton, G.J. Daniell, & B.D. Rainford; J APPL CRYST 21
+           (1988b) 891 - 897.
+        L.C. Roess & C.G. Shull; J APPL PHYS 18 (1947) 308-313.
+
