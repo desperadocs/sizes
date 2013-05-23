@@ -11,6 +11,7 @@ Contents:
    about
    sbmaxent
    sizes
+   maxsas/index
 
 
 

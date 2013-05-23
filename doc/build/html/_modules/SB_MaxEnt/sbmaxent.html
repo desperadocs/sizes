@@ -80,11 +80,11 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="c">########### SVN repository information ###################</span>
-<span class="c"># $Date: 2013-05-22 15:28:36 -0500 (Wed, 22 May 2013) $</span>
+<span class="c"># $Date: 2013-05-22 18:05:57 -0500 (Wed, 22 May 2013) $</span>
 <span class="c"># $Author: jemian $</span>
-<span class="c"># $Revision: 814 $</span>
+<span class="c"># $Revision: 815 $</span>
 <span class="c"># $URL: https://subversion.xray.aps.anl.gov/small_angle/sizes/trunk/src/SB_MaxEnt/sbmaxent.py $</span>
-<span class="c"># $Id: sbmaxent.py 814 2013-05-22 20:28:36Z jemian $</span>
+<span class="c"># $Id: sbmaxent.py 815 2013-05-22 23:05:57Z jemian $</span>
 <span class="c">########### SVN repository information ###################</span>
 
 
@@ -106,26 +106,18 @@
 <span class="n">MOVE_PASSES</span>       <span class="o">=</span> <span class="mf">0.001</span>                   <span class="c"># convergence test in routine: move</span>
 
 
-<span class="n">chisq</span> <span class="o">=</span> <span class="mf">0.0</span>
-<span class="n">chizer</span> <span class="o">=</span> <span class="mf">0.0</span>
-<span class="n">beta</span> <span class="o">=</span> <span class="bp">None</span>
-<span class="n">c1</span> <span class="o">=</span> <span class="bp">None</span>
-<span class="n">c2</span> <span class="o">=</span> <span class="bp">None</span>
-<span class="n">s1</span> <span class="o">=</span> <span class="bp">None</span>
-<span class="n">s2</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="c"># chisq = 0.0</span>
+<span class="c"># chizer = 0.0</span>
+<span class="c"># beta = None</span>
+<span class="c"># c1 = None</span>
+<span class="c"># c2 = None</span>
+<span class="c"># s1 = None</span>
+<span class="c"># s2 = None</span>
 
 
 <div class="viewcode-block" id="MaxEntException"><a class="viewcode-back" href="../../sbmaxent.html#SB_MaxEnt.sbmaxent.MaxEntException">[docs]</a><span class="k">class</span> <span class="nc">MaxEntException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span> 
     <span class="sd">&#39;&#39;&#39;Any exception from this module&#39;&#39;&#39;</span>
     <span class="k">pass</span>
-
-</div>
-<div class="viewcode-block" id="MaxEnt"><a class="viewcode-back" href="../../sbmaxent.html#SB_MaxEnt.sbmaxent.MaxEnt">[docs]</a><span class="k">class</span> <span class="nc">MaxEnt</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;manage the iterative method described by Skilling and Bryan&#39;&#39;&#39;</span>
-    <span class="c"># TODO: Consider making this a class, due to global variable use </span>
-    
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">datum</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">base</span><span class="p">,</span> <span class="n">IterMax</span><span class="p">,</span> <span class="n">image_to_data</span><span class="p">,</span> <span class="n">data_to_image</span><span class="p">,</span> <span class="n">G</span><span class="p">):</span>
-        <span class="k">pass</span>
 
 </div>
 <div class="viewcode-block" id="opus"><a class="viewcode-back" href="../../sbmaxent.html#SB_MaxEnt.sbmaxent.opus">[docs]</a><span class="k">def</span> <span class="nf">opus</span> <span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">G</span><span class="p">):</span>
@@ -134,9 +126,9 @@
 <span class="sd">    </span>
 <span class="sd">    default definition, caller can use this definition or provide an alternative</span>
 <span class="sd">    </span>
-<span class="sd">    :param float[N] image: solution</span>
-<span class="sd">    :param float[M][N] G: transformation matrix</span>
-<span class="sd">    :returns float[M]: calculated data</span>
+<span class="sd">    :param float[N] image: solution, ndarray of shape (N)</span>
+<span class="sd">    :param float[M][N] G: transformation matrix, ndarray of shape (M,N)</span>
+<span class="sd">    :returns float[M]: calculated data, ndarray of shape (M)</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="n">G</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
 
@@ -147,13 +139,86 @@
 <span class="sd">    </span>
 <span class="sd">    default definition, caller can use this definition or provide an alternative</span>
 <span class="sd">    </span>
-<span class="sd">    :param float[M] data: observations</span>
-<span class="sd">    :param float[M][N] G: transformation matrix</span>
-<span class="sd">    :returns float[N]: calculated image</span>
+<span class="sd">    :param float[M] data: observations, ndarray of shape (M)</span>
+<span class="sd">    :param float[M][N] G: transformation matrix, ndarray of shape (M,N)</span>
+<span class="sd">    :returns float[N]: calculated image, ndarray of shape (N)</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="k">return</span> <span class="n">G</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
 </div>
+<div class="viewcode-block" id="MaxEnt"><a class="viewcode-back" href="../../sbmaxent.html#SB_MaxEnt.sbmaxent.MaxEnt">[docs]</a><span class="k">class</span> <span class="nc">MaxEnt</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;manage the iterative method described by Skilling and Bryan&#39;&#39;&#39;</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">base</span><span class="p">,</span> <span class="n">IterMax</span><span class="p">,</span> <span class="n">image_to_data</span><span class="p">,</span> <span class="n">data_to_image</span><span class="p">,</span> <span class="n">G</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">datum</span>       <span class="c"># measured data, ndarray of shape (M)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span> <span class="o">=</span> <span class="n">sigma</span>      <span class="c"># estimated uncertainties of data, ndarray of shape (M)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">IterMax</span> <span class="o">=</span> <span class="n">IterMax</span>  <span class="c"># int, maximum number of iterations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">iter</span> <span class="o">=</span> <span class="mi">0</span>           <span class="c"># current number of completed iterations</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base</span> <span class="o">=</span> <span class="n">base</span>        <span class="c"># default value of solution, ndarray of shape (N)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image_to_data</span> <span class="o">=</span> <span class="n">image_to_data</span>  <span class="c"># method reference</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_to_image</span> <span class="o">=</span> <span class="n">data_to_image</span>  <span class="c"># method reference</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">G</span> <span class="o">=</span> <span class="n">G</span>              <span class="c"># response matrix, ndarray of shape (M,N)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">M</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>      <span class="c"># number of measured data points</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>      <span class="c"># number of points in solution (image)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">blank</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>  <span class="c"># use the average value of base</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chizer</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">)</span>         <span class="c"># ?</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">chtarg</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">M</span><span class="p">)</span>         <span class="c"># target value of ChiSqr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">=</span> <span class="n">base</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>                <span class="c"># starting distribution is base</span>
+        
+<div class="viewcode-block" id="MaxEnt.sum_f"><a class="viewcode-back" href="../../sbmaxent.html#SB_MaxEnt.sbmaxent.MaxEnt.sum_f">[docs]</a>    <span class="k">def</span> <span class="nf">sum_f</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;returns :math:`\\sum_i{f_i}`&#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">)</span>
+        </div>
+<div class="viewcode-block" id="MaxEnt.standardized_residuals"><a class="viewcode-back" href="../../sbmaxent.html#SB_MaxEnt.sbmaxent.MaxEnt.standardized_residuals">[docs]</a>    <span class="k">def</span> <span class="nf">standardized_residuals</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        returns vector :math:`\\vec{z}` of standardized_residuals</span>
+<span class="sd">        </span>
+<span class="sd">        where:</span>
+<span class="sd">        </span>
+<span class="sd">        * :math:`\\vec{z} = (\\vec{y} - \\hat{\\vec{y}} / \\vec{\\sigma}`</span>
+<span class="sd">        * :math:`\\vec{y}`: measured data (`self.data`)</span>
+<span class="sd">        * :math:`\\hat{\\vec{y}} = ` `self.image_to_data(self.f, self.G)`</span>
+<span class="sd">        * :math:`\\vec{\\sigma}`: estimated uncertainties of :math:`\\vec{y} (`self.sigma`)`</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">y_hat</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_to_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">-</span> <span class="n">y_hat</span><span class="p">)</span> <span class="o">/</span> <span class="n">esd</span>
+        </div>
+<div class="viewcode-block" id="MaxEnt.chi_squared"><a class="viewcode-back" href="../../sbmaxent.html#SB_MaxEnt.sbmaxent.MaxEnt.chi_squared">[docs]</a>    <span class="k">def</span> <span class="nf">chi_squared</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;returns vector :math:`\\sum{z}`&#39;&#39;&#39;</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">standardized_residuals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">z</span><span class="o">*</span><span class="n">z</span><span class="p">)</span>
+        </div>
+<div class="viewcode-block" id="MaxEnt.compute_beta"><a class="viewcode-back" href="../../sbmaxent.html#SB_MaxEnt.sbmaxent.MaxEnt.compute_beta">[docs]</a>    <span class="k">def</span> <span class="nf">compute_beta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;beta vector: ... meaning ...&#39;&#39;&#39;</span>
+        </div>
+<div class="viewcode-block" id="MaxEnt.MaxEnt_iteration"><a class="viewcode-back" href="../../sbmaxent.html#SB_MaxEnt.sbmaxent.MaxEnt.MaxEnt_iteration">[docs]</a>    <span class="k">def</span> <span class="nf">MaxEnt_iteration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;one iteration of the MaxEnt algorithm&#39;&#39;&#39;</span>
+        <span class="c"># Note that the order of subscripts for</span>
+        <span class="c"># &quot;xi&quot; and &quot;eta&quot; has been reversed from</span>
+        <span class="c"># the convention used in the FORTRAN version</span>
+        <span class="c"># to enable parts of them to be passed as</span>
+        <span class="c"># as vectors to &quot;image_to_data&quot; and &quot;data_to_image&quot;.</span>
+        <span class="n">xi</span>      <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">SEARCH_DIRECTIONS</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
+        <span class="n">eta</span>     <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">SEARCH_DIRECTIONS</span><span class="p">,</span> <span class="n">npt</span><span class="p">))</span>
+        <span class="n">beta</span>    <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">SEARCH_DIRECTIONS</span><span class="p">))</span>
+        <span class="c"># s1      = 0*numpy.ndarray((SEARCH_DIRECTIONS))</span>
+        <span class="c"># c1      = 0*numpy.ndarray((SEARCH_DIRECTIONS))</span>
+        <span class="n">s2</span>      <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">SEARCH_DIRECTIONS</span><span class="p">,</span> <span class="n">SEARCH_DIRECTIONS</span><span class="p">))</span>
+        <span class="n">c2</span>      <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">SEARCH_DIRECTIONS</span><span class="p">,</span> <span class="n">SEARCH_DIRECTIONS</span><span class="p">))</span>
+        
+        <span class="n">fSum</span>  <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">sum_f</span><span class="p">()</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">standardized_residuals</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>       <span class="c"># SB eq. 3</span>
+        <span class="n">chisq</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">chi_squared</span><span class="p">()</span>                  <span class="c"># SB eq. 4</span>
+        <span class="n">ox</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span> <span class="o">*</span> <span class="n">z</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span>                    <span class="c"># gradient of Chi^2</span>
+
+        <span class="n">cgrad</span> <span class="o">=</span> <span class="n">data_to_image</span> <span class="p">(</span><span class="n">ox</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">G</span><span class="p">)</span>          <span class="c"># cgrad[i] = del(C)/del(f[i]), SB eq. 8</span>
+        <span class="n">sgrad</span> <span class="o">=</span> <span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">base</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">blank</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>  <span class="c"># sgrad[i] = del(S)/del(f[i])</span>
+        <span class="n">snorm</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">*</span> <span class="n">sgrad</span><span class="o">*</span><span class="n">sgrad</span><span class="p">))</span>    <span class="c"># entropy term</span>
+        <span class="n">cnorm</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">*</span> <span class="n">cgrad</span><span class="o">*</span><span class="n">cgrad</span><span class="p">))</span>    <span class="c"># ChiSqr term </span>
+        <span class="n">tnorm</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">f</span> <span class="o">*</span> <span class="n">sgrad</span> <span class="o">*</span> <span class="n">cgrad</span><span class="p">)</span>             <span class="c"># norm for gradient term TEST </span>
+
+</div></div>
 <div class="viewcode-block" id="MaxEnt_SB"><a class="viewcode-back" href="../../sbmaxent.html#SB_MaxEnt.sbmaxent.MaxEnt_SB">[docs]</a><span class="k">def</span> <span class="nf">MaxEnt_SB</span><span class="p">(</span><span class="n">datum</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">base</span><span class="p">,</span> <span class="n">IterMax</span><span class="p">,</span> <span class="n">image_to_data</span><span class="p">,</span> <span class="n">data_to_image</span><span class="p">,</span> <span class="n">G</span><span class="p">,</span> <span class="n">report</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">    do the complete Maximum Entropy algorithm of Skilling and Bryan</span>
@@ -179,9 +244,9 @@
     <span class="n">xi</span>      <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">SEARCH_DIRECTIONS</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
     <span class="n">eta</span>     <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">SEARCH_DIRECTIONS</span><span class="p">,</span> <span class="n">npt</span><span class="p">))</span>
     <span class="n">beta</span>    <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">SEARCH_DIRECTIONS</span><span class="p">))</span>
-    <span class="n">s1</span>      <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">SEARCH_DIRECTIONS</span><span class="p">))</span>
+    <span class="c"># s1      = 0*numpy.ndarray((SEARCH_DIRECTIONS))</span>
+    <span class="c"># c1      = 0*numpy.ndarray((SEARCH_DIRECTIONS))</span>
     <span class="n">s2</span>      <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">SEARCH_DIRECTIONS</span><span class="p">,</span> <span class="n">SEARCH_DIRECTIONS</span><span class="p">))</span>
-    <span class="n">c1</span>      <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">SEARCH_DIRECTIONS</span><span class="p">))</span>
     <span class="n">c2</span>      <span class="o">=</span> <span class="mi">0</span><span class="o">*</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">SEARCH_DIRECTIONS</span><span class="p">,</span> <span class="n">SEARCH_DIRECTIONS</span><span class="p">))</span>
 
     <span class="c"># TODO: replace blank (scalar) with base (vector)</span>
@@ -226,8 +291,8 @@
 <span class="c">#         print_arr(&quot;MaxEnt: xi.transpose()&quot;, xi.transpose())</span>
 
         <span class="c"># prepare the search directions for the conjugate gradient technique</span>
-	<span class="n">c1</span> <span class="o">=</span> <span class="n">xi</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">cgrad</span><span class="p">)</span> <span class="o">/</span> <span class="n">chisq</span>		    <span class="c"># C_mu</span>
-        <span class="n">s1</span> <span class="o">=</span> <span class="n">xi</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">sgrad</span><span class="p">)</span>			    <span class="c"># S_mu</span>
+        <span class="n">c1</span> <span class="o">=</span> <span class="n">xi</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">cgrad</span><span class="p">)</span> <span class="o">/</span> <span class="n">chisq</span>		            <span class="c"># C_mu</span>
+        <span class="n">s1</span> <span class="o">=</span> <span class="n">xi</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">sgrad</span><span class="p">)</span>                          <span class="c"># S_mu</span>
 <span class="c">#         print_vec(&quot;MaxEnt: c1&quot;, c1)</span>
 <span class="c">#         print_vec(&quot;MaxEnt: s1&quot;, s1)</span>
 

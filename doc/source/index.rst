@@ -11,7 +11,9 @@ Not all features of the C and FORTRAN versions of the code are yet available.
 The documentation for this version is rudimentary, as well.
 
 The manual for the FORTRAN version is available: 
-:download:`guide.pdf <../archive/guide.pdf>`
+:download:`guide.pdf <../archive/guide.pdf>` as well as a previous version
+of the FORTRAN documentation in the section here titled:
+:ref:`maxsas_userguide`.
 
 Contents:
 

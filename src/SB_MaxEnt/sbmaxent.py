@@ -54,26 +54,18 @@ MAX_MOVE_LOOPS    = 500                     # for no solution in routine: move,
 MOVE_PASSES       = 0.001                   # convergence test in routine: move
 
 
-chisq = 0.0
-chizer = 0.0
-beta = None
-c1 = None
-c2 = None
-s1 = None
-s2 = None
+# chisq = 0.0
+# chizer = 0.0
+# beta = None
+# c1 = None
+# c2 = None
+# s1 = None
+# s2 = None
 
 
 class MaxEntException(Exception): 
     '''Any exception from this module'''
     pass
-
-
-class MaxEnt(object):
-    '''manage the iterative method described by Skilling and Bryan'''
-    # TODO: Consider making this a class, due to global variable use 
-    
-    def __init__(datum, sigma, base, IterMax, image_to_data, data_to_image, G):
-        pass
 
 
 def opus (image, G):
@@ -82,9 +74,9 @@ def opus (image, G):
     
     default definition, caller can use this definition or provide an alternative
     
-    :param float[N] image: solution
-    :param float[M][N] G: transformation matrix
-    :returns float[M]: calculated data
+    :param float[N] image: solution, ndarray of shape (N)
+    :param float[M][N] G: transformation matrix, ndarray of shape (M,N)
+    :returns float[M]: calculated data, ndarray of shape (M)
     '''
     return G.transpose().dot(image)
 
@@ -95,11 +87,84 @@ def tropus (data, G):
     
     default definition, caller can use this definition or provide an alternative
     
-    :param float[M] data: observations
-    :param float[M][N] G: transformation matrix
-    :returns float[N]: calculated image
+    :param float[M] data: observations, ndarray of shape (M)
+    :param float[M][N] G: transformation matrix, ndarray of shape (M,N)
+    :returns float[N]: calculated image, ndarray of shape (N)
     '''
     return G.dot(data)
+
+
+class MaxEnt(object):
+    '''manage the iterative method described by Skilling and Bryan'''
+    
+    def __init__(data, sigma, base, IterMax, image_to_data, data_to_image, G):
+        self.data = datum       # measured data, ndarray of shape (M)
+        self.sigma = sigma      # estimated uncertainties of data, ndarray of shape (M)
+        self.IterMax = IterMax  # int, maximum number of iterations
+        self.iter = 0           # current number of completed iterations
+        self.base = base        # default value of solution, ndarray of shape (N)
+        self.image_to_data = image_to_data  # method reference
+        self.data_to_image = data_to_image  # method reference
+        self.G = G              # response matrix, ndarray of shape (M,N)
+        self.M = len(data)      # number of measured data points
+        self.N = len(base)      # number of points in solution (image)
+        
+        self.blank = sum(base) / len(base)  # use the average value of base
+        self.chizer = float(self.M)         # ?
+        self.chtarg = float(self.M)         # target value of ChiSqr
+        self.f = base.copy()                # starting distribution is base
+        
+    def sum_f(self):
+        '''returns :math:`\\sum_i{f_i}`'''
+        return sum(self.f)
+        
+    def standardized_residuals(self):
+        '''
+        returns vector :math:`\\vec{z}` of standardized_residuals
+        
+        where:
+        
+        * :math:`\\vec{z} = (\\vec{y} - \\hat{\\vec{y}} / \\vec{\\sigma}`
+        * :math:`\\vec{y}`: measured data (`self.data`)
+        * :math:`\\hat{\\vec{y}} = ` `self.image_to_data(self.f, self.G)`
+        * :math:`\\vec{\\sigma}`: estimated uncertainties of :math:`\\vec{y} (`self.sigma`)`
+        '''
+        y_hat = self.image_to_data(self.f, self.G)
+        return (self.data - y_hat) / esd
+        
+    def chi_squared(self):
+        '''returns vector :math:`\\sum{z}`'''
+        z = self.standardized_residuals(self)
+        return sum(z*z)
+        
+    def compute_beta(self):
+        '''beta vector: ... meaning ...'''
+        
+    def MaxEnt_iteration(self):
+        '''one iteration of the MaxEnt algorithm'''
+        # Note that the order of subscripts for
+        # "xi" and "eta" has been reversed from
+        # the convention used in the FORTRAN version
+        # to enable parts of them to be passed as
+        # as vectors to "image_to_data" and "data_to_image".
+        xi      = 0*numpy.ndarray((SEARCH_DIRECTIONS, n))
+        eta     = 0*numpy.ndarray((SEARCH_DIRECTIONS, npt))
+        beta    = 0*numpy.ndarray((SEARCH_DIRECTIONS))
+        # s1      = 0*numpy.ndarray((SEARCH_DIRECTIONS))
+        # c1      = 0*numpy.ndarray((SEARCH_DIRECTIONS))
+        s2      = 0*numpy.ndarray((SEARCH_DIRECTIONS, SEARCH_DIRECTIONS))
+        c2      = 0*numpy.ndarray((SEARCH_DIRECTIONS, SEARCH_DIRECTIONS))
+        
+        fSum  = self.sum_f()
+        z = self.standardized_residuals(self)       # SB eq. 3
+        chisq = self.chi_squared()                  # SB eq. 4
+        ox = -2 * z / self.sigma                    # gradient of Chi^2
+
+        cgrad = data_to_image (ox, self.G)          # cgrad[i] = del(C)/del(f[i]), SB eq. 8
+        sgrad = -numpy.log(self.f/self.base) / (self.blank*math.exp (1.0))  # sgrad[i] = del(S)/del(f[i])
+        snorm = math.sqrt(sum(self.f * sgrad*sgrad))    # entropy term
+        cnorm = math.sqrt(sum(self.f * cgrad*cgrad))    # ChiSqr term 
+        tnorm = sum(self.f * sgrad * cgrad)             # norm for gradient term TEST 
 
 
 def MaxEnt_SB(datum, sigma, base, IterMax, image_to_data, data_to_image, G, report=True):
@@ -127,9 +192,9 @@ def MaxEnt_SB(datum, sigma, base, IterMax, image_to_data, data_to_image, G, repo
     xi      = 0*numpy.ndarray((SEARCH_DIRECTIONS, n))
     eta     = 0*numpy.ndarray((SEARCH_DIRECTIONS, npt))
     beta    = 0*numpy.ndarray((SEARCH_DIRECTIONS))
-    s1      = 0*numpy.ndarray((SEARCH_DIRECTIONS))
+    # s1      = 0*numpy.ndarray((SEARCH_DIRECTIONS))
+    # c1      = 0*numpy.ndarray((SEARCH_DIRECTIONS))
     s2      = 0*numpy.ndarray((SEARCH_DIRECTIONS, SEARCH_DIRECTIONS))
-    c1      = 0*numpy.ndarray((SEARCH_DIRECTIONS))
     c2      = 0*numpy.ndarray((SEARCH_DIRECTIONS, SEARCH_DIRECTIONS))
 
     # TODO: replace blank (scalar) with base (vector)
@@ -174,8 +239,8 @@ def MaxEnt_SB(datum, sigma, base, IterMax, image_to_data, data_to_image, G, repo
 #         print_arr("MaxEnt: xi.transpose()", xi.transpose())
 
         # prepare the search directions for the conjugate gradient technique
-	c1 = xi.dot(cgrad) / chisq		    # C_mu
-        s1 = xi.dot(sgrad)			    # S_mu
+        c1 = xi.dot(cgrad) / chisq		            # C_mu
+        s1 = xi.dot(sgrad)                          # S_mu
 #         print_vec("MaxEnt: c1", c1)
 #         print_vec("MaxEnt: s1", s1)
 

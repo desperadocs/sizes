@@ -1,0 +1,334 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>OBSERVATIONS, HINTS, SUGGESTIONS &mdash; sizes 2013-05 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2013-05',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="top" title="sizes 2013-05 documentation" href="../index.html" />
+    <link rel="up" title="USER GUIDE FOR THE MAXIMUM ENTROPY SAS ANALYSIS PROGRAM MaxSas.for" href="index.html" />
+    <link rel="next" title="AN ALTERNATE TEST DISTRIBUTION: REVERSE.SAS (by P.R. Jemian)" href="example_reverse.html" />
+    <link rel="prev" title="SCREEN PLOTS" href="plots.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="example_reverse.html" title="AN ALTERNATE TEST DISTRIBUTION: REVERSE.SAS (by P.R. Jemian)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="plots.html" title="SCREEN PLOTS"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">sizes 2013-05 documentation</a> &raquo;</li>
+          <li><a href="../contents.html" >Table of Contents</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">USER GUIDE FOR THE MAXIMUM ENTROPY SAS ANALYSIS PROGRAM <strong>MaxSas.for</strong></a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="observations-hints-suggestions">
+<span id="hints"></span><h1>OBSERVATIONS, HINTS, SUGGESTIONS<a class="headerlink" href="#observations-hints-suggestions" title="Permalink to this headline">¶</a></h1>
+<p>Stability Check of the Solution</p>
+<p>In the example case above, a second analysis of the test distribution
+was made to check the stability of the solution.  This is a very good
+suggestion and is a must before you should present any data which you
+have analyzed.  The stability check is made after a successful
+solution has been obtained by re-analyzing with no parameters changed
+except for the experimental background which the program suggests.  If
+the answer is to be believed, the Stability Check should complete with
+a comparable number of iterations and determine a comparable
+background, volume fraction, and size distribution.</p>
+<p>Getting the Background Close</p>
+<p>It seems that there is a narrow thread on which the program may obtain
+a reasonable analysis (within 20 iterations).  That thread has two
+adjustable parameters: error scaling and constant background.  With a
+larger error scaling term, the exact value of the background is less
+important.  If one is not certain of the background level (and some of
+the particle form models require a background different even from the
+experimental background), it can be very difficult to guess within the
+10% or so required with an error scaling factor of unity.</p>
+<p>An algorithm that seems to navigate that thread to an acceptable
+solution of a size distribution from a set of intensity data is as
+follows: Decide upon the aspect ratio and the largest range of
+dimensions that may exist in the data.  Run the analysis, choosing all
+the data that you think will fit the model well.  Specify the contrast
+if you know it.  Increase the errors by a factor of 5.0 (or maybe 10.
+if conditions suggest).  Take a guess at the background (the
+zero-order guess is zero).  Let the MaxEnt routine try to solve the
+puzzle.  If it does not converge within 20 iterations, increase the
+error scaling factor by double.  Keep doing this until the MaxEnt
+routine says it has a &#8220;solution&#8221;.  Good!  We are not interested in
+this solution because the residuals probably look like a smooth, curved
+function.  What we are trying to do is get the program to tell us what
+it &#8220;thinks&#8221; the background should be. Now that the program has
+suggested a background to us, try analyzing again with this background
+and a slightly decreased error scaling factor.  Now we are on the
+&#8220;thread&#8221;.  Keep bringing the error scaling factor down (I know this
+takes time) until you can be satisfied that the errors are
+well-specified or that there is some systematic reason why the model
+does not fit the data well. Whatever the background ends up as when
+you are satisfied with the error scaling factor, accept it and
+reanalyze the data again, leaving out any intensities that would be
+below that background.</p>
+<p>The background suggested by the program is based on a
+statistically-weighted average of the difference between the intensity
+calculated from the distribution (^I) and the input intensity data(I).
+The exact equation looks like, where &#8220;s&#8221; are the input errors:</p>
+<div class="highlight-python"><pre>NewBkg = Bkg + AVERAGE( (I - ^I) / s**2 )</pre>
+</div>
+<p>FAILURES</p>
+<p>In ideal circumstances when the program is iterating successfully the
+user will observe the value of ChiSquared diminishing until it closely
+approaches its final target value, which is the total number of data
+points being used. Then in the final few iterations the entropy, which
+had been steadily decreasing, will be seen to increase. The residuals
+will become more randomly distributed with each iteration (a sign of a
+good fit to the data) and the size distribution will slowly converge
+to its final form. The program will then exit from the fitting
+routine. This is the behaviour observed when the program is run using
+the example data set.</p>
+<p>It is quite possible for the fitting routine to fail to converge at
+the first attempt. If this happens the program will return to the
+calling routine after it has completed the maximum number of
+iterations specified in the input section above and display the
+following message:</p>
+<div class="highlight-python"><pre>No convergence! # iter. = "MaxIter"
+File was: "InFile"</pre>
+</div>
+<p>The program will then return to the input section to begin
+a new analysis.</p>
+<p>There are a number of problems which can arise.  Some of these are
+annoying bugs in the program which are gradually being sorted out.
+The usual symptoms of trouble are:</p>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt>the program suddenly suffers &#8216;divide&#8217; or &#8216;square-root&#8217;</dt>
+<dd><p class="first last">execution errors</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>it gets caught in a perpetual loop</dt>
+<dd><p class="first last">(Hopefully, these errors have been trapped or corrected.
+The bulk of them are from passing a literal variable as
+a parameter to a subroutine or function. The size of the
+argument is implied by the caller but actually
+specified, sometimes differently, by the called
+subroutine or function.  The error is then, &#8220;passing the
+wrong size argument on the stack&#8221; which has been
+corrected by setting a variable, of known size, to the
+value of the literal and then passing the variable.)</p>
+</dd>
+</dl>
+</li>
+</ol>
+<p>The following remedies should be considered:</p>
+<ol class="arabic">
+<li><dl class="first docutils">
+<dt>take out points at either end of the data to change the program&#8217;s</dt>
+<dd><p class="first last">calculation trajectory</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">change the size range or number of bins to have the same effect</p>
+</li>
+<li><dl class="first docutils">
+<dt>consider that ChiSquared is being pushed too hard so the error</dt>
+<dd><p class="first last">scaling can be increased and the point of tragedy is
+never reached</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">adjust the constant background</p>
+</li>
+<li><dl class="first docutils">
+<dt>re-assess the DISTRIBUTION of assigned errors on the input</dt>
+<dd><p class="first last">data &#8211; Do they reflect the true scatter ?</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">re-assess the particle form model with regard to the system</p>
+</li>
+<li><dl class="first docutils">
+<dt>is the scattering just too weak or noisy for a respectable program</dt>
+<dd><p class="first last">like this one ?</p>
+</dd>
+</dl>
+</li>
+</ol>
+<p>Considerations (1)-(3) should resolve matters if you have encountered
+one of the program bugs; if not, then (4)-(7) may apply.  In most
+situations, time spent adjusting the flat background seems to give the
+best return on effort expended.  However it is worth considering a few
+points relevant to (6) above.  The basic assumption is that the
+scattering system comprises a DILUTE assembly of identically shaped
+scattering particles, all of one kind, suspended in a uniform medium
+or matrix.  Inter-particle interferences due to close packing at high
+concentrations are not presently considered.  (J.E. Epperson is trying
+to develop methods for treating these.) Such inter-particle
+interferences are likely to result in run-failures or fictitious size
+distributions.  A disordered interconnecting scattering interface
+within the sample may also lead to spurious results.  Also the aspect
+ratio, cannot be determined from SAS data alone: if a size
+distribution can be obtained with one value, then size distributions
+should be equally obtainable over all realistic values for a given
+scattering particle type.  Thus both the choice of shape function and
+the aspect ratio should be determined from independent methods such as
+electron microscopy, theoretical models etc.</p>
+<p>ERROR SCALING</p>
+<p>The most likely reason is that the quoted errors are too small to
+allow a close fit to the data by an algorithm that uses the ChiSquared
+test as its consistency criterion.  This would probably be the case
+if, during the iterations, the user observed chi-squared
+asymptotically approaching a final value larger than the number of
+data points being used, the residuals becoming randomly distributed
+and the size distribution converging to a well behaved final form
+(that is to say, one that extends over more than one histogram bin, is
+not wildly oscillatory, and is small at either end of the diameter
+range).  Should this occur, the easiest way to rectify it is to
+specify an error scaling factor that is greater than unity. An
+under-estimate of this factor is provided by the smallest value of
+SQRT(ChiSquared/N) ever achieved by the program.  A reasonable error
+scaling factor would then be, say, 1.1 times this estimate.  The user
+should note, however, that this device should not be abused; if the
+rescaled errors are much larger than their true values then
+statistically significant information from the scattering pattern is
+being thrown away.  Any size distribution is consistent with data of
+infinite errors!</p>
+<p>CONSTANT BACKGROUND</p>
+<p>Another likely cause of a convergence failure is an incorrect constant
+background subtraction.  If during the previous iterations the user
+observed a large spike (that was not expected or predicted) at the low
+diameter end of the size distribution then it is quite possible that
+there is a constant background remaining in the data (the program is
+interpreting the uniform intensity as the scattering from very small
+particles).  Conversely, if the size distribution is unreasonably
+biased towards large particles then it is possible that too much
+background has been removed and the data is missing information about
+the smallest particles in the sample.  In either of these cases the
+user should specify a different amount of background.  The user is
+reminded that of all the input parameters, the constant background
+subtraction is the one that needs to be known most accurately (indeed,
+if this parameter is inaccurate by more than about 10% then the
+program will probably fail).  So any length of time the user spends on
+a precise evaluation of the constant background is probably well
+spent.</p>
+<p>OTHER PARAMETERS</p>
+<p>From a study of the size distributions plotted during the iterations
+the user may be able to adjust some other input parameters in order to
+accelerate convergence.  It might, for example, be clear that the
+first estimate of a maximum particle diameter was too large or too
+small (although if it was very far out in either direction the program
+would have crashed rather than simply failed to converge).  And it
+might become clear that the size distribution can be adequately
+described by a histogram containing fewer bins than was originally
+thought.  Judicious removal of some particularly doubtful data points
+(for example those which differ in magnitude from their neighbours by
+an extent far greater than their errors would suggest) is also
+possible, though this is unlikely to have a great effect on the
+convergence rate.</p>
+<p>Precisely what to do in any particular case of convergence failure
+depends on experience of the program which can only be gained by
+experimenting with it.  Prospective users, once they have analyzed the
+BIMODAL.SAS data set are urged to re-analyze it using different
+combinations of diameter range, number of histogram bins, Q-vector
+range, aspect ratio, error scaling, and constant background (both
+positive and negative) to see how these variations affect the
+execution of the program and the final volume fraction distributions
+that the program produces (if it produces any).  The user should then
+be able to recognize when and why the program is failing in any
+particular fitting attempt and be able to eliminate the cause.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="plots.html"
+                        title="previous chapter">SCREEN PLOTS</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="example_reverse.html"
+                        title="next chapter">AN ALTERNATE TEST DISTRIBUTION: REVERSE.SAS  (by P.R. Jemian)</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/maxsas/hints.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="example_reverse.html" title="AN ALTERNATE TEST DISTRIBUTION: REVERSE.SAS (by P.R. Jemian)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="plots.html" title="SCREEN PLOTS"
+             >previous</a> |</li>
+        <li><a href="../index.html">sizes 2013-05 documentation</a> &raquo;</li>
+          <li><a href="../contents.html" >Table of Contents</a> &raquo;</li>
+          <li><a href="index.html" >USER GUIDE FOR THE MAXIMUM ENTROPY SAS ANALYSIS PROGRAM <strong>MaxSas.for</strong></a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Pete R. Jemian.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

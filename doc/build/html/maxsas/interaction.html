@@ -1,0 +1,304 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>User Interaction with the program &mdash; sizes 2013-05 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2013-05',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="top" title="sizes 2013-05 documentation" href="../index.html" />
+    <link rel="up" title="USER GUIDE FOR THE MAXIMUM ENTROPY SAS ANALYSIS PROGRAM MaxSas" href="index.html" />
+    <link rel="next" title="SCREEN PLOTS" href="plots.html" />
+    <link rel="prev" title="EXAMPLE OF THE PROGRAM EXECUTION ON A DEC Vax" href="example_vax.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="plots.html" title="SCREEN PLOTS"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="example_vax.html" title="EXAMPLE OF THE PROGRAM EXECUTION ON A DEC Vax"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">sizes 2013-05 documentation</a> &raquo;</li>
+          <li><a href="../contents.html" >Table of Contents</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">USER GUIDE FOR THE MAXIMUM ENTROPY SAS ANALYSIS PROGRAM <strong>MaxSas</strong></a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="user-interaction-with-the-program">
+<h1>User Interaction with the program<a class="headerlink" href="#user-interaction-with-the-program" title="Permalink to this headline">¶</a></h1>
+<p>A FEW WORDS ABOUT NUMERICAL RESPONSES BY THE USER</p>
+<p>If you respond to a numerical question with a &#8220;zero&#8221;, the default
+answer will be used.  That is the way this program works to give you
+default answers.  If you want to set a parameter to be &#8220;zero&#8221;, use an
+infinitesimal value such as 1.0E-25.</p>
+<p>All floating point responses should include a decimal point somewhere
+in the mantissa of the response, otherwise the results are
+unpredictable and very system dependent!</p>
+<p>EXPLANATION OF QUESTIONS ASKED BY THE PROGRAM</p>
+<p>Q: Input file? &lt;Quit&gt;</p>
+<p>The input file contains the SAS intensity data as ordered triples of
+Q-vector (in 1/A units), Intensity (in arbitrary units), and
+statistical error of intensity (same as intensity units).  Note that
+there are no initial header lines in the input file.  No more than the
+first 300 data points (ordered triples) will be read from the input
+file.</p>
+<p>If you were to press {CR} without typing in a file name, the program
+would quit (as indicated by the default).</p>
+<p>If the input file does not exist, the program will happily proceed to
+ask you all the remaining questions it has.  Then and only then will
+it find out that the file you named does not exist.  This will
+generate a program crash.</p>
+<p>A suggestion for input file name extensions is &#8221;.SAS&#8221; but this only a
+suggestion.  The input file name may be up to 80 characters long.</p>
+<p>Q: Output file?</p>
+<p>This is the only question which has no default answer.  You must
+answer this question with something.  If your answer is the same as
+the input file name, the program will start over asking you for the
+input file name.  This may be used as an easy exit if you specified
+the wrong name.</p>
+<p>The program does not check to see if the named output file already
+exists.  On some systems (Macintosh and MS-DOS), the old file will be
+erased and a new file created.  On other systems (VAX), a file with
+the same name but a new version number will be created.  Forewarned is
+forearmed.</p>
+<p>My suggestion for MaxSas solution file name extensions is &#8221;.MAX&#8221; or
+&#8221;.DIS&#8221;.  The output file name may be up to 80 characters long.</p>
+<p>Q: Minimum (Maximum) q-vector? [1/A]</p>
+<p>Use Q-vector (actually Q-vector magnitude) in units of 1/Angstrom.
+The user is allowed to exclude data points from the ends of the input
+data. Only those data points satisfying qMin &lt;= Q-vector &lt;= qMax will
+be analyzed.  The program is designed to only handle positive
+Q-vectors.</p>
+<p>Initially, qMin is set ridiculously low so that even the lowest data
+point will be used.  Correspondingly, qMax is set high enough to
+include all typical SAS Q-vectors.</p>
+<p>The user should generally cut off the data when the signal-to-noise
+ratio becomes poor.  Truncating earlier than this will lose
+information about the smallest particles present in the sample.  Users
+might note that it is not neccessary for all the intensity values to
+be positive, although it is probably inadvisable to include more than
+five negative ones.</p>
+<p>Q: Scattering contrast? [10^28 m^-4]</p>
+<p>The scattering contrast is the squared difference between the
+scattering length density of particle and matrix.  If the contrast is
+1.27E30 1/m**4, then enter the value 127.0.
+By the way, 1.E28 1/m**4 = 1.E20 1/cm**4.</p>
+<p>The user can either enter the true contrast here or reply {CR}, in
+which case the final &#8220;volume fractions&#8221; obtained will have to be
+divided by the contrast (in units of 1.E28 1/m**4) in order to obtain
+genuine volume fractions.  The program is coded to accept scattering
+contrast values no larger than one million units of 1.0E28 (1.0e34)
+1/m**4.</p>
+<p>Q: Factor to convert data to 1/cm?</p>
+<p>If the intensity values in the input file were not in units of 1/cm,
+enter the constant to convert them into such units.  If they were
+already in 1/cm units, good for you, so just press {CR} to accept the
+default.  The program is coded to accept conversion values no larger
+than 1000.0.</p>
+<p>Q: Error scaling factor?</p>
+<p>Here is an opportunity for you to try analyzing your data with
+different ratios of signal to noise.  If you think that the errors in
+the input file were underspecified, you may multiply them by this
+constant.  More on this later as this will have a major influence upon
+the analysis.</p>
+<p>Q: Background?</p>
+<p>This program has left you the opportunity to subtract a constant
+intensity value.  A good initial approximation will put you on the
+road to a good analysis of the data.  Remarkably, the background may
+take any value, positive or negative.  If you want to set the
+background back to zero, use infinitesimal (such as 1.E-25) rather
+instead.  More on background later.</p>
+<p>Q: Spheroids: D x D x vD,  Aspect ratio (v)?</p>
+<p>The scattering form factor currently implemented is that discussed by
+[Roess, 1947].  A special case of this ellipsoid of revolution,
+whose outside dimensions are D x D x vD, is the sphere whose form
+factor is described in [Culverwell, 1986] and [Potton, 1988a].</p>
+<p>It is possible to select any aspect ratio (within reason) using this
+model and the program only checks to see that you have entered a
+positive value.  Special care has been taken to ensure that the volume
+fractions determined by this model are correct.</p>
+<p>For a full explanation of the coding of this model (from eq. 4, 5, &amp; 6
+of [Roess, 1947]), see the source code listing.  Look for the routine
+named &#8220;Spheroid.&#8221;</p>
+<p>Remember that the distributions that are output are in terms of the
+dimension &#8220;D&#8221;.  The volume of this type of spheroid is (4Pi/3) v r**3.</p>
+<p>Q: Bin step scale? (1=Linear, 2=Log)</p>
+<p>&#8220;Linear&#8221; binning means that the diametral bins will increase in size
+according to an algebraic series (e.g. 1, 2, 3, ...).  The other
+method currently available is &#8220;logarithmic&#8221; binning where the increase
+is according to a geometric series (e.g. 1.0, 1.05, 1.1025, ...).  Use
+whichever method gives you a sufficient number of points over all the
+peaks in the distribution.  Be aware that the calculated volume
+fractions and number densities for the first few bins on the &#8220;log
+scale&#8221; are likely to be artificially high because of the small bin
+width and small particle volume corresponding to that bin (both these
+terms divide the quantity that MaxSas derives to give you the volume
+fraction&#8221;).</p>
+<p>The width of each bin indexed by &#8220;i&#8221; is dD(i) = D(i+1) - D(i) so that
+the number density of scatterers whose size is between D and D + dD is
+truly N(D) dD.  The bin width appears in the output file as &#8220;dD.&#8221;</p>
+<p>Q: Number of histogram bins?</p>
+<p>This is an integer between 2 and 100, limited by computer memory and
+execution CPU time.  Use as few bins as you think you need to
+adequately describe the distribution or as many bins as you want, up
+to the maximum of 100.</p>
+<p>Q: Maximum (Minimum) value of D? [A]</p>
+<p>Use Angstrom units.  Because each intensity is a statistical
+representation of ALL dimensions D in the sample, weighted by a
+particular form factor (model function), the choice of maximum and
+minimum D is left to the user. You may specify values that are beyond
+the &#8220;peripheral vision&#8221; of your data to see if there is any
+statistical support for such sizes in your data. Usually, one knows
+something about the size distribution to be solved and a maximum
+particle diameter can be estimated.  Ideally Dmax should be an
+over-estimate; if too small a diameter range (Dmin to Dmax) is
+specified, the program will likely fail.</p>
+<p>The largest value for Dmax is something unreasonable for most SAS data
+(1 million Angstroms).  If you try to exceed this limit, the program
+will patiently ask you again for the maximum D value.  The smallest
+Dmin value you may enter is 1.0 Angstrom.  The program will always
+suggest Dmin = Dmax / (number of bins).</p>
+<p>If Dmin &gt;= Dmax, the program will start asking you questions all over.
+You can use this as an easy way to correct a bad input prior to this
+question, without having to stop and restart the program.</p>
+<p>Q: Maximum number of iterations?</p>
+<p>The number of iterations is best estimated by experience.  Skilling
+and Bryan [Skilling, 1984] suggest that one should re-consider the
+model if more than about 20 iterations are required for convergence
+within the Maximum Entropy routine (MaxEnt).  The largest allowed
+number of iterations is 200 but if you require this, your model is
+probably not representing the data well.  The MaxEnt routine may not
+require as many iterations as you specify. That just means the job was
+easier than you &#8220;thought&#8221;.</p>
+<p>If, while the MaxEnt routine is iterating, you see that a few more
+iterations will be required to achieve a satisfying solution than you
+have specified here, all is not lost.  If the limit specified is
+reached with no satisfying maximum entropy solution yet in hand, the
+program will ask you if you want to iterate more.  You can then extend
+the process.  For this reason, it is suggested that you specify a
+lower value (rather than higher) so that you may check the program&#8217;s
+progress.  A low limit allows the MaxEnt routine to escape should the
+fitting process fail to converge.  In such an event, one or more of
+the input parameters should be adjusted to achieve a more harmonius
+solution.</p>
+<p>A good general suggestion for the number of iterations is the maximum
+number that you are willing to see the MaxEnt routine perform and not
+converge.  If the MaxEnt routine needs more iterations, it will ask
+you for permission.</p>
+<p>Q: The change in ChiSquared should be &lt; 5%.</p>
+<div class="highlight-python"><pre>Run the Stability Check? (Y/&lt;N&gt;)</pre>
+</div>
+<p>The Stability Check will perform the same analysis on the data set
+with all the same parameters except that the suggested background will
+be used. If the answer is stable, then all the results should be the
+same.  If the answer is unsteady, then things will look different in
+some way.  The prompt for a stability check will not appear unless the
+program calculates that the shift should produce less than a 5%
+change in the ChiSquared.</p>
+<p>Q: Maximum iterations have been reached.:</p>
+<div class="highlight-python"><pre>How many more iterations? &lt;none&gt;</pre>
+</div>
+<p>This question occurs inside the MaxEnt routine when the maximum number
+of iterations that you specified have been reached.  If you want the
+MaxEnt routine to keep trying, specify a positive integer, otherwise
+take the default which will generate the following output:</p>
+<div class="highlight-python"><pre>No convergence! # iter. = "IterMax"
+File was: "InFile"</pre>
+</div>
+<p>The program will then start over at the first question.</p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="example_vax.html"
+                        title="previous chapter">EXAMPLE OF THE PROGRAM EXECUTION ON A DEC Vax</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="plots.html"
+                        title="next chapter">SCREEN PLOTS</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/maxsas/interaction.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="plots.html" title="SCREEN PLOTS"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="example_vax.html" title="EXAMPLE OF THE PROGRAM EXECUTION ON A DEC Vax"
+             >previous</a> |</li>
+        <li><a href="../index.html">sizes 2013-05 documentation</a> &raquo;</li>
+          <li><a href="../contents.html" >Table of Contents</a> &raquo;</li>
+          <li><a href="index.html" >USER GUIDE FOR THE MAXIMUM ENTROPY SAS ANALYSIS PROGRAM <strong>MaxSas</strong></a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Pete R. Jemian.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

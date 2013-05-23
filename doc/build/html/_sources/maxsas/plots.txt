@@ -1,0 +1,65 @@
+.. $Id: index.rst 812 2013-05-21 21:54:19Z jemian $
+
+SCREEN PLOTS
+======================================================
+
+LOG (ChiSq) vs. iteration number
+
+This plot will appear after the second iteration of the MaxEnt
+routine.  If the ChiSquared is nearly constant for 3 or more
+consecutive iterations, this plot will not appear.  The "===="
+bar in the plot indicates the target value of "N", the number
+of intensity points.
+
+
+Entropy vs. iteration number
+
+This plot will appear for every iteration after the second.
+The "====" bar in the plot indicates the entropy of a flat
+distribution with the same number of diametral bins as have
+been specified.
+
+
+Residuals
+
+The standardized residuals are the difference between the
+intensity that is calculated from the distribution and the
+input intensity, all divided by the input error.  For the
+model to fit the data well, this plot should look featureless
+(a.k.a. random).  The "====" bars are at +1 and -1 standard
+deviations.  67% of the points should fit within the bars.  If
+there is some systematic difference beween the model and the
+data, the residuals will reveal it by showing some shape.
+
+
+Distribution
+
+The distribution plot appears at the end of each iteration and
+shows the most recent distribution, whose calculated intensity
+is to be compared with the input intensity and errors.  The
+values in this plot are weighted (multiplied) by the bin
+width.  This means that when the bins are distributed in a
+geometric series, it will be quite difficult for the user to
+see a small peak at smaller diameters in this plot.  Have no
+fear though because this method weights the volume fraction in
+a manner equal to that of the algebraic series.
+
+
+Volume weighted size dist.: V(r)N(r) versus r
+
+Once the MaxEnt routine has decided that it has a solution,
+this plot will appear. The vertical scale is the volume
+distribution (technically the "volume-weighted differential
+number distribution").  This is almost the same value as was
+plotted in the "Distribution" plot except the bin width has
+been divided out.  The horizontal scale is a linear axis on
+which is plotted particle radii.
+
+.. note::  The
+	MaxEnt routine does its work with respect to
+	particle radii.  All answers are properly scaled to diametral
+	units in the output files. Additionally, the MaxEnt routine
+	works with intensities in 1/m units.  It seems to do some bad
+	things when the intensities are in 1/cm.  The FORTRAN code
+	isolates the user from this eccentricacy.  All unit
+	conversions are corrected in the output data.

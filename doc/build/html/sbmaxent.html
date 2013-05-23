@@ -152,8 +152,66 @@ J APPL CRYST 21 (1988) 891 - 897.</li>
 
 <dl class="class">
 <dt id="SB_MaxEnt.sbmaxent.MaxEnt">
-<em class="property">class </em><tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">MaxEnt</tt><big>(</big><em>datum</em>, <em>sigma</em>, <em>base</em>, <em>IterMax</em>, <em>image_to_data</em>, <em>data_to_image</em>, <em>G</em><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#MaxEnt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.MaxEnt" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">MaxEnt</tt><big>(</big><em>data</em>, <em>sigma</em>, <em>base</em>, <em>IterMax</em>, <em>image_to_data</em>, <em>data_to_image</em>, <em>G</em><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#MaxEnt"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.MaxEnt" title="Permalink to this definition">¶</a></dt>
 <dd><p>manage the iterative method described by Skilling and Bryan</p>
+<dl class="method">
+<dt id="SB_MaxEnt.sbmaxent.MaxEnt.MaxEnt_iteration">
+<tt class="descname">MaxEnt_iteration</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#MaxEnt.MaxEnt_iteration"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.MaxEnt.MaxEnt_iteration" title="Permalink to this definition">¶</a></dt>
+<dd><p>one iteration of the MaxEnt algorithm</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="SB_MaxEnt.sbmaxent.MaxEnt.chi_squared">
+<tt class="descname">chi_squared</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#MaxEnt.chi_squared"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.MaxEnt.chi_squared" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns vector <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mo>∑</mo>
+<mrow><mi>z</mi></mrow></mrow></math></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="SB_MaxEnt.sbmaxent.MaxEnt.compute_beta">
+<tt class="descname">compute_beta</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#MaxEnt.compute_beta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.MaxEnt.compute_beta" title="Permalink to this definition">¶</a></dt>
+<dd><p>beta vector: ... meaning ...</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="SB_MaxEnt.sbmaxent.MaxEnt.standardized_residuals">
+<tt class="descname">standardized_residuals</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#MaxEnt.standardized_residuals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.MaxEnt.standardized_residuals" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns vector <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mover>
+<mrow><mi>z</mi></mrow><mo>⃗</mo></mover></mrow></math> of standardized_residuals</p>
+<p>where:</p>
+<ul class="simple">
+<li><math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mover>
+<mrow><mi>z</mi></mrow><mo>⃗</mo></mover><mo>=</mo><mo>(</mo><mover>
+<mrow><mi>y</mi></mrow><mo>⃗</mo></mover><mo>-</mo><mover>
+<mrow><mover>
+<mrow><mi>y</mi></mrow><mo>⃗</mo></mover></mrow><mo>^</mo></mover><mo>/</mo><mover>
+<mrow><mi>σ</mi></mrow><mo>⃗</mo></mover></mrow></math></li>
+<li><math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mover>
+<mrow><mi>y</mi></mrow><mo>⃗</mo></mover></mrow></math>: measured data (<cite>self.data</cite>)</li>
+<li><math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mover>
+<mrow><mover>
+<mrow><mi>y</mi></mrow><mo>⃗</mo></mover></mrow><mo>^</mo></mover><mo>=</mo></mrow></math></li>
+<li><math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mover>
+<mrow><mi>σ</mi></mrow><mo>⃗</mo></mover></mrow></math>: estimated uncertainties of <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mover>
+<mrow><mi>y</mi></mrow><mo>⃗</mo></mover><mo>(</mo></mrow></math>)`</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="SB_MaxEnt.sbmaxent.MaxEnt.sum_f">
+<tt class="descname">sum_f</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#MaxEnt.sum_f"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.MaxEnt.sum_f" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><munder><mo>∑</mo><mi>i</mi></munder>
+<mrow><msub><mi>f</mi><mi>i</mi></msub></mrow></mrow></math></p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="exception">
@@ -206,13 +264,13 @@ J APPL CRYST 21 (1988) 891 - 897.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>image</strong> (<em>float[N]</em>) &#8211; solution</li>
-<li><strong>G</strong> (<em>float[M][N]</em>) &#8211; transformation matrix</li>
+<li><strong>image</strong> (<em>float[N]</em>) &#8211; solution, ndarray of shape (N)</li>
+<li><strong>G</strong> (<em>float[M][N]</em>) &#8211; transformation matrix, ndarray of shape (M,N)</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Returns float[M]:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">calculated data</p>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">calculated data, ndarray of shape (M)</p>
 </td>
 </tr>
 </tbody>
@@ -282,13 +340,13 @@ J APPL CRYST 21 (1988) 891 - 897.</li>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>data</strong> (<em>float[M]</em>) &#8211; observations</li>
-<li><strong>G</strong> (<em>float[M][N]</em>) &#8211; transformation matrix</li>
+<li><strong>data</strong> (<em>float[M]</em>) &#8211; observations, ndarray of shape (M)</li>
+<li><strong>G</strong> (<em>float[M][N]</em>) &#8211; transformation matrix, ndarray of shape (M,N)</li>
 </ul>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Returns float[N]:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">calculated image</p>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">calculated image, ndarray of shape (N)</p>
 </td>
 </tr>
 </tbody>
