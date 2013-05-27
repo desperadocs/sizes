@@ -213,8 +213,8 @@ def MaxEnt_SB(datum, sigma, base, IterMax, image_to_data, data_to_image, G, repo
 
         cgrad = data_to_image (ox, G)              # cgrad[i] = del(C)/del(f[i]), SB eq. 8
         sgrad = -numpy.log(f/base) / (blank*math.exp (1.0))  # sgrad[i] = del(S)/del(f[i])
-        snorm = math.sqrt(sum(f * sgrad*sgrad))    # entropy term
-        cnorm = math.sqrt(sum(f * cgrad*cgrad))    # ChiSqr term 
+        snorm = math.sqrt(sum(f * sgrad*sgrad))    # entropy term, SB eq. 22
+        cnorm = math.sqrt(sum(f * cgrad*cgrad))    # ChiSqr term, SB eq. 22
         tnorm = sum(f * sgrad * cgrad)             # norm for gradient term TEST 
 
         a = 1.0
@@ -240,8 +240,8 @@ def MaxEnt_SB(datum, sigma, base, IterMax, image_to_data, data_to_image, G, repo
 #         print_arr("MaxEnt: xi.transpose()", xi.transpose())
 
         # prepare the search directions for the conjugate gradient technique
-        c1 = xi.dot(cgrad) / chisq		            # C_mu
-        s1 = xi.dot(sgrad)                          # S_mu
+        c1 = xi.dot(cgrad) / chisq		            # C_mu, SB eq. 24
+        s1 = xi.dot(sgrad)                          # S_mu, SB eq. 24
 #         print_vec("MaxEnt: c1", c1)
 #         print_vec("MaxEnt: s1", s1)
 
@@ -264,7 +264,7 @@ def MaxEnt_SB(datum, sigma, base, IterMax, image_to_data, data_to_image, G, repo
             w, chtarg, loop, a_new, fx, beta = MaxEntMove(fSum, blank, chisq, chizer, c1, c2, s1, s2)
 
         f_old = f.copy()    # preserve the last image
-        f += xi.transpose().dot(beta)   # move the image towards the solution
+        f += xi.transpose().dot(beta)   # move the image towards the solution, SB eq. 25
         
         # As mentioned at the top of p.119,
         # need to protect against stray negative values.
