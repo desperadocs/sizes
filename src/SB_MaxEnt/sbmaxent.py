@@ -53,6 +53,7 @@ DISTANCE_LIMIT_FACTOR = 0.1                 # limitation on df to constrain runa
 MAX_MOVE_LOOPS    = 500                     # for no solution in routine: move, 
 MOVE_PASSES       = 0.001                   # convergence test in routine: move
 
+ROUNDOFF_TOLERANCE = 1.0e-6     # for unit tests
 
 # chisq = 0.0
 # chizer = 0.0
@@ -432,6 +433,16 @@ def ChoSol(a, b):
     return beta
 
 
+def EllipsoidVolume(r, aspect=1.0):
+    '''
+    Volume of an ellipsoid with diameters: :math:`2r\\times2r\\times2r\\beta` 
+    
+    Here :math:`\\beta`` is the aspect ratio
+    '''
+    assert 0 < aspect, 'aspect ratio must be positive'
+    return (4./3.) * math.pi * r*r*r*aspect
+
+
 def G_term(q, r, V, rhosq):
     '''Calculates the response matrix :math:`G(Q,r)` 
     
@@ -441,9 +452,12 @@ def G_term(q, r, V, rhosq):
     :returns double: G(Q,r)
     '''
     qr = q*r
-    F = 3 * (math.sin(qr) - qr*math.cos(qr)) / (qr*qr*qr)
+    if qr < 5e-5:       # avoid roundoff error
+        F = 1.0
+    else:
+        F = 3.0 * (math.sin(qr) - qr*math.cos(qr)) / math.pow(qr, 3)
     shape = F*F
-    value = rhosq*1e20 * V * shape
+    value = rhosq*1.0e20 * V * shape
     return value
 
 
@@ -482,6 +496,45 @@ def readTextData(filename):
     return q, I, dI
 
 
+def _check_value(calculated, expected, tolerance=ROUNDOFF_TOLERANCE):
+    '''check calculated for expected value'''
+    diff = abs(calculated - expected)
+    assert diff <= abs(tolerance*expected), 'difference larger than tolerance: '+str(calculated)
+
+
+def test_EllipsoidVolume():
+    '''test routine for EllipsoidVolume()'''
+    v1 = EllipsoidVolume(1.0)
+    expected = (4./3.) * math.pi
+    _check_value(v1, expected)
+
+
+def test_G_term():
+    '''test routine for G_term()
+    
+    test values are trivial checks
+    comparison values computed from C code
+    '''
+    # check each internal part and assemble a test case
+    x = 0.001
+    _check_value(math.sin(x), 0.0009999999)
+    _check_value(x*math.cos(x), 0.0009999995)
+    diff = math.sin(x) - x*math.cos(x)
+    _check_value(diff, 3.333333e-10)
+    denom = x*x*x
+    _check_value(denom, 1.0e-9)
+    G = 3 * diff / denom
+    _check_value(G, 1.0)
+    
+    g1 = G_term(x, 1.0, 1.0, 1e-20)
+    assert 0.0 < g1 < 1.0, '|F|^2 <= 1.0 violated: ' + str(g1)
+    _check_value(g1, G)                                 # |F|^2 near qr=0
+    _check_value(G_term(0.5, 1.0, 1.0, 1e-20), 0.9510583078)     # |F|^2 at qr=0.5
+    _check_value(G_term(1.0, 1.0, 1.0, 1e-20), 0.8163231586)     # |F|^2 at qr=1
+    _check_value(G_term(2.0, 1.0, 1.0, 1e-20), 0.4265352505)     # |F|^2 at qr=2
+    _check_value(G_term(20., 1.0, 1.0, 1e-20), 0.000007388943)     # |F|^2 at qr=20.
+
+
 def test_opus_tropus():
     '''test routine for Dist()
     
@@ -504,7 +557,10 @@ def test_Dist():
     s2      = numpy.array(( (-1e+06, 177480, -248889), 
                             (177480, -1e+06, -641283),  
                             (-248889, -641283, -1e+06) ))
-    print "Dist:", Dist(s2, beta), 5225.79
+    expected = 5225.79
+    result = Dist(s2, beta)
+    _check_value(result, expected)
+    print "Dist:", result
 
 
 def test_ChoSol():
@@ -591,14 +647,14 @@ def test_MaxEnt_SB(report=True):
     IterMax = 40
     errFac = 1.05
     
-    r    = numpy.exp(numpy.linspace(math.log(dMin), math.log(dMax), nRadii))/2
+    r    = numpy.logspace(math.log10(dMin), math.log10(dMax), nRadii)/2
     dr   = r * (r[1]/r[0] - 1)          # step size
     f_dr = numpy.ndarray((nRadii)) * 0  # volume fraction histogram
     b    = numpy.ndarray((nRadii)) * 0 + defaultDistLevel  # MaxEnt "sky background"
     
     qVec, I, dI = readTextData(test_data_file)
     G = numpy.ndarray((nRadii, len(qVec)))
-    V = (4./3.) * math.pi * r*r*r * 1e-24
+    V = EllipsoidVolume(r) * 1e-24      # remember to convert cm to A
     for i, rVal in enumerate(r):
         for j, qVal in enumerate(qVec):
             G[i][j] = G_term(qVal, rVal, V[i], rhosq)
@@ -616,6 +672,8 @@ def test_MaxEnt_SB(report=True):
 
 
 def tests():
+    test_EllipsoidVolume()
+    test_G_term()
     test_opus_tropus()
     test_Dist()
     test_ChoSol()

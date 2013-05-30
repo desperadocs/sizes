@@ -125,6 +125,15 @@ J APPL CRYST 21 (1988) 891 - 897.</li>
 </dd></dl>
 
 <dl class="function">
+<dt id="SB_MaxEnt.sbmaxent.EllipsoidVolume">
+<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">EllipsoidVolume</tt><big>(</big><em>r</em>, <em>aspect=1.0</em><big>)</big><a class="headerlink" href="#SB_MaxEnt.sbmaxent.EllipsoidVolume" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volume of an ellipsoid with diameters: <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mn>2</mn><mi>r</mi><mo>×</mo><mn>2</mn><mi>r</mi><mo>×</mo><mn>2</mn><mi>r</mi><mi>β</mi></mrow></math></p>
+<p>Here <math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow><mi>β</mi></mrow></math> is the aspect ratio</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="SB_MaxEnt.sbmaxent.G_term">
 <tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">G_term</tt><big>(</big><em>q</em>, <em>r</em>, <em>V</em>, <em>rhosq</em><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#G_term"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.G_term" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the response matrix <math xmlns="http://www.w3.org/1998/Math/MathML">
@@ -314,6 +323,20 @@ J APPL CRYST 21 (1988) 891 - 897.</li>
 <tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">test_Dist</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#test_Dist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.test_Dist" title="Permalink to this definition">¶</a></dt>
 <dd><p>test routine for Dist()</p>
 <p>test values obtained from C version of sizes program</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="SB_MaxEnt.sbmaxent.test_EllipsoidVolume">
+<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">test_EllipsoidVolume</tt><big>(</big><big>)</big><a class="headerlink" href="#SB_MaxEnt.sbmaxent.test_EllipsoidVolume" title="Permalink to this definition">¶</a></dt>
+<dd><p>test routine for EllipsoidVolume()</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="SB_MaxEnt.sbmaxent.test_G_term">
+<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">test_G_term</tt><big>(</big><big>)</big><a class="headerlink" href="#SB_MaxEnt.sbmaxent.test_G_term" title="Permalink to this definition">¶</a></dt>
+<dd><p>test routine for G_term()</p>
+<p>test values are trivial checks
+comparison values computed from C code</p>
 </dd></dl>
 
 <dl class="function">
