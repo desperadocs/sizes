@@ -40,7 +40,7 @@ import os
 import sys
 import math
 import numpy
-import rst_table
+import pyRestTable		# pip install pyRestTable
 
 
 TEST_LIMIT        = 0.05                    # for convergence
@@ -665,7 +665,7 @@ def test_MaxEnt_SB(report=True):
         return
     
     print "solution reached"
-    t = rst_table.Table()
+    t = pyRestTable.Table()
     t.labels = ('r', 'dr', 'f(r) dr', )
     t.rows.extend(zip(*(r.tolist(), dr.tolist(), f_dr.tolist())))
     print t.reST()

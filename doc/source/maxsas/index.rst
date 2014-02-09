@@ -1,5 +1,3 @@
-.. $Id$
-
 .. _maxsas_userguide:
 
 USER GUIDE FOR THE MAXIMUM ENTROPY SAS ANALYSIS PROGRAM **MaxSas.for**

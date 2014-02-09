@@ -1,5 +1,3 @@
-.. $Id$
-
 maximum entropy calculation engine
 ==================================
 

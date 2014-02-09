@@ -1,5 +1,3 @@
-.. $Id$
-
 .. index:: about
 
 .. _configure:

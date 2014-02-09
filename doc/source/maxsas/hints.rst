@@ -1,5 +1,3 @@
-.. $Id$
-
 .. _hints:
 
 OBSERVATIONS, HINTS, SUGGESTIONS

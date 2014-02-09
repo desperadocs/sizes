@@ -1,5 +1,3 @@
-.. $Id$
-
 Documentation of the Python version of `sizes`
 ===============================================
 

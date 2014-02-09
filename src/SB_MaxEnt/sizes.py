@@ -8,14 +8,6 @@ sizes: General size distribution program for SAS analysis
      in the file LICENSE that is included with this distribution. 
 '''
 
-########### SVN repository information ###################
-# $Date$
-# $Author$
-# $Revision$
-# $URL$
-# $Id$
-########### SVN repository information ###################
-
 
 import os
 import sys

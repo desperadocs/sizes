@@ -1,5 +1,3 @@
-.. $Id$
-
 AN ALTERNATE TEST DISTRIBUTION: REVERSE.SAS  (by P.R. Jemian)
 ================================================================
 

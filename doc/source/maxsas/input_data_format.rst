@@ -1,5 +1,3 @@
-.. $Id$
-
 INPUT DATA FORMAT
 ==================
 

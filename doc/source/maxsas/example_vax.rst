@@ -1,5 +1,3 @@
-.. $Id$
-
 EXAMPLE OF THE PROGRAM EXECUTION ON A DEC Vax
 ======================================================
 

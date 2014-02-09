@@ -1,5 +1,3 @@
-.. $Id$
-
 main source code module: `sizes`
 ==================================
 
