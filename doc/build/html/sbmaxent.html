@@ -60,8 +60,14 @@
   <div class="section" id="maximum-entropy-calculation-engine">
 <h1>maximum entropy calculation engine<a class="headerlink" href="#maximum-entropy-calculation-engine" title="Permalink to this headline">¶</a></h1>
 <p>The 1984 Skilling and Bryan
-paper is available online from NASA:
-<a class="reference download internal" href="_downloads/sb1984.pdf"><tt class="xref download docutils literal"><span class="pre">PDF</span></tt></a></p>
+paper is available online <a class="footnote-reference" href="#id2" id="id1">[1]</a> through the
+SAO/NASA ADS Astronomy Abstract Service:</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td><a class="reference external" href="http://adsabs.harvard.edu/abs/1984MNRAS.211..111S">http://adsabs.harvard.edu/abs/1984MNRAS.211..111S</a></td></tr>
+</tbody>
+</table>
 <span class="target" id="module-SB_MaxEnt.sbmaxent"></span><p>sbmaxent</p>
 <p>Entropy maximization routine as described in the article
 J Skilling and RK Bryan; MNRAS 211 (1984) 111 - 124.
@@ -126,29 +132,29 @@ J APPL CRYST 21 (1988) 891 - 897.</li>
 
 <dl class="function">
 <dt id="SB_MaxEnt.sbmaxent.EllipsoidVolume">
-<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">EllipsoidVolume</tt><big>(</big><em>r</em>, <em>aspect=1.0</em><big>)</big><a class="headerlink" href="#SB_MaxEnt.sbmaxent.EllipsoidVolume" title="Permalink to this definition">¶</a></dt>
-<dd><p>Volume of an ellipsoid with diameters: <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mn>2</mn><mi>r</mi><mo>×</mo><mn>2</mn><mi>r</mi><mo>×</mo><mn>2</mn><mi>r</mi><mi>β</mi></mrow></math></p>
-<p>Here <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mi>β</mi></mrow></math> is the aspect ratio</p>
+<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">EllipsoidVolume</tt><big>(</big><em>r</em>, <em>aspect=1.0</em><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#EllipsoidVolume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.EllipsoidVolume" title="Permalink to this definition">¶</a></dt>
+<dd><p>Volume of an ellipsoid with diameters: <span class="formula">2<i>r</i> × 2<i>r</i> × 2<i>r</i><i>β</i></span>
+</p>
+<p>Here <span class="formula"><i>β</i></span>
+ is the aspect ratio</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="SB_MaxEnt.sbmaxent.G_term">
 <tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">G_term</tt><big>(</big><em>q</em>, <em>r</em>, <em>V</em>, <em>rhosq</em><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#G_term"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.G_term" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the response matrix <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mi>G</mi><mo>(</mo><mi>Q</mi><mo>,</mo><mi>r</mi><mo>)</mo></mrow></math></p>
+<dd><p>Calculates the response matrix <span class="formula"><i>G</i>(<i>Q</i>, <i>r</i>)</span>
+</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>q</strong> (<em>double</em>) &#8211; <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mi>Q</mi></mrow></math></li>
-<li><strong>r</strong> (<em>double</em>) &#8211; <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mi>r</mi></mrow></math></li>
-<li><strong>rhosq</strong> (<em>double</em>) &#8211; <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mo>|</mo><mo>Δ</mo><mi>ρ</mi><msup><mo>|</mo><mn>2</mn></msup></mrow></math>, the scattering contrast</li>
+<li><strong>q</strong> (<em>double</em>) &#8211; <span class="formula"><i>Q</i></span>
+</li>
+<li><strong>r</strong> (<em>double</em>) &#8211; <span class="formula"><i>r</i></span>
+</li>
+<li><strong>rhosq</strong> (<em>double</em>) &#8211; <span class="formula">|Δ<i>ρ</i>|<sup>2</sup></span>
+, the scattering contrast</li>
 </ul>
 </td>
 </tr>
@@ -172,9 +178,8 @@ J APPL CRYST 21 (1988) 891 - 897.</li>
 <dl class="method">
 <dt id="SB_MaxEnt.sbmaxent.MaxEnt.chi_squared">
 <tt class="descname">chi_squared</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#MaxEnt.chi_squared"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.MaxEnt.chi_squared" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns vector <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mo>∑</mo>
-<mrow><mi>z</mi></mrow></mrow></math></p>
+<dd><p>returns vector <span class="formula"><span class="limits"><span class="limit"><span class="symbol">∑</span></span></span><i>z</i></span>
+</p>
 </dd></dl>
 
 <dl class="method">
@@ -186,39 +191,27 @@ J APPL CRYST 21 (1988) 891 - 897.</li>
 <dl class="method">
 <dt id="SB_MaxEnt.sbmaxent.MaxEnt.standardized_residuals">
 <tt class="descname">standardized_residuals</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#MaxEnt.standardized_residuals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.MaxEnt.standardized_residuals" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns vector <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mover>
-<mrow><mi>z</mi></mrow><mo>⃗</mo></mover></mrow></math> of standardized_residuals</p>
+<dd><p>returns vector <span class="formula"><i>z⃗</i></span>
+ of standardized_residuals</p>
 <p>where:</p>
 <ul class="simple">
-<li><math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mover>
-<mrow><mi>z</mi></mrow><mo>⃗</mo></mover><mo>=</mo><mo>(</mo><mover>
-<mrow><mi>y</mi></mrow><mo>⃗</mo></mover><mo>-</mo><mover>
-<mrow><mover>
-<mrow><mi>y</mi></mrow><mo>⃗</mo></mover></mrow><mo>^</mo></mover><mo>/</mo><mover>
-<mrow><mi>σ</mi></mrow><mo>⃗</mo></mover></mrow></math></li>
-<li><math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mover>
-<mrow><mi>y</mi></mrow><mo>⃗</mo></mover></mrow></math>: measured data (<cite>self.data</cite>)</li>
-<li><math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mover>
-<mrow><mover>
-<mrow><mi>y</mi></mrow><mo>⃗</mo></mover></mrow><mo>^</mo></mover><mo>=</mo></mrow></math></li>
-<li><math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mover>
-<mrow><mi>σ</mi></mrow><mo>⃗</mo></mover></mrow></math>: estimated uncertainties of <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mover>
-<mrow><mi>y</mi></mrow><mo>⃗</mo></mover><mo>(</mo></mrow></math>)`</li>
+<li><span class="formula"><i>z⃗</i> = (<i>y⃗</i> − <i>y⃗̂</i> ⁄ <i>σ⃗</i></span>
+</li>
+<li><span class="formula"><i>y⃗</i></span>
+: measured data (<cite>self.data</cite>)</li>
+<li><span class="formula"><i>y⃗̂</i> = </span>
+</li>
+<li><span class="formula"><i>σ⃗</i></span>
+: estimated uncertainties of <span class="formula"><i>y⃗</i>(</span>
+)`</li>
 </ul>
 </dd></dl>
 
 <dl class="method">
 <dt id="SB_MaxEnt.sbmaxent.MaxEnt.sum_f">
 <tt class="descname">sum_f</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#MaxEnt.sum_f"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.MaxEnt.sum_f" title="Permalink to this definition">¶</a></dt>
-<dd><p>returns <math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><munder><mo>∑</mo><mi>i</mi></munder>
-<mrow><msub><mi>f</mi><mi>i</mi></msub></mrow></mrow></math></p>
+<dd><p>returns <span class="formula"><span class="limits"><span class="limit"><span class="symbol">∑</span></span></span><sub><i>i</i></sub><i>f</i><sub><i>i</i></sub></span>
+</p>
 </dd></dl>
 
 </dd></dl>
@@ -255,8 +248,8 @@ J APPL CRYST 21 (1988) 891 - 897.</li>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name" colspan="2">Returns float[]:</th></tr>
-<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">f (<math xmlns="http://www.w3.org/1998/Math/MathML">
-<mrow><mi>f</mi><mo>(</mo><mi>r</mi><mo>)</mo><mi>d</mi><mi>r</mi></mrow></math>)</p>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body"><p class="first last">f (<span class="formula"><i>f</i>(<i>r</i>)<i>dr</i></span>
+)</p>
 </td>
 </tr>
 </tbody>
@@ -327,13 +320,13 @@ J APPL CRYST 21 (1988) 891 - 897.</li>
 
 <dl class="function">
 <dt id="SB_MaxEnt.sbmaxent.test_EllipsoidVolume">
-<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">test_EllipsoidVolume</tt><big>(</big><big>)</big><a class="headerlink" href="#SB_MaxEnt.sbmaxent.test_EllipsoidVolume" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">test_EllipsoidVolume</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#test_EllipsoidVolume"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.test_EllipsoidVolume" title="Permalink to this definition">¶</a></dt>
 <dd><p>test routine for EllipsoidVolume()</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="SB_MaxEnt.sbmaxent.test_G_term">
-<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">test_G_term</tt><big>(</big><big>)</big><a class="headerlink" href="#SB_MaxEnt.sbmaxent.test_G_term" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">SB_MaxEnt.sbmaxent.</tt><tt class="descname">test_G_term</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/SB_MaxEnt/sbmaxent.html#test_G_term"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#SB_MaxEnt.sbmaxent.test_G_term" title="Permalink to this definition">¶</a></dt>
 <dd><p>test routine for G_term()</p>
 <p>test values are trivial checks
 comparison values computed from C code</p>

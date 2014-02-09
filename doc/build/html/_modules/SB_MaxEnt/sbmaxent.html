@@ -80,11 +80,11 @@
 <span class="sd">&#39;&#39;&#39;</span>
 
 <span class="c">########### SVN repository information ###################</span>
-<span class="c"># $Date: 2013-05-22 18:05:57 -0500 (Wed, 22 May 2013) $</span>
+<span class="c"># $Date: 2013-05-30 15:25:30 -0500 (Thu, 30 May 2013) $</span>
 <span class="c"># $Author: jemian $</span>
-<span class="c"># $Revision: 815 $</span>
+<span class="c"># $Revision: 823 $</span>
 <span class="c"># $URL: https://subversion.xray.aps.anl.gov/small_angle/sizes/trunk/src/SB_MaxEnt/sbmaxent.py $</span>
-<span class="c"># $Id: sbmaxent.py 815 2013-05-22 23:05:57Z jemian $</span>
+<span class="c"># $Id: sbmaxent.py 823 2013-05-30 20:25:30Z jemian $</span>
 <span class="c">########### SVN repository information ###################</span>
 
 
@@ -105,6 +105,7 @@
 <span class="n">MAX_MOVE_LOOPS</span>    <span class="o">=</span> <span class="mi">500</span>                     <span class="c"># for no solution in routine: move, </span>
 <span class="n">MOVE_PASSES</span>       <span class="o">=</span> <span class="mf">0.001</span>                   <span class="c"># convergence test in routine: move</span>
 
+<span class="n">ROUNDOFF_TOLERANCE</span> <span class="o">=</span> <span class="mf">1.0e-6</span>     <span class="c"># for unit tests</span>
 
 <span class="c"># chisq = 0.0</span>
 <span class="c"># chizer = 0.0</span>
@@ -191,6 +192,7 @@
         </div>
 <div class="viewcode-block" id="MaxEnt.compute_beta"><a class="viewcode-back" href="../../sbmaxent.html#SB_MaxEnt.sbmaxent.MaxEnt.compute_beta">[docs]</a>    <span class="k">def</span> <span class="nf">compute_beta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;beta vector: ... meaning ...&#39;&#39;&#39;</span>
+        <span class="k">pass</span>
         </div>
 <div class="viewcode-block" id="MaxEnt.MaxEnt_iteration"><a class="viewcode-back" href="../../sbmaxent.html#SB_MaxEnt.sbmaxent.MaxEnt.MaxEnt_iteration">[docs]</a>    <span class="k">def</span> <span class="nf">MaxEnt_iteration</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;one iteration of the MaxEnt algorithm&#39;&#39;&#39;</span>
@@ -264,8 +266,8 @@
 
         <span class="n">cgrad</span> <span class="o">=</span> <span class="n">data_to_image</span> <span class="p">(</span><span class="n">ox</span><span class="p">,</span> <span class="n">G</span><span class="p">)</span>              <span class="c"># cgrad[i] = del(C)/del(f[i]), SB eq. 8</span>
         <span class="n">sgrad</span> <span class="o">=</span> <span class="o">-</span><span class="n">numpy</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">f</span><span class="o">/</span><span class="n">base</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">blank</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span> <span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>  <span class="c"># sgrad[i] = del(S)/del(f[i])</span>
-        <span class="n">snorm</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">f</span> <span class="o">*</span> <span class="n">sgrad</span><span class="o">*</span><span class="n">sgrad</span><span class="p">))</span>    <span class="c"># entropy term</span>
-        <span class="n">cnorm</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">f</span> <span class="o">*</span> <span class="n">cgrad</span><span class="o">*</span><span class="n">cgrad</span><span class="p">))</span>    <span class="c"># ChiSqr term </span>
+        <span class="n">snorm</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">f</span> <span class="o">*</span> <span class="n">sgrad</span><span class="o">*</span><span class="n">sgrad</span><span class="p">))</span>    <span class="c"># entropy term, SB eq. 22</span>
+        <span class="n">cnorm</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">f</span> <span class="o">*</span> <span class="n">cgrad</span><span class="o">*</span><span class="n">cgrad</span><span class="p">))</span>    <span class="c"># ChiSqr term, SB eq. 22</span>
         <span class="n">tnorm</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">f</span> <span class="o">*</span> <span class="n">sgrad</span> <span class="o">*</span> <span class="n">cgrad</span><span class="p">)</span>             <span class="c"># norm for gradient term TEST </span>
 
         <span class="n">a</span> <span class="o">=</span> <span class="mf">1.0</span>
@@ -291,8 +293,8 @@
 <span class="c">#         print_arr(&quot;MaxEnt: xi.transpose()&quot;, xi.transpose())</span>
 
         <span class="c"># prepare the search directions for the conjugate gradient technique</span>
-        <span class="n">c1</span> <span class="o">=</span> <span class="n">xi</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">cgrad</span><span class="p">)</span> <span class="o">/</span> <span class="n">chisq</span>		            <span class="c"># C_mu</span>
-        <span class="n">s1</span> <span class="o">=</span> <span class="n">xi</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">sgrad</span><span class="p">)</span>                          <span class="c"># S_mu</span>
+        <span class="n">c1</span> <span class="o">=</span> <span class="n">xi</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">cgrad</span><span class="p">)</span> <span class="o">/</span> <span class="n">chisq</span>		            <span class="c"># C_mu, SB eq. 24</span>
+        <span class="n">s1</span> <span class="o">=</span> <span class="n">xi</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">sgrad</span><span class="p">)</span>                          <span class="c"># S_mu, SB eq. 24</span>
 <span class="c">#         print_vec(&quot;MaxEnt: c1&quot;, c1)</span>
 <span class="c">#         print_vec(&quot;MaxEnt: s1&quot;, s1)</span>
 
@@ -315,7 +317,7 @@
             <span class="n">w</span><span class="p">,</span> <span class="n">chtarg</span><span class="p">,</span> <span class="n">loop</span><span class="p">,</span> <span class="n">a_new</span><span class="p">,</span> <span class="n">fx</span><span class="p">,</span> <span class="n">beta</span> <span class="o">=</span> <span class="n">MaxEntMove</span><span class="p">(</span><span class="n">fSum</span><span class="p">,</span> <span class="n">blank</span><span class="p">,</span> <span class="n">chisq</span><span class="p">,</span> <span class="n">chizer</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span><span class="p">,</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">)</span>
 
         <span class="n">f_old</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>    <span class="c"># preserve the last image</span>
-        <span class="n">f</span> <span class="o">+=</span> <span class="n">xi</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span>   <span class="c"># move the image towards the solution</span>
+        <span class="n">f</span> <span class="o">+=</span> <span class="n">xi</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">beta</span><span class="p">)</span>   <span class="c"># move the image towards the solution, SB eq. 25</span>
         
         <span class="c"># As mentioned at the top of p.119,</span>
         <span class="c"># need to protect against stray negative values.</span>
@@ -483,6 +485,16 @@
     <span class="k">return</span> <span class="n">beta</span>
 
 </div>
+<div class="viewcode-block" id="EllipsoidVolume"><a class="viewcode-back" href="../../sbmaxent.html#SB_MaxEnt.sbmaxent.EllipsoidVolume">[docs]</a><span class="k">def</span> <span class="nf">EllipsoidVolume</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">aspect</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Volume of an ellipsoid with diameters: :math:`2r\\times2r\\times2r\\beta` </span>
+<span class="sd">    </span>
+<span class="sd">    Here :math:`\\beta`` is the aspect ratio</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="n">aspect</span><span class="p">,</span> <span class="s">&#39;aspect ratio must be positive&#39;</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mf">4.</span><span class="o">/</span><span class="mf">3.</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">r</span><span class="o">*</span><span class="n">r</span><span class="o">*</span><span class="n">r</span><span class="o">*</span><span class="n">aspect</span>
+
+</div>
 <div class="viewcode-block" id="G_term"><a class="viewcode-back" href="../../sbmaxent.html#SB_MaxEnt.sbmaxent.G_term">[docs]</a><span class="k">def</span> <span class="nf">G_term</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">rhosq</span><span class="p">):</span>
     <span class="sd">&#39;&#39;&#39;Calculates the response matrix :math:`G(Q,r)` </span>
 <span class="sd">    </span>
@@ -492,9 +504,12 @@
 <span class="sd">    :returns double: G(Q,r)</span>
 <span class="sd">    &#39;&#39;&#39;</span>
     <span class="n">qr</span> <span class="o">=</span> <span class="n">q</span><span class="o">*</span><span class="n">r</span>
-    <span class="n">F</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">qr</span><span class="p">)</span> <span class="o">-</span> <span class="n">qr</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">qr</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">qr</span><span class="o">*</span><span class="n">qr</span><span class="o">*</span><span class="n">qr</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">qr</span> <span class="o">&lt;</span> <span class="mf">5e-5</span><span class="p">:</span>       <span class="c"># avoid roundoff error</span>
+        <span class="n">F</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">F</span> <span class="o">=</span> <span class="mf">3.0</span> <span class="o">*</span> <span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">qr</span><span class="p">)</span> <span class="o">-</span> <span class="n">qr</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">qr</span><span class="p">))</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">pow</span><span class="p">(</span><span class="n">qr</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
     <span class="n">shape</span> <span class="o">=</span> <span class="n">F</span><span class="o">*</span><span class="n">F</span>
-    <span class="n">value</span> <span class="o">=</span> <span class="n">rhosq</span><span class="o">*</span><span class="mf">1e20</span> <span class="o">*</span> <span class="n">V</span> <span class="o">*</span> <span class="n">shape</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">rhosq</span><span class="o">*</span><span class="mf">1.0e20</span> <span class="o">*</span> <span class="n">V</span> <span class="o">*</span> <span class="n">shape</span>
     <span class="k">return</span> <span class="n">value</span>
 
 </div>
@@ -533,6 +548,45 @@
     <span class="k">return</span> <span class="n">q</span><span class="p">,</span> <span class="n">I</span><span class="p">,</span> <span class="n">dI</span>
 
 </div>
+<span class="k">def</span> <span class="nf">_check_value</span><span class="p">(</span><span class="n">calculated</span><span class="p">,</span> <span class="n">expected</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="n">ROUNDOFF_TOLERANCE</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;check calculated for expected value&#39;&#39;&#39;</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">calculated</span> <span class="o">-</span> <span class="n">expected</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">diff</span> <span class="o">&lt;=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">tolerance</span><span class="o">*</span><span class="n">expected</span><span class="p">),</span> <span class="s">&#39;difference larger than tolerance: &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">calculated</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="test_EllipsoidVolume"><a class="viewcode-back" href="../../sbmaxent.html#SB_MaxEnt.sbmaxent.test_EllipsoidVolume">[docs]</a><span class="k">def</span> <span class="nf">test_EllipsoidVolume</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;test routine for EllipsoidVolume()&#39;&#39;&#39;</span>
+    <span class="n">v1</span> <span class="o">=</span> <span class="n">EllipsoidVolume</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">expected</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.</span><span class="o">/</span><span class="mf">3.</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+    <span class="n">_check_value</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+
+</div>
+<div class="viewcode-block" id="test_G_term"><a class="viewcode-back" href="../../sbmaxent.html#SB_MaxEnt.sbmaxent.test_G_term">[docs]</a><span class="k">def</span> <span class="nf">test_G_term</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;test routine for G_term()</span>
+<span class="sd">    </span>
+<span class="sd">    test values are trivial checks</span>
+<span class="sd">    comparison values computed from C code</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c"># check each internal part and assemble a test case</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="mf">0.001</span>
+    <span class="n">_check_value</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="mf">0.0009999999</span><span class="p">)</span>
+    <span class="n">_check_value</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="mf">0.0009999995</span><span class="p">)</span>
+    <span class="n">diff</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">x</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">_check_value</span><span class="p">(</span><span class="n">diff</span><span class="p">,</span> <span class="mf">3.333333e-10</span><span class="p">)</span>
+    <span class="n">denom</span> <span class="o">=</span> <span class="n">x</span><span class="o">*</span><span class="n">x</span><span class="o">*</span><span class="n">x</span>
+    <span class="n">_check_value</span><span class="p">(</span><span class="n">denom</span><span class="p">,</span> <span class="mf">1.0e-9</span><span class="p">)</span>
+    <span class="n">G</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">diff</span> <span class="o">/</span> <span class="n">denom</span>
+    <span class="n">_check_value</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    
+    <span class="n">g1</span> <span class="o">=</span> <span class="n">G_term</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1e-20</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="mf">0.0</span> <span class="o">&lt;</span> <span class="n">g1</span> <span class="o">&lt;</span> <span class="mf">1.0</span><span class="p">,</span> <span class="s">&#39;|F|^2 &lt;= 1.0 violated: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">g1</span><span class="p">)</span>
+    <span class="n">_check_value</span><span class="p">(</span><span class="n">g1</span><span class="p">,</span> <span class="n">G</span><span class="p">)</span>                                 <span class="c"># |F|^2 near qr=0</span>
+    <span class="n">_check_value</span><span class="p">(</span><span class="n">G_term</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1e-20</span><span class="p">),</span> <span class="mf">0.9510583078</span><span class="p">)</span>     <span class="c"># |F|^2 at qr=0.5</span>
+    <span class="n">_check_value</span><span class="p">(</span><span class="n">G_term</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1e-20</span><span class="p">),</span> <span class="mf">0.8163231586</span><span class="p">)</span>     <span class="c"># |F|^2 at qr=1</span>
+    <span class="n">_check_value</span><span class="p">(</span><span class="n">G_term</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1e-20</span><span class="p">),</span> <span class="mf">0.4265352505</span><span class="p">)</span>     <span class="c"># |F|^2 at qr=2</span>
+    <span class="n">_check_value</span><span class="p">(</span><span class="n">G_term</span><span class="p">(</span><span class="mf">20.</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1e-20</span><span class="p">),</span> <span class="mf">0.000007388943</span><span class="p">)</span>     <span class="c"># |F|^2 at qr=20.</span>
+
+</div>
 <div class="viewcode-block" id="test_opus_tropus"><a class="viewcode-back" href="../../sbmaxent.html#SB_MaxEnt.sbmaxent.test_opus_tropus">[docs]</a><span class="k">def</span> <span class="nf">test_opus_tropus</span><span class="p">():</span>
     <span class="sd">&#39;&#39;&#39;test routine for Dist()</span>
 <span class="sd">    </span>
@@ -555,7 +609,10 @@
     <span class="n">s2</span>      <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">array</span><span class="p">((</span> <span class="p">(</span><span class="o">-</span><span class="mf">1e+06</span><span class="p">,</span> <span class="mi">177480</span><span class="p">,</span> <span class="o">-</span><span class="mi">248889</span><span class="p">),</span> 
                             <span class="p">(</span><span class="mi">177480</span><span class="p">,</span> <span class="o">-</span><span class="mf">1e+06</span><span class="p">,</span> <span class="o">-</span><span class="mi">641283</span><span class="p">),</span>  
                             <span class="p">(</span><span class="o">-</span><span class="mi">248889</span><span class="p">,</span> <span class="o">-</span><span class="mi">641283</span><span class="p">,</span> <span class="o">-</span><span class="mf">1e+06</span><span class="p">)</span> <span class="p">))</span>
-    <span class="k">print</span> <span class="s">&quot;Dist:&quot;</span><span class="p">,</span> <span class="n">Dist</span><span class="p">(</span><span class="n">s2</span><span class="p">,</span> <span class="n">beta</span><span class="p">),</span> <span class="mf">5225.79</span>
+    <span class="n">expected</span> <span class="o">=</span> <span class="mf">5225.79</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">Dist</span><span class="p">(</span><span class="n">s2</span><span class="p">,</span> <span class="n">beta</span><span class="p">)</span>
+    <span class="n">_check_value</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">expected</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&quot;Dist:&quot;</span><span class="p">,</span> <span class="n">result</span>
 
 </div>
 <div class="viewcode-block" id="test_ChoSol"><a class="viewcode-back" href="../../sbmaxent.html#SB_MaxEnt.sbmaxent.test_ChoSol">[docs]</a><span class="k">def</span> <span class="nf">test_ChoSol</span><span class="p">():</span>
@@ -642,14 +699,14 @@
     <span class="n">IterMax</span> <span class="o">=</span> <span class="mi">40</span>
     <span class="n">errFac</span> <span class="o">=</span> <span class="mf">1.05</span>
     
-    <span class="n">r</span>    <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">numpy</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">dMin</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">dMax</span><span class="p">),</span> <span class="n">nRadii</span><span class="p">))</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">r</span>    <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">logspace</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">dMin</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">dMax</span><span class="p">),</span> <span class="n">nRadii</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
     <span class="n">dr</span>   <span class="o">=</span> <span class="n">r</span> <span class="o">*</span> <span class="p">(</span><span class="n">r</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">r</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>          <span class="c"># step size</span>
     <span class="n">f_dr</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">nRadii</span><span class="p">))</span> <span class="o">*</span> <span class="mi">0</span>  <span class="c"># volume fraction histogram</span>
     <span class="n">b</span>    <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">nRadii</span><span class="p">))</span> <span class="o">*</span> <span class="mi">0</span> <span class="o">+</span> <span class="n">defaultDistLevel</span>  <span class="c"># MaxEnt &quot;sky background&quot;</span>
     
     <span class="n">qVec</span><span class="p">,</span> <span class="n">I</span><span class="p">,</span> <span class="n">dI</span> <span class="o">=</span> <span class="n">readTextData</span><span class="p">(</span><span class="n">test_data_file</span><span class="p">)</span>
     <span class="n">G</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">((</span><span class="n">nRadii</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">qVec</span><span class="p">)))</span>
-    <span class="n">V</span> <span class="o">=</span> <span class="p">(</span><span class="mf">4.</span><span class="o">/</span><span class="mf">3.</span><span class="p">)</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">r</span><span class="o">*</span><span class="n">r</span><span class="o">*</span><span class="n">r</span> <span class="o">*</span> <span class="mf">1e-24</span>
+    <span class="n">V</span> <span class="o">=</span> <span class="n">EllipsoidVolume</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1e-24</span>      <span class="c"># remember to convert cm to A</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">rVal</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">r</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">qVal</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">qVec</span><span class="p">):</span>
             <span class="n">G</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">G_term</span><span class="p">(</span><span class="n">qVal</span><span class="p">,</span> <span class="n">rVal</span><span class="p">,</span> <span class="n">V</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">rhosq</span><span class="p">)</span>
@@ -667,6 +724,8 @@
 
 
 <span class="k">def</span> <span class="nf">tests</span><span class="p">():</span>
+    <span class="n">test_EllipsoidVolume</span><span class="p">()</span>
+    <span class="n">test_G_term</span><span class="p">()</span>
     <span class="n">test_opus_tropus</span><span class="p">()</span>
     <span class="n">test_Dist</span><span class="p">()</span>
     <span class="n">test_ChoSol</span><span class="p">()</span>

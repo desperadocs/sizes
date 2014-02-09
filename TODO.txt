@@ -1,4 +1,6 @@
 2009-05-14,PRJ: create wxPython GUI to replace sizesgui.tcl
 2013-05-16,PRJ: wait on this, could use ETS Traits - or not
 2013-05-16,PRJ: translate code base to Python/NumPy
+2014-02-09,PRJ: decide to use a PyQt4 or PySide GUI
+2014-02-09,PRJ: decide to move repository to public-facing GitHub
  
