@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>INPUT DATA FORMAT &mdash; sizes 2014.02.21 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2014.02.21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="top" title="sizes 2014.02.21 documentation" href="../index.html" />
+    <link rel="up" title="USER GUIDE FOR THE MAXIMUM ENTROPY SAS ANALYSIS PROGRAM MaxSas.for" href="index.html" />
+    <link rel="next" title="OUTPUT FORMAT" href="output_data_format.html" />
+    <link rel="prev" title="INTRODUCTION" href="introduction.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="output_data_format.html" title="OUTPUT FORMAT"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="introduction.html" title="INTRODUCTION"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">sizes 2014.02.21 documentation</a> &raquo;</li>
+          <li><a href="../contents.html" >Table of Contents</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">USER GUIDE FOR THE MAXIMUM ENTROPY SAS ANALYSIS PROGRAM <strong>MaxSas.for</strong></a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="input-data-format">
+<h1>INPUT DATA FORMAT<a class="headerlink" href="#input-data-format" title="Permalink to this headline">¶</a></h1>
+<p>The input data file should be in the same format as in the supplied
+synthetic scattering data (file: BIMODAL.SAS).  Formally the data
+should exist in the file as ordered triples of scattering vector (in
+1/A), intensity and estimated error of intensity.  Typically, the data
+will be in three columns, separated by &#8220;white space&#8221; of spaces and/or
+tabs.  The intensity may be in any units as the program will ask for a
+conversion factor between these units and 1/cm units.  The numbers are
+read as floating point numbers, hence 0.0015, 1.5E-3, 0.15E-2, and
+15E-4 will be identical.  However, do not be tempted to force double
+precision input (such as 1.5D-3) because this may provoke a nasty
+error condition.</p>
+<p>The name of the data set should any standard filename for the
+operating system on which the program is run.  A typical name would be
+BIMODAL.SAS (the synthetic scattering described earlier) which
+describes bimodal SAS data.  If the data file resides in a directory
+other than the default, then you will have to specify that as part of
+the file name.  Example file names, including a &#8220;full path
+description&#8221; follow for the more popular operating systems:</p>
+<p>Digital Equipment Corporation VAX running VMS:</p>
+<div class="highlight-python"><div class="highlight"><pre>DISK$MPD_USERS:[CULVERWEL.MAXE]BIMODAL.SAS
+</pre></div>
+</div>
+<p>Apple Macintosh:</p>
+<div class="highlight-python"><div class="highlight"><pre>Hard Drive:MaxSas Folder:test case:BIMODAL.SAS
+</pre></div>
+</div>
+<p>MS-DOS computer (such as the IBM-PC):</p>
+<div class="highlight-python"><div class="highlight"><pre>C:\MAXSAS\TEST\BIMODAL.SAS
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="introduction.html"
+                        title="previous chapter">INTRODUCTION</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="output_data_format.html"
+                        title="next chapter">OUTPUT FORMAT</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/maxsas/input_data_format.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="output_data_format.html" title="OUTPUT FORMAT"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="introduction.html" title="INTRODUCTION"
+             >previous</a> |</li>
+        <li><a href="../index.html">sizes 2014.02.21 documentation</a> &raquo;</li>
+          <li><a href="../contents.html" >Table of Contents</a> &raquo;</li>
+          <li><a href="index.html" >USER GUIDE FOR THE MAXIMUM ENTROPY SAS ANALYSIS PROGRAM <strong>MaxSas.for</strong></a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013-2014, Pete R. Jemian.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+    </div>
+  </body>
+</html>

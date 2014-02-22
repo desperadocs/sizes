@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>USER GUIDE FOR THE MAXIMUM ENTROPY SAS ANALYSIS PROGRAM MaxSas.for &mdash; sizes 2014.02.21 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2014.02.21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="top" title="sizes 2014.02.21 documentation" href="../index.html" />
+    <link rel="up" title="Table of Contents" href="../contents.html" />
+    <link rel="next" title="INTRODUCTION" href="introduction.html" />
+    <link rel="prev" title="main source code module: sizes" href="../sizes.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="introduction.html" title="INTRODUCTION"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../sizes.html" title="main source code module: sizes"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">sizes 2014.02.21 documentation</a> &raquo;</li>
+          <li><a href="../contents.html" accesskey="U">Table of Contents</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="user-guide-for-the-maximum-entropy-sas-analysis-program-maxsas-for">
+<span id="maxsas-userguide"></span><h1>USER GUIDE FOR THE MAXIMUM ENTROPY SAS ANALYSIS PROGRAM <strong>MaxSas.for</strong><a class="headerlink" href="#user-guide-for-the-maximum-entropy-sas-analysis-program-maxsas-for" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">author:</th><td class="field-body">Pete R. Jemian, Northwestern University, 7 February 1990</td>
+</tr>
+</tbody>
+</table>
+<p>Substantial portions of this document are from the documentation
+supplied with the code MAXE (documentation by Ian Culverwell,
+UKAEA-Harwell, 23 February 1987) and with its modification called
+MAXE2 (modifications by Andrew Allen, UKAEA-Harwell, 19 July 1989).</p>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">INTRODUCTION</a></li>
+<li class="toctree-l1"><a class="reference internal" href="input_data_format.html">INPUT DATA FORMAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="output_data_format.html">OUTPUT FORMAT</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_vax.html">EXAMPLE OF THE PROGRAM EXECUTION ON A DEC Vax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interaction.html">User Interaction with the program</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plots.html">SCREEN PLOTS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hints.html">OBSERVATIONS, HINTS, SUGGESTIONS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_reverse.html">AN ALTERNATE TEST DISTRIBUTION: REVERSE.SAS  (by P.R. Jemian)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="example_reverse.html#summary-of-maxsas-analysis-of-reverse-sas">SUMMARY OF MAXSAS ANALYSIS OF REVERSE.SAS</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="source_code.html">SOURCE CODE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="source_code.html#complete-listing-of-maxsas-for">Complete listing of <strong>MaxSas.for</strong></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="last-ditch-help">
+<h2>Last Ditch Help<a class="headerlink" href="#last-ditch-help" title="Permalink to this headline">¶</a></h2>
+<p>Any user who has, without success, tried all of the suggestions
+provided in the section titled <a class="reference internal" href="hints.html#hints"><em>OBSERVATIONS, HINTS, SUGGESTIONS</em></a>
+for correcting a failure of the program should feel free to contact
+the authors listed here at any time for further advice and
+suggestions.</p>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li><ol class="first upperalpha" start="10">
+<li>Skilling and R.K. Bryan; MON NOT R ASTR SOC 211 (1984) 111 - 124.</li>
+</ol>
+</li>
+<li>J.A. Potton, G.J. Daniell, and B.D. Rainford; Proc. Workshop on Neutron
+Scattering Data Analysis, Rutherford Appleton Laboratory, UK, 1986;
+ed. M.W. Johnson, IOP Conference Series 81 (1986) 81 - 86, Institute
+of Physics, Bristol, UK.</li>
+<li>I.D. Culverwell and G.P. Clarke; Proc. Workshop on Neutron
+Scattering Data Analysis, Rutherford Appleton Laboratory, UK, 1986;
+ed. M.W. Johnson, IOP Conference Series 81 (1986) 87 - 96, Institute
+of Physics, Bristol, UK.</li>
+<li>J.A. Potton, G.J. Daniell, &amp; B.D. Rainford; J APPL CRYST 21
+(1988a) 663 - 668.</li>
+<li>J.A. Potton, G.J. Daniell, &amp; B.D. Rainford; J APPL CRYST 21
+(1988b) 891 - 897.</li>
+<li>L.C. Roess &amp; C.G. Shull; J APPL PHYS 18 (1947) 308-313.</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">USER GUIDE FOR THE MAXIMUM ENTROPY SAS ANALYSIS PROGRAM <strong>MaxSas.for</strong></a><ul>
+<li><a class="reference internal" href="#last-ditch-help">Last Ditch Help</a></li>
+<li><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../sizes.html"
+                        title="previous chapter">main source code module: <cite>sizes</cite></a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="introduction.html"
+                        title="next chapter">INTRODUCTION</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/maxsas/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="introduction.html" title="INTRODUCTION"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../sizes.html" title="main source code module: sizes"
+             >previous</a> |</li>
+        <li><a href="../index.html">sizes 2014.02.21 documentation</a> &raquo;</li>
+          <li><a href="../contents.html" >Table of Contents</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013-2014, Pete R. Jemian.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+    </div>
+  </body>
+</html>
