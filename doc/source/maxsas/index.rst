@@ -26,7 +26,8 @@ Contents:
    source_code
 
 
-LAST DITCH
+Last Ditch Help
+********************
 
 Any user who has, without success, tried all of the suggestions
 provided in the section titled :ref:`hints`
@@ -35,19 +36,20 @@ the authors listed here at any time for further advice and
 suggestions.
 
 
-REFERENCES
+References
+********************
 
-1. J. Skilling and R.K. Bryan; MON NOT R ASTR SOC 211 (1984) 111 - 124.
-2. J.A. Potton, G.J. Daniell, and B.D. Rainford; Proc. Workshop on Neutron
+#. J. Skilling and R.K. Bryan; MON NOT R ASTR SOC 211 (1984) 111 - 124.
+#. J.A. Potton, G.J. Daniell, and B.D. Rainford; Proc. Workshop on Neutron
    Scattering Data Analysis, Rutherford Appleton Laboratory, UK, 1986;
    ed. M.W. Johnson, IOP Conference Series 81 (1986) 81 - 86, Institute
    of Physics, Bristol, UK.
-3. I.D. Culverwell and G.P. Clarke; Proc. Workshop on Neutron
+#. I.D. Culverwell and G.P. Clarke; Proc. Workshop on Neutron
    Scattering Data Analysis, Rutherford Appleton Laboratory, UK, 1986;
    ed. M.W. Johnson, IOP Conference Series 81 (1986) 87 - 96, Institute
    of Physics, Bristol, UK.
-4. J.A. Potton, G.J. Daniell, & B.D. Rainford; J APPL CRYST 21
+#. J.A. Potton, G.J. Daniell, & B.D. Rainford; J APPL CRYST 21
    (1988a) 663 - 668.
-5. J.A. Potton, G.J. Daniell, & B.D. Rainford; J APPL CRYST 21
+#. J.A. Potton, G.J. Daniell, & B.D. Rainford; J APPL CRYST 21
    (1988b) 891 - 897.
-6. L.C. Roess & C.G. Shull; J APPL PHYS 18 (1947) 308-313.
+#. L.C. Roess & C.G. Shull; J APPL PHYS 18 (1947) 308-313.

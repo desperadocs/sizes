@@ -125,16 +125,16 @@ class MaxEnt(object):
         
         where:
         
-        * :math:`\\vec{z} = (\\vec{y} - \\hat{\\vec{y}} / \\vec{\\sigma}`
-        * :math:`\\vec{y}`: measured data (`self.data`)
-        * :math:`\\hat{\\vec{y}} = ` `self.image_to_data(self.f, self.G)`
-        * :math:`\\vec{\\sigma}`: estimated uncertainties of :math:`\\vec{y} (`self.sigma`)`
+        * :math:`\\vec{z} = (\\vec{y} - \\hat{\\vec{y}}) / \\vec{\\sigma}`
+        * :math:`\\vec{y}`: measured data
+        * :math:`\\hat{\\vec{y}} = opus(\\vec{f}, G)`
+        * :math:`\\vec{\\sigma}`: estimated uncertainties of :math:`\\vec{y}`
         '''
         y_hat = self.image_to_data(self.f, self.G)
         return (self.data - y_hat) / esd
         
     def chi_squared(self):
-        '''returns vector :math:`\\sum{z}`'''
+        '''returns :math:`\\sum{z^2}`'''
         z = self.standardized_residuals(self)
         return sum(z*z)
         
@@ -181,7 +181,7 @@ def MaxEnt_SB(datum, sigma, base, IterMax, image_to_data, data_to_image, G, repo
     :param obj data_to_image: tropus function
     :param float[][] G: transformation matrix
     
-    :returns float[]: f (:math:`f(r) dr`)
+    :returns float[]: :math:`f(r) dr`
     '''
     n   = len(base)
     npt = len(datum)
@@ -437,7 +437,7 @@ def EllipsoidVolume(r, aspect=1.0):
     '''
     Volume of an ellipsoid with diameters: :math:`2r\\times2r\\times2r\\beta` 
     
-    Here :math:`\\beta`` is the aspect ratio
+    * :math:`\\beta`: aspect ratio
     '''
     assert 0 < aspect, 'aspect ratio must be positive'
     return (4./3.) * math.pi * r*r*r*aspect
