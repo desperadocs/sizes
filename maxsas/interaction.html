@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>User Interaction with the program &mdash; sizes 2014.02.21 documentation</title>
+    <title>User Interaction with the program &mdash; sizes 2014.03.10 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2014.02.21',
+        VERSION:     '2014.03.10',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="author" title="About these documents" href="../about.html" />
-    <link rel="top" title="sizes 2014.02.21 documentation" href="../index.html" />
+    <link rel="top" title="sizes 2014.03.10 documentation" href="../index.html" />
     <link rel="up" title="USER GUIDE FOR THE MAXIMUM ENTROPY SAS ANALYSIS PROGRAM MaxSas.for" href="index.html" />
     <link rel="next" title="SCREEN PLOTS" href="plots.html" />
     <link rel="prev" title="EXAMPLE OF THE PROGRAM EXECUTION ON A DEC Vax" href="example_vax.html" /> 
@@ -46,7 +46,7 @@
         <li class="right" >
           <a href="example_vax.html" title="EXAMPLE OF THE PROGRAM EXECUTION ON A DEC Vax"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">sizes 2014.02.21 documentation</a> &raquo;</li>
+        <li><a href="../index.html">sizes 2014.03.10 documentation</a> &raquo;</li>
           <li><a href="../contents.html" >Table of Contents</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">USER GUIDE FOR THE MAXIMUM ENTROPY SAS ANALYSIS PROGRAM <strong>MaxSas.for</strong></a> &raquo;</li> 
       </ul>
@@ -219,8 +219,7 @@ number that you are willing to see the MaxEnt routine perform and not
 converge.  If the MaxEnt routine needs more iterations, it will ask
 you for permission.</p>
 <p>Q: The change in ChiSquared should be &lt; 5%.</p>
-<div class="highlight-python"><div class="highlight"><pre>Run the Stability Check? (Y/&lt;N&gt;)
-</pre></div>
+<div class="highlight-python"><pre>Run the Stability Check? (Y/&lt;N&gt;)</pre>
 </div>
 <p>The Stability Check will perform the same analysis on the data set
 with all the same parameters except that the suggested background will
@@ -230,16 +229,14 @@ some way.  The prompt for a stability check will not appear unless the
 program calculates that the shift should produce less than a 5%
 change in the ChiSquared.</p>
 <p>Q: Maximum iterations have been reached.:</p>
-<div class="highlight-python"><div class="highlight"><pre>How many more iterations? &lt;none&gt;
-</pre></div>
+<div class="highlight-python"><pre>How many more iterations? &lt;none&gt;</pre>
 </div>
 <p>This question occurs inside the MaxEnt routine when the maximum number
 of iterations that you specified have been reached.  If you want the
 MaxEnt routine to keep trying, specify a positive integer, otherwise
 take the default which will generate the following output:</p>
-<div class="highlight-python"><div class="highlight"><pre>No convergence! # iter. = &quot;IterMax&quot;
-File was: &quot;InFile&quot;
-</pre></div>
+<div class="highlight-python"><pre>No convergence! # iter. = "IterMax"
+File was: "InFile"</pre>
 </div>
 <p>The program will then start over at the first question.</p>
 </div>
@@ -293,14 +290,14 @@ File was: &quot;InFile&quot;
         <li class="right" >
           <a href="example_vax.html" title="EXAMPLE OF THE PROGRAM EXECUTION ON A DEC Vax"
              >previous</a> |</li>
-        <li><a href="../index.html">sizes 2014.02.21 documentation</a> &raquo;</li>
+        <li><a href="../index.html">sizes 2014.03.10 documentation</a> &raquo;</li>
           <li><a href="../contents.html" >Table of Contents</a> &raquo;</li>
           <li><a href="index.html" >USER GUIDE FOR THE MAXIMUM ENTROPY SAS ANALYSIS PROGRAM <strong>MaxSas.for</strong></a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2013-2014, Pete R. Jemian.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
     </div>
   </body>
 </html>

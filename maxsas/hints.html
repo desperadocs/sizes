@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>OBSERVATIONS, HINTS, SUGGESTIONS &mdash; sizes 2014.02.21 documentation</title>
+    <title>OBSERVATIONS, HINTS, SUGGESTIONS &mdash; sizes 2014.03.10 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2014.02.21',
+        VERSION:     '2014.03.10',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="author" title="About these documents" href="../about.html" />
-    <link rel="top" title="sizes 2014.02.21 documentation" href="../index.html" />
+    <link rel="top" title="sizes 2014.03.10 documentation" href="../index.html" />
     <link rel="up" title="USER GUIDE FOR THE MAXIMUM ENTROPY SAS ANALYSIS PROGRAM MaxSas.for" href="index.html" />
     <link rel="next" title="AN ALTERNATE TEST DISTRIBUTION: REVERSE.SAS (by P.R. Jemian)" href="example_reverse.html" />
     <link rel="prev" title="SCREEN PLOTS" href="plots.html" /> 
@@ -46,7 +46,7 @@
         <li class="right" >
           <a href="plots.html" title="SCREEN PLOTS"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">sizes 2014.02.21 documentation</a> &raquo;</li>
+        <li><a href="../index.html">sizes 2014.03.10 documentation</a> &raquo;</li>
           <li><a href="../contents.html" >Table of Contents</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">USER GUIDE FOR THE MAXIMUM ENTROPY SAS ANALYSIS PROGRAM <strong>MaxSas.for</strong></a> &raquo;</li> 
       </ul>
@@ -105,8 +105,7 @@ below that background.</p>
 statistically-weighted average of the difference between the intensity
 calculated from the distribution (^I) and the input intensity data(I).
 The exact equation looks like, where &#8220;s&#8221; are the input errors:</p>
-<div class="highlight-python"><div class="highlight"><pre>NewBkg = Bkg + AVERAGE( (I - ^I) / s**2 )
-</pre></div>
+<div class="highlight-python"><pre>NewBkg = Bkg + AVERAGE( (I - ^I) / s**2 )</pre>
 </div>
 <p>FAILURES</p>
 <p>In ideal circumstances when the program is iterating successfully the
@@ -124,9 +123,8 @@ the first attempt. If this happens the program will return to the
 calling routine after it has completed the maximum number of
 iterations specified in the input section above and display the
 following message:</p>
-<div class="highlight-python"><div class="highlight"><pre>No convergence! # iter. = &quot;MaxIter&quot;
-File was: &quot;InFile&quot;
-</pre></div>
+<div class="highlight-python"><pre>No convergence! # iter. = "MaxIter"
+File was: "InFile"</pre>
 </div>
 <p>The program will then return to the input section to begin
 a new analysis.</p>
@@ -322,14 +320,14 @@ particular fitting attempt and be able to eliminate the cause.</p>
         <li class="right" >
           <a href="plots.html" title="SCREEN PLOTS"
              >previous</a> |</li>
-        <li><a href="../index.html">sizes 2014.02.21 documentation</a> &raquo;</li>
+        <li><a href="../index.html">sizes 2014.03.10 documentation</a> &raquo;</li>
           <li><a href="../contents.html" >Table of Contents</a> &raquo;</li>
           <li><a href="index.html" >USER GUIDE FOR THE MAXIMUM ENTROPY SAS ANALYSIS PROGRAM <strong>MaxSas.for</strong></a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2013-2014, Pete R. Jemian.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
     </div>
   </body>
 </html>

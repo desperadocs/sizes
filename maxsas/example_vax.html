@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>EXAMPLE OF THE PROGRAM EXECUTION ON A DEC Vax &mdash; sizes 2014.02.21 documentation</title>
+    <title>EXAMPLE OF THE PROGRAM EXECUTION ON A DEC Vax &mdash; sizes 2014.03.10 documentation</title>
     
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -14,7 +14,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '2014.02.21',
+        VERSION:     '2014.03.10',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -25,7 +25,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="author" title="About these documents" href="../about.html" />
-    <link rel="top" title="sizes 2014.02.21 documentation" href="../index.html" />
+    <link rel="top" title="sizes 2014.03.10 documentation" href="../index.html" />
     <link rel="up" title="USER GUIDE FOR THE MAXIMUM ENTROPY SAS ANALYSIS PROGRAM MaxSas.for" href="index.html" />
     <link rel="next" title="User Interaction with the program" href="interaction.html" />
     <link rel="prev" title="OUTPUT FORMAT" href="output_data_format.html" /> 
@@ -46,7 +46,7 @@
         <li class="right" >
           <a href="output_data_format.html" title="OUTPUT FORMAT"
              accesskey="P">previous</a> |</li>
-        <li><a href="../index.html">sizes 2014.02.21 documentation</a> &raquo;</li>
+        <li><a href="../index.html">sizes 2014.03.10 documentation</a> &raquo;</li>
           <li><a href="../contents.html" >Table of Contents</a> &raquo;</li>
           <li><a href="index.html" accesskey="U">USER GUIDE FOR THE MAXIMUM ENTROPY SAS ANALYSIS PROGRAM <strong>MaxSas.for</strong></a> &raquo;</li> 
       </ul>
@@ -83,7 +83,7 @@ appropriate section appearing elsewhere in this document.</p>
 <p>Now here&#8217;s the excerpt from the beginning of the run.  Remember that
 all user responses are on a single line and are terminated with a
 {CR}.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ RUN MaxSas{CR}
+<div class="highlight-python"><pre>$ RUN MaxSas{CR}
 
 Size distributions from SAS data using the maximum entropy criterion
    version: 3.1 (PRJ)                ,   7 February 1990
@@ -120,8 +120,7 @@ Bimodal.Out{CR}
          38 points were selected from the data
  Preparation of the GRID function...
  Setting BASE constant at   1.000000000000000E-012
- MaxEnt routine beginning ...
-</pre></div>
+ MaxEnt routine beginning ...</pre>
 </div>
 <p>To recap what has happened so far, the program was started and the
 input data file BIMODAL.SAS was specified for analysis.  All the
@@ -161,11 +160,10 @@ function of diametral bin subscript number. All plots will be scaled
 to fit within the screen boundaries.</p>
 <p>The last information to appear in each iteration will be a report,
 such as:</p>
-<div class="highlight-python"><div class="highlight"><pre> #           2 of           20,  n  =           38
+<div class="highlight-python"><pre> #           2 of           20,  n  =           38
 test =   0.19101,  Entropy =    3.4668138
  SQRT((Chi^2)/n):  target =  12.14204774     % off =    26.2698
-        f-vector:     sum =   0.00452313  % change =     0.4663
-</pre></div>
+        f-vector:     sum =   0.00452313  % change =     0.4663</pre>
 </div>
 <p>The report is saying that for the second iteration out of 20, where
 there are 38 intensity data points, the difference between the entropy
@@ -177,7 +175,7 @@ missed by 26.2698%, and the total volume fraction of scatterers in the
 distribution just plotted is 0.452313 %, which did not change much
 from the previous iteration.  The iterations will continue.</p>
 <p>Here is the screen output from the last iteration:</p>
-<div class="highlight-python"><div class="highlight"><pre> LOG (ChiSq) vs. iteration number
+<div class="highlight-python"><pre> LOG (ChiSq) vs. iteration number
           1 point(s) per column
  0.405168291335942      units per row
  -----------
@@ -263,15 +261,14 @@ from the previous iteration.  The iterations will continue.</p>
  #          11 of           20,  n  =           38
 test =   0.01587,  Entropy =    3.1391598
  SQRT((Chi^2)/n):  target =   1.00000000     % off =     0.0504
-        f-vector:     sum =   0.00809492  % change =     4.0445
-</pre></div>
+        f-vector:     sum =   0.00809492  % change =     4.0445</pre>
 </div>
 <p>The problem has been solved in 11 iterations of the MaxEnt routine.
 The two criteria for solution are that TEST &lt;= 0.05 (5%) and that the
 SQRT((Chi^2)/n) target be met within 0.5%.  Observe that the volume
 fraction has not changed very much from the previous iteration.</p>
 <p>Here is the summary screen output of the analysis:</p>
-<div class="highlight-python"><div class="highlight"><pre> Input file: Bimodal.Sas
+<div class="highlight-python"><pre> Input file: Bimodal.Sas
  Volume weighted size dist.: V(r)N(r) versus r
   2.63513513513514      units per column
  1.395194456441349E-005 units per row
@@ -343,8 +340,7 @@ Maximum Q-vector =   9.9937470E-02 1/A.
    User-specified background =        0.000000000 input data units
         Suggested background =        0.000064250 input data units
 StDev of shift in background =        0.000330552 input data units
- New background should give ChiSq =    36.6534794792953
-</pre></div>
+ New background should give ChiSq =    36.6534794792953</pre>
 </div>
 <p>By now, the tabular data of the size distribution and the intensity
 fit have been written to the data file BIMODAL.OUT.  The summary
@@ -363,19 +359,18 @@ background (0.000064251 1/cm) suggested by MaxSas.</p>
 <p>Therefore, you should respond affirmatively to the Stability Check
 question. Note the default answer on the Stability Check question is
 &#8220;N&#8221;.</p>
-<div class="highlight-python"><div class="highlight"><pre>  The change in ChiSquared should be &lt; 5%.
+<div class="highlight-python"><pre>  The change in ChiSquared should be &lt; 5%.
   Run the Stability Check? (Y/&lt;N&gt;)
 Y{CR}
   Setting BASE constant at    1.000000000000000E-12
-  MaxEnt routine beginning ...
-</pre></div>
+  MaxEnt routine beginning ...</pre>
 </div>
 <p>For this documentation, the results of the stability check will not be
 shown.  There is not much change in the volume fraction after the
 stability check (about 1% or so) for the supplied test distribution.</p>
 <p>After the Stability Check, you should get this question again.
 This time, respond like the following to quit the program.</p>
-<div class="highlight-python"><div class="highlight"><pre>  The change in ChiSquared should be &lt; 5%.
+<div class="highlight-python"><pre>  The change in ChiSquared should be &lt; 5%.
   Run the Stability Check? (Y/&lt;N&gt;)
 {CR}
 
@@ -387,8 +382,7 @@ Size distributions from SAS data using the maximum entropy criterion
   Input file? &lt;Quit&gt;
 {CR}
 
-$
-</pre></div>
+$</pre>
 </div>
 </div>
 
@@ -441,14 +435,14 @@ $
         <li class="right" >
           <a href="output_data_format.html" title="OUTPUT FORMAT"
              >previous</a> |</li>
-        <li><a href="../index.html">sizes 2014.02.21 documentation</a> &raquo;</li>
+        <li><a href="../index.html">sizes 2014.03.10 documentation</a> &raquo;</li>
           <li><a href="../contents.html" >Table of Contents</a> &raquo;</li>
           <li><a href="index.html" >USER GUIDE FOR THE MAXIMUM ENTROPY SAS ANALYSIS PROGRAM <strong>MaxSas.for</strong></a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2013-2014, Pete R. Jemian.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.1.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.
     </div>
   </body>
 </html>
